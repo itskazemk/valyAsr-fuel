@@ -36,3 +36,8 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+drizzle: │
+│ - You will need to set DATABASE_URL in your production environment │
+│ - Check DATABASE_URL in .env and adjust it to your needs │
+│ - Run pnpm run db:push to update your database schema
