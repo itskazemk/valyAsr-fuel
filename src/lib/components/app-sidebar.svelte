@@ -9,12 +9,15 @@
 				items: [
 					{
 						title: 'اطلاعات پایه',
-						url: '/baseInfo',
-						isActive: true
+						url: '/baseInfo'
 					},
 					{
-						title: 'ثبت شماره پلاک',
-						url: '/plate-registration'
+						title: 'وسایل نقلیه',
+						url: '/vehicles'
+					},
+					{
+						title: 'ماموریت',
+						url: '/mission'
 					},
 					{
 						title: 'سوخت دریافتی',
@@ -25,8 +28,8 @@
 						url: '/delivered-fuel'
 					},
 					{
-						title: 'گزارش',
-						url: '/report'
+						title: 'گزارشات',
+						url: '/reports'
 					}
 				]
 			}
