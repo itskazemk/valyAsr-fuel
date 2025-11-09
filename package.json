@@ -50,6 +50,7 @@
 		"vite": "^7.1.10"
 	},
 	"dependencies": {
+		"@kazemk/svelte-international-datepicker": "^0.0.5",
 		"better-sqlite3": "^12.4.1"
 	}
 }

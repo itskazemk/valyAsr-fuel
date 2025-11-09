@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@kazemk/svelte-international-datepicker':
+        specifier: ^0.0.5
+        version: 0.0.5(@sveltejs/kit@2.48.4(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)
       better-sqlite3:
         specifier: ^12.4.1
         version: 12.4.1
@@ -494,6 +497,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@kazemk/svelte-international-datepicker@0.0.5':
+    resolution: {integrity: sha512-a//oY1SIAWS7SgZOxKnLhPW0IhJvbKCy55iK6PG6fj133uvjbXz951J7vopV+W3l9jgAa/41XDTCd1RVYZGSUA==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   '@lucide/svelte@0.544.0':
     resolution: {integrity: sha512-9f9O6uxng2pLB01sxNySHduJN3HTl5p0HDu4H26VR51vhZfiMzyOMe9Mhof3XAk4l813eTtl+/DYRvGyoRR+yw==}
@@ -2238,6 +2246,14 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@kazemk/svelte-international-datepicker@0.0.5(@sveltejs/kit@2.48.4(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)':
+    dependencies:
+      '@internationalized/date': 3.10.0
+      bits-ui: 2.14.2(@internationalized/date@3.10.0)(@sveltejs/kit@2.48.4(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.43.3)
+      svelte: 5.43.3
+    transitivePeerDependencies:
+      - '@sveltejs/kit'
 
   '@lucide/svelte@0.544.0(svelte@5.43.3)':
     dependencies:

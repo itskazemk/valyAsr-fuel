@@ -10,12 +10,15 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Calendar } from '$lib/components/ui/calendar/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
+	import { DatePicker } from '@kazemk/svelte-international-datepicker';
 
 	const df = new DateFormatter('fa-IR', {
 		dateStyle: 'long'
 	});
 
 	let value = $state<DateValue>();
+
+	let date = $state();
 </script>
 
 <div class="grid grid-cols-2 gap-4">
@@ -35,26 +38,7 @@
 						<Field.Label for="amount">مقدار (لیتر)</Field.Label>
 						<Input id="amount" />
 
-						<Popover.Root>
-							<Popover.Trigger>
-								{#snippet child({ props })}
-									<Button
-										variant="outline"
-										class={cn(
-											'w-[280px] justify-start text-left font-normal',
-											!value && 'text-muted-foreground'
-										)}
-										{...props}
-									>
-										<CalendarIcon class="mr-2 size-4" />
-										{value ? df.format(value.toDate(getLocalTimeZone())) : 'Select a date'}
-									</Button>
-								{/snippet}
-							</Popover.Trigger>
-							<Popover.Content class="w-auto p-0">
-								<Calendar bind:value type="single" initialFocus />
-							</Popover.Content>
-						</Popover.Root>
+						<DatePicker bind:date />
 						<!-- <Input id="amount" aria-invalid /> -->
 						<!-- <Field.Error>Choose another username.</Field.Error> -->
 					</Field.Field>
