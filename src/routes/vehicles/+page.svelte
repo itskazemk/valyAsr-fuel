@@ -4,6 +4,10 @@
 	let { data, form } = $props();
 
 	console.log(data);
+
+	function updateFn(vehicle) {}
+
+	function deleteFn(id) {}
 </script>
 
 <div class="grid grid-cols-2 gap-2">
@@ -76,7 +80,12 @@
 						<td>{vehicle.Plate}</td>
 						<td>{vehicle.FuelType}</td>
 						<td>{vehicle.OwnerUnit}</td>
-						<td>update / delete</td>
+						<td
+							><div>
+								<button onclick={() => updateFn(vehicle)}>UPDATE</button>
+								<button onclick={() => deleteFn(vehicle.Id)}>DELETE</button>
+							</div></td
+						>
 					</tr>
 				{/each}
 			</tbody>
