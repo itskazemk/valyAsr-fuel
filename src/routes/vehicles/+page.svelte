@@ -1,38 +1,85 @@
 <script>
 	import { enhance } from '$app/forms';
+	import { invalidate, invalidateAll } from '$app/navigation';
 
 	let { data, form } = $props();
 
-	console.log(data);
+	let formData = $state({
+		id: null,
+		title: null,
+		type: null,
+		plate: null,
+		fuelType: null,
+		ownerUnit: null
+	});
 
-	function updateFn(vehicle) {}
+	$inspect(formData);
 
-	function deleteFn(id) {}
+	async function getFn(id) {
+		const req = await fetch(`/vehicles/${id}`);
+
+		const res = await req.json();
+
+		console.log(222, res.data);
+
+		if (res.data) {
+			formData = {
+				id: res.data.Id,
+				title: res.data.Title,
+				type: res.data.Type,
+				plate: res.data.Plate,
+				fuelType: res.data.FuelType,
+				ownerUnit: res.data.OwnerUnit
+			};
+		}
+	}
+
+	async function deleteFn(id) {
+		const isSure = confirm('آیا از حذف وسیله نقلیه اطمینان دارید؟');
+		if (isSure) {
+			const form = new FormData();
+			form.append('id', id);
+			fetch('?/delete', {
+				method: 'POST',
+				body: form
+			});
+
+			await invalidateAll();
+		}
+	}
 </script>
 
 <div class="grid grid-cols-2 gap-2">
 	<form
 		method="POST"
-		action="?/create"
+		action={formData.id ? '?/update' : '?/create'}
 		use:enhance
 		class="grid h-full grid-cols-2 gap-2 rounded-sm border-2 border-indigo-500 p-2"
 	>
 		<label
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 		>
+			<p>شناسه یکتا:</p>
+			<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
+		</label>
+
+		<label
+			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+		>
 			<p>عنوان:</p>
-			<input name="title" type="text" class="col-span-2" />
+			<input name="title" type="text" class="col-span-2" bind:value={formData.title} />
 		</label>
 
 		<label
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 		>
 			<p>نوع:</p>
-			<select name="type" class="col-span-2">
-				<option value="1">سواری</option>
-				<option value="2">مینی‌بوس</option>
-				<option value="3">اتوبوس</option>
-				<option value="4">موتور سیکلت</option>
+			<select name="type" bind:value={formData.type} class="col-span-2">
+				<option value={null} disabled={true}>انتخاب کنید</option>
+				<option value={1}>سواری</option>
+				<option value={2}>مینی‌بوس</option>
+				<option value={3}>اتوبوس</option>
+				<option value={4}>موتور سیکلت</option>
 			</select>
 		</label>
 
@@ -40,16 +87,17 @@
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 		>
 			<p>شماره پلاک:</p>
-			<input name="plate" type="text" class="col-span-2" />
+			<input name="plate" bind:value={formData.plate} type="text" class="col-span-2" />
 		</label>
 
 		<label
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 		>
 			<p>نوع سوخت:</p>
-			<select name="fuelType" class="col-span-2">
-				<option value="1"> بنزین</option>
-				<option value="2"> گازوییل</option>
+			<select name="fuelType" bind:value={formData.fuelType} class="col-span-2">
+				<option value={null} disabled={true}>انتخاب کنید</option>
+				<option value={1}> بنزین</option>
+				<option value={2}> گازوییل</option>
 			</select>
 		</label>
 
@@ -57,10 +105,11 @@
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 		>
 			<p>واحد:</p>
-			<select name="ownerUnit" class="col-span-2">
-				<option value="1">واحد ۱</option>
-				<option value="2">واحد ۲</option>
-				<option value="3">واحد ۳</option>
+			<select name="ownerUnit" bind:value={formData.ownerUnit} class="col-span-2">
+				<option value={null} disabled={true}>انتخاب کنید</option>
+				<option value={1}>واحد ۱</option>
+				<option value={2}>واحد ۲</option>
+				<option value={3}>واحد ۳</option>
 			</select>
 		</label>
 
@@ -82,7 +131,7 @@
 						<td>{vehicle.OwnerUnit}</td>
 						<td
 							><div>
-								<button onclick={() => updateFn(vehicle)}>UPDATE</button>
+								<button onclick={() => getFn(vehicle.Id)}>UPDATE</button>
 								<button onclick={() => deleteFn(vehicle.Id)}>DELETE</button>
 							</div></td
 						>
