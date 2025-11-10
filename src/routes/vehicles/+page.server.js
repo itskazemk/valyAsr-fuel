@@ -1,7 +1,6 @@
-import { invalidate, invalidateAll } from '$app/navigation';
 import { db } from '$lib/server/db/index.js';
 import { Vehicle } from '$lib/server/db/schema.js';
-import { fail, json } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
 
@@ -25,7 +24,7 @@ export const actions = {
 
         console.log(data)
         try {
-            await db.insert(Vehicle).values({ Title: data.title, Type: Number(data.type), Plate: data.plate, FuelType: Number(data.fuelType), OwnerUnit: Number(data.ownerUnit) })
+            await db.insert(Vehicle).values({ title: data.title, type: Number(data.type), plate: data.plate, fuelType: Number(data.fuelType), ownerUnit: Number(data.ownerUnit) })
 
         } catch (error) {
             return fail(422, { error: error.message })
@@ -37,14 +36,13 @@ export const actions = {
         const formData = await request.formData();
         const data = Object.fromEntries(formData)
 
-        console.log(69, data)
 
     },
 
     delete: async ({ cookie, request }) => {
         const data = await request.formData();
         const id = data.get("id");
-        await db.delete(Vehicle).where(eq(Vehicle.Id, id))
+        await db.delete(Vehicle).where(eq(Vehicle.id, id))
     }
 
 }

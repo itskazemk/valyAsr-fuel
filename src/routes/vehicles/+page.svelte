@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
 
@@ -13,9 +13,7 @@
 		ownerUnit: null
 	});
 
-	$inspect(formData);
-
-	async function getFn(id) {
+	async function getFn(id: string) {
 		const req = await fetch(`/vehicles/${id}`);
 
 		const res = await req.json();
@@ -23,18 +21,11 @@
 		console.log(222, res.data);
 
 		if (res.data) {
-			formData = {
-				id: res.data.Id,
-				title: res.data.Title,
-				type: res.data.Type,
-				plate: res.data.Plate,
-				fuelType: res.data.FuelType,
-				ownerUnit: res.data.OwnerUnit
-			};
+			formData = { ...res.data };
 		}
 	}
 
-	async function deleteFn(id) {
+	async function deleteFn(id: string) {
 		const isSure = confirm('آیا از حذف وسیله نقلیه اطمینان دارید؟');
 		if (isSure) {
 			const form = new FormData();
@@ -53,7 +44,11 @@
 	<form
 		method="POST"
 		action={formData.id ? '?/update' : '?/create'}
-		use:enhance
+		use:enhance={() => {
+			return async ({ update }) => {
+				await update();
+			};
+		}}
 		class="grid h-full grid-cols-2 gap-2 rounded-sm border-2 border-indigo-500 p-2"
 	>
 		<label
@@ -124,15 +119,15 @@
 			<tbody>
 				{#each data.vehicles as vehicle}
 					<tr>
-						<td>{vehicle.Title}</td>
-						<td>{vehicle.Type}</td>
-						<td>{vehicle.Plate}</td>
-						<td>{vehicle.FuelType}</td>
-						<td>{vehicle.OwnerUnit}</td>
+						<td>{vehicle.title}</td>
+						<td>{vehicle.type}</td>
+						<td>{vehicle.plate}</td>
+						<td>{vehicle.fuelType}</td>
+						<td>{vehicle.ownerUnit}</td>
 						<td
 							><div>
-								<button onclick={() => getFn(vehicle.Id)}>UPDATE</button>
-								<button onclick={() => deleteFn(vehicle.Id)}>DELETE</button>
+								<button onclick={() => getFn(vehicle.id)}>UPDATE</button>
+								<button onclick={() => deleteFn(vehicle.id)}>DELETE</button>
 							</div></td
 						>
 					</tr>

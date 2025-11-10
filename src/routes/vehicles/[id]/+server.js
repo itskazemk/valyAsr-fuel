@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 export async function GET({ params }) {
     const { id } = params;
-    const vehicle = (await db.select().from(Vehicle).where(eq(Vehicle.Id, id)))?.at(0)
+    const vehicle = (await db.select().from(Vehicle).where(eq(Vehicle.id, id)))?.at(0)
 
     if (!vehicle) {
         return json({ success: false, error: null });

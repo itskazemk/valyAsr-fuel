@@ -2,16 +2,16 @@ import { sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const Vehicle = sqliteTable('Vehicles', {
-	Id: text('Id')
+	id: text()
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-	Title: text('Title').notNull(),
-	Type: integer('type').notNull(),
-	Plate: text('Plate').notNull(),
-	FuelType: integer('FuelType').notNull(),
-	OwnerUnit: integer('OwnerUnit').notNull(),
-	CreatedAt: text('CreatedAt')
+	title: text().notNull(),
+	type: integer().notNull(),
+	plate: text().notNull(),
+	fuelType: integer().notNull(),
+	ownerUnit: integer().notNull(),
+	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull()
 });
