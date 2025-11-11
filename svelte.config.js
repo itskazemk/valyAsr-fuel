@@ -9,6 +9,11 @@ const config = {
 	kit: { adapter: adapter() },
 	compilerOptions: {
 		runes: true
+	},
+
+	// alt+x
+	vitePlugin: {
+		inspector: true
 	}
 };
 

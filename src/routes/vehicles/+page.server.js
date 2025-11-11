@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db/index.js';
-import { Vehicle } from '$lib/server/db/schema.js';
+import { vehicles } from '$lib/server/db/schema.js';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
@@ -12,7 +12,7 @@ export async function load({ cookies }) {
     // 	cookies.set('userid', id, { path: '/' });
     // }
 
-    return { vehicles: await db.select().from(Vehicle) };
+    return { vehicles: await db.select().from(vehicles) };
 }
 
 export const actions = {
@@ -24,7 +24,7 @@ export const actions = {
 
         console.log(data)
         try {
-            await db.insert(Vehicle).values({ title: data.title, type: Number(data.type), plate: data.plate, fuelType: Number(data.fuelType), ownerUnit: Number(data.ownerUnit) })
+            await db.insert(vehicles).values({ title: data.title, type: Number(data.type), plate: data.plate, fuelType: Number(data.fuelType), ownerUnit: Number(data.ownerUnit) })
 
         } catch (error) {
             return fail(422, { error: error.message })
@@ -36,13 +36,17 @@ export const actions = {
         const formData = await request.formData();
         const data = Object.fromEntries(formData)
 
+        // await db.update(vehicles)
+        //     .set({ name: 'Mr. Dan' })
+        //     .where(eq(users.name, 'Dan'));
+
 
     },
 
     delete: async ({ cookie, request }) => {
         const data = await request.formData();
         const id = data.get("id");
-        await db.delete(Vehicle).where(eq(Vehicle.id, id))
+        await db.delete(vehicles).where(eq(vehicles.id, id))
     }
 
 }

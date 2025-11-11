@@ -53,6 +53,7 @@
 	>
 		<label
 			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+			hidden={true}
 		>
 			<p>شناسه یکتا:</p>
 			<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
