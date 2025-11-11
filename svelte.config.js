@@ -11,6 +11,7 @@ const config = {
 		runes: true
 	},
 
+
 	// alt+x
 	vitePlugin: {
 		inspector: true

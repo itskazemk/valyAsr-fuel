@@ -16,7 +16,7 @@ export async function load({ cookies }) {
 }
 
 export const actions = {
-    create: async ({ cookie, request }) => {
+    create: async ({ request }) => {
 
         const formData = await request.formData();
 
@@ -32,7 +32,7 @@ export const actions = {
 
     },
 
-    update: async ({ cookie, request }) => {
+    update: async ({ request }) => {
         const formData = await request.formData();
         const data = Object.fromEntries(formData)
 
@@ -43,7 +43,7 @@ export const actions = {
 
     },
 
-    delete: async ({ cookie, request }) => {
+    delete: async ({ request }) => {
         const data = await request.formData();
         const id = data.get("id");
         await db.delete(vehicles).where(eq(vehicles.id, id))
