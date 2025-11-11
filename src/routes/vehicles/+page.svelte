@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import { Label } from '$lib/components/ui/label/index.js';
 
 	let { data, form } = $props();
 
@@ -38,79 +41,100 @@
 			await invalidateAll();
 		}
 	}
+
+	$inspect(formData);
 </script>
 
 <div class="grid grid-cols-2 gap-2">
-	<form
-		method="POST"
-		action={formData.id ? '?/update' : '?/create'}
-		use:enhance={() => {
-			return async ({ update }) => {
-				await update();
-			};
-		}}
-		class="grid h-full grid-cols-2 gap-2 rounded-sm border-2 border-indigo-500 p-2"
-	>
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-			hidden={true}
-		>
-			<p>شناسه یکتا:</p>
-			<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
-		</label>
+	<Card.Root>
+		<Card.Header>
+			<Card.Title>ثبت اطلاعات</Card.Title>
+		</Card.Header>
+		<Card.Content>
+			<form
+				method="POST"
+				action={formData.id ? '?/update' : '?/create'}
+				use:enhance={() => {
+					return async ({ update }) => {
+						await update();
+					};
+				}}
+				class="grid h-full grid-cols-2 gap-2 rounded-sm"
+			>
+				<label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+					hidden={true}
+				>
+					<p>شناسه یکتا:</p>
+					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
+				</label>
 
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-		>
-			<p>عنوان:</p>
-			<input name="title" type="text" class="col-span-2" bind:value={formData.title} />
-		</label>
+				<!-- <label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+				>
+					<p>عنوان:</p>
+					<input name="title" type="text" class="col-span-2" bind:value={formData.title} />
+				</label> -->
 
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-		>
-			<p>نوع:</p>
-			<select name="type" bind:value={formData.type} class="col-span-2">
-				<option value={null} disabled={true}>انتخاب کنید</option>
-				<option value={1}>سواری</option>
-				<option value={2}>مینی‌بوس</option>
-				<option value={3}>اتوبوس</option>
-				<option value={4}>موتور سیکلت</option>
-			</select>
-		</label>
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="title">عنوان</Label>
+					<Input
+						type="text"
+						id="title"
+						name="title"
+						placeholder="سمند، پراید و ..."
+						bind:value={formData.title}
+					/>
+				</div>
 
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-		>
-			<p>شماره پلاک:</p>
-			<input name="plate" bind:value={formData.plate} type="text" class="col-span-2" />
-		</label>
+				<label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+				>
+					<p>نوع:</p>
+					<select name="type" bind:value={formData.type} class="col-span-2">
+						<option value={null} disabled={true}>انتخاب کنید</option>
+						<option value={1}>سواری</option>
+						<option value={2}>مینی‌بوس</option>
+						<option value={3}>اتوبوس</option>
+						<option value={4}>موتور سیکلت</option>
+					</select>
+				</label>
 
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-		>
-			<p>نوع سوخت:</p>
-			<select name="fuelType" bind:value={formData.fuelType} class="col-span-2">
-				<option value={null} disabled={true}>انتخاب کنید</option>
-				<option value={1}> بنزین</option>
-				<option value={2}> گازوییل</option>
-			</select>
-		</label>
+				<label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+				>
+					<p>شماره پلاک:</p>
+					<input name="plate" bind:value={formData.plate} type="text" class="col-span-2" />
+				</label>
 
-		<label
-			class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-		>
-			<p>واحد:</p>
-			<select name="ownerUnit" bind:value={formData.ownerUnit} class="col-span-2">
-				<option value={null} disabled={true}>انتخاب کنید</option>
-				<option value={1}>واحد ۱</option>
-				<option value={2}>واحد ۲</option>
-				<option value={3}>واحد ۳</option>
-			</select>
-		</label>
+				<label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+				>
+					<p>نوع سوخت:</p>
+					<select name="fuelType" bind:value={formData.fuelType} class="col-span-2">
+						<option value={null} disabled={true}>انتخاب کنید</option>
+						<option value={1}> بنزین</option>
+						<option value={2}> گازوییل</option>
+					</select>
+				</label>
 
-		<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
-	</form>
+				<label
+					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+				>
+					<p>واحد:</p>
+					<select name="ownerUnit" bind:value={formData.ownerUnit} class="col-span-2">
+						<option value={null} disabled={true}>انتخاب کنید</option>
+						<option value={1}>واحد ۱</option>
+						<option value={2}>واحد ۲</option>
+						<option value={3}>واحد ۳</option>
+					</select>
+				</label>
+
+				<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
+			</form>
+		</Card.Content>
+	</Card.Root>
+
 	<div class="h-full rounded-sm border-2 border-indigo-600 p-2">
 		<table class="table w-full table-fixed text-center">
 			<thead class="bg-indigo-300">

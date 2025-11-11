@@ -22,6 +22,8 @@ export const actions = {
 
         const data = Object.fromEntries(formData)
 
+        
+
         console.log(data)
         try {
             await db.insert(vehicles).values({ title: data.title, type: Number(data.type), plate: data.plate, fuelType: Number(data.fuelType), ownerUnit: Number(data.ownerUnit) })
