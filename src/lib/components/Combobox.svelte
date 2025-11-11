@@ -27,6 +27,7 @@
 	}
 </script>
 
+<input hidden={true} {name} bind:value />
 <Popover.Root bind:open>
 	<Popover.Trigger bind:ref={triggerRef}>
 		{#snippet child({ props })}

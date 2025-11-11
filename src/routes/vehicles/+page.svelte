@@ -146,8 +146,8 @@
 					</select>
 				</label>
 
-				<!-- <button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button> -->
-				<Button class="col-span-2 mx-20">Button</Button>
+				<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
+				<!-- <Button class="col-span-2 mx-20">Button</Button> -->
 			</form>
 		</Card.Content>
 	</Card.Root>
