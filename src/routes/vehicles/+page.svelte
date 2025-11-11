@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
+	import Combobox from '$lib/components/Combobox.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -87,7 +89,21 @@
 					/>
 				</div>
 
-				<label
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">نوع:</Label>
+					<Combobox
+						name="type"
+						bind:value={formData.type}
+						options={[
+							{ label: 'سواری', value: 1 },
+							{ label: 'مینی بوس', value: 2 },
+							{ label: 'اتوبوس', value: 3 },
+							{ label: 'موتور سیکلت', value: 4 }
+						]}
+					/>
+				</div>
+
+				<!-- <label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 				>
 					<p>نوع:</p>
@@ -98,7 +114,7 @@
 						<option value={3}>اتوبوس</option>
 						<option value={4}>موتور سیکلت</option>
 					</select>
-				</label>
+				</label> -->
 
 				<label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
@@ -130,7 +146,8 @@
 					</select>
 				</label>
 
-				<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
+				<!-- <button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button> -->
+				<Button class="col-span-2 mx-20">Button</Button>
 			</form>
 		</Card.Content>
 	</Card.Root>
