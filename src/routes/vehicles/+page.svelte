@@ -6,6 +6,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import * as Table from '$lib/components/ui/table/index.js';
 
 	let { data, form } = $props();
 
@@ -191,8 +192,8 @@
 		<Card.Header>
 			<Card.Title>اطلاعات ثبت شده</Card.Title>
 		</Card.Header>
-		<Card.Content
-			><table class="table w-full table-fixed text-center">
+		<Card.Content>
+			<!-- <table class="table w-full table-fixed text-center">
 				<thead class="bg-indigo-300">
 					<tr
 						><th>عنوان</th><th>نوع</th><th>شماره پلاک</th><th>نوع سوخت</th><th>واحد</th><th
@@ -216,8 +217,45 @@
 						</tr>
 					{/each}
 				</tbody>
-			</table></Card.Content
-		>
+			</table> -->
+
+			<Table.Root>
+				<!-- <Table.Caption>A list of your recent invoices.</Table.Caption> -->
+				<Table.Header>
+					<Table.Row>
+						<Table.Head>عنوان</Table.Head>
+						<Table.Head>نوع وسیله نقلیه</Table.Head>
+						<Table.Head>پلاک</Table.Head>
+						<Table.Head>نوع سوخت</Table.Head>
+						<Table.Head>واحد</Table.Head>
+						<Table.Head></Table.Head>
+					</Table.Row>
+				</Table.Header>
+				<Table.Body>
+					{#each data.vehicles as vehicle (vehicle)}
+						<Table.Row>
+							<Table.Cell>{vehicle.title}</Table.Cell>
+							<Table.Cell>{vehicle.type}</Table.Cell>
+							<Table.Cell>{vehicle.plate}</Table.Cell>
+							<Table.Cell>{vehicle.fuelType}</Table.Cell>
+							<Table.Cell>{vehicle.ownerUnit}</Table.Cell>
+							<Table.Cell
+								><div>
+									<button onclick={() => getFn(vehicle.id)}>UPDATE</button>
+									<button onclick={() => deleteFn(vehicle.id)}>DELETE</button>
+								</div></Table.Cell
+							>
+						</Table.Row>
+					{/each}
+				</Table.Body>
+				<!-- <Table.Footer>
+					<Table.Row>
+						<Table.Cell colspan={3}>Total</Table.Cell>
+						<Table.Cell class="text-right">$2,500.00</Table.Cell>
+					</Table.Row>
+				</Table.Footer> -->
+			</Table.Root>
+		</Card.Content>
 	</Card.Root>
 </div>
 

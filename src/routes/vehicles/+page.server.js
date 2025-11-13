@@ -38,7 +38,6 @@ export const actions = {
         const formData = await request.formData();
         const data = Object.fromEntries(formData)
 
-        console.log(67, data)
 
         await db.update(vehicles)
             .set({ ...data })
