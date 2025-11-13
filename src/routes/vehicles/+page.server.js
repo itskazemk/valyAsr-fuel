@@ -22,7 +22,7 @@ export const actions = {
 
         const data = Object.fromEntries(formData)
 
-        
+
 
         console.log(data)
         try {
@@ -38,9 +38,11 @@ export const actions = {
         const formData = await request.formData();
         const data = Object.fromEntries(formData)
 
-        // await db.update(vehicles)
-        //     .set({ name: 'Mr. Dan' })
-        //     .where(eq(users.name, 'Dan'));
+        console.log(67, data)
+
+        await db.update(vehicles)
+            .set({ ...data })
+            .where(eq(vehicles.id, data.id));
 
 
     },

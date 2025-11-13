@@ -90,7 +90,7 @@
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">نوع:</Label>
+					<Label for="type">نوع وسیله نقلیه</Label>
 					<Combobox
 						name="type"
 						bind:value={formData.type}
@@ -116,14 +116,25 @@
 					</select>
 				</label> -->
 
-				<label
+				<!-- <label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 				>
 					<p>شماره پلاک:</p>
 					<input name="plate" bind:value={formData.plate} type="text" class="col-span-2" />
-				</label>
+				</label> -->
 
-				<label
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="title">شماره پلاک</Label>
+					<Input
+						type="text"
+						id="plate"
+						name="plate"
+						placeholder="۷۷ب۱۵۹"
+						bind:value={formData.plate}
+					/>
+				</div>
+
+				<!-- <label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 				>
 					<p>نوع سوخت:</p>
@@ -132,9 +143,21 @@
 						<option value={1}> بنزین</option>
 						<option value={2}> گازوییل</option>
 					</select>
-				</label>
+				</label> -->
 
-				<label
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">نوع سوخت</Label>
+					<Combobox
+						name="fuelType"
+						bind:value={formData.fuelType}
+						options={[
+							{ label: 'بنزین', value: 1 },
+							{ label: 'گازوییل', value: 2 }
+						]}
+					/>
+				</div>
+
+				<!-- <label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 				>
 					<p>واحد:</p>
@@ -144,10 +167,22 @@
 						<option value={2}>واحد ۲</option>
 						<option value={3}>واحد ۳</option>
 					</select>
-				</label>
+				</label> -->
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">واحد</Label>
+					<Combobox
+						name="ownerUnit"
+						bind:value={formData.ownerUnit}
+						options={[
+							{ label: 'واحد ۱', value: 1 },
+							{ label: 'واحد ۲', value: 2 }
+						]}
+					/>
+				</div>
 
 				<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
-				<!-- <Button class="col-span-2 mx-20">Button</Button> -->
+				<!-- <Button class="col-span-2 mx-20 mt-2">ثبت</Button> -->
 			</form>
 		</Card.Content>
 	</Card.Root>

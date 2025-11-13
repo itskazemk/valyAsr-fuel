@@ -14,7 +14,7 @@
 	let open = $state(false);
 	let triggerRef = $state<HTMLButtonElement>(null!);
 
-	const selectedValue = $derived(options.find((f) => f.value === value)?.label);
+	const selectedValue = $derived(options.find((f: any) => f.value === value)?.label);
 
 	// We want to refocus the trigger button when the user selects
 	// an item from the list so users can continue navigating the
@@ -34,7 +34,7 @@
 			<Button
 				{...props}
 				variant="outline"
-				class="w-[200px] justify-between"
+				class="w-full justify-between"
 				role="combobox"
 				aria-expanded={open}
 			>
@@ -43,7 +43,7 @@
 			</Button>
 		{/snippet}
 	</Popover.Trigger>
-	<Popover.Content class="w-[200px] p-0">
+	<Popover.Content class="w-auto p-0">
 		<Command.Root>
 			<Command.Input placeholder="جستجو" />
 			<Command.List>
