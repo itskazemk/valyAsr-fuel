@@ -181,37 +181,44 @@
 					/>
 				</div>
 
-				<button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button>
-				<!-- <Button class="col-span-2 mx-20 mt-2">ثبت</Button> -->
+				<!-- <button class="col-span-2 rounded-sm bg-indigo-300 hover:bg-indigo-400">ثبت</button> -->
+				<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
 			</form>
 		</Card.Content>
 	</Card.Root>
 
-	<div class="h-full rounded-sm border-2 border-indigo-600 p-2">
-		<table class="table w-full table-fixed text-center">
-			<thead class="bg-indigo-300">
-				<tr><th>عنوان</th><th>نوع</th><th>شماره پلاک</th><th>نوع سوخت</th><th>واحد</th><th></th></tr
-				>
-			</thead>
-			<tbody>
-				{#each data.vehicles as vehicle}
-					<tr>
-						<td>{vehicle.title}</td>
-						<td>{vehicle.type}</td>
-						<td>{vehicle.plate}</td>
-						<td>{vehicle.fuelType}</td>
-						<td>{vehicle.ownerUnit}</td>
-						<td
-							><div>
-								<button onclick={() => getFn(vehicle.id)}>UPDATE</button>
-								<button onclick={() => deleteFn(vehicle.id)}>DELETE</button>
-							</div></td
-						>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+	<Card.Root>
+		<Card.Header>
+			<Card.Title>اطلاعات ثبت شده</Card.Title>
+		</Card.Header>
+		<Card.Content
+			><table class="table w-full table-fixed text-center">
+				<thead class="bg-indigo-300">
+					<tr
+						><th>عنوان</th><th>نوع</th><th>شماره پلاک</th><th>نوع سوخت</th><th>واحد</th><th
+						></th></tr
+					>
+				</thead>
+				<tbody>
+					{#each data.vehicles as vehicle}
+						<tr>
+							<td>{vehicle.title}</td>
+							<td>{vehicle.type}</td>
+							<td>{vehicle.plate}</td>
+							<td>{vehicle.fuelType}</td>
+							<td>{vehicle.ownerUnit}</td>
+							<td
+								><div>
+									<button onclick={() => getFn(vehicle.id)}>UPDATE</button>
+									<button onclick={() => deleteFn(vehicle.id)}>DELETE</button>
+								</div></td
+							>
+						</tr>
+					{/each}
+				</tbody>
+			</table></Card.Content
+		>
+	</Card.Root>
 </div>
 
 <style>
