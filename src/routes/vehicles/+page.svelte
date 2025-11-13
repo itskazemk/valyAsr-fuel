@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Trash, Pen } from '@lucide/svelte';
 	import { enhance } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
@@ -240,9 +241,13 @@
 							<Table.Cell>{vehicle.fuelType}</Table.Cell>
 							<Table.Cell>{vehicle.ownerUnit}</Table.Cell>
 							<Table.Cell
-								><div>
-									<button onclick={() => getFn(vehicle.id)}>UPDATE</button>
-									<button onclick={() => deleteFn(vehicle.id)}>DELETE</button>
+								><div class="space-x-2">
+									<button onclick={() => getFn(vehicle.id)} class="hover:text-yellow-500"
+										><Pen /></button
+									>
+									<button onclick={() => deleteFn(vehicle.id)} class="hover:text-red-500"
+										><Trash /></button
+									>
 								</div></Table.Cell
 							>
 						</Table.Row>
