@@ -157,7 +157,7 @@
 										}}
 										class="
 											day-btn
-											{isEqualDay(day, selected) ? ' selected' : ''}
+											{selected === null ? null : isEqualDay(day, selected) ? ' selected' : ''}
 											{day.year !== current.year || day.month !== current.month ? ' faded' : ''}
 											{isEqualDay(day, toCalendar(gregorianToday, persianCalendar)) ? ' today' : ''}
 										"

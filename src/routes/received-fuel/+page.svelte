@@ -9,7 +9,7 @@
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 	import { DatePicker } from '@kazemk/svelte-international-datepicker';
-	import { Pen, Trash } from '@lucide/svelte';
+	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 
 	let { data, form } = $props();
 
@@ -48,6 +48,17 @@
 
 			await invalidateAll();
 		}
+	}
+
+	function resetForm(e) {
+		e.preventDefault();
+		formStatus = 'create';
+		formData = {
+			id: null,
+			date: null,
+			type: null,
+			amount: null
+		};
 	}
 </script>
 
@@ -112,7 +123,15 @@
 					<Input type="number" id="amount" name="amount" bind:value={formData.amount} />
 				</div>
 
-				<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
+				<div class="col-span-2 mt-2 flex gap-2">
+					<Button class="cursor-pointer" type="submit">ثبت</Button>
+					<Button
+						onclick={resetForm}
+						class="cursor-pointer bg-blue-500 hover:bg-blue-600"
+						type="submit"
+						title="ریست فرم"><RotateCcw /></Button
+					>
+				</div>
 			</form></Card.Content
 		>
 	</Card.Root>
