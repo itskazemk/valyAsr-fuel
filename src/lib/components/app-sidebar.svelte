@@ -7,10 +7,10 @@
 				title: 'Getting Started',
 				url: '#',
 				items: [
-					{
-						title: 'اطلاعات پایه',
-						url: '/baseInfo'
-					},
+					// {
+					// 	title: 'اطلاعات پایه',
+					// 	url: '/base-info'
+					// },
 					{
 						title: 'وسایل نقلیه',
 						url: '/vehicles'

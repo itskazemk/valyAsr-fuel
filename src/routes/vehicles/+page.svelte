@@ -4,9 +4,9 @@
 	import { invalidate, invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 
 	let { data, form } = $props();
@@ -43,33 +43,6 @@
 			await invalidateAll();
 		}
 	}
-
-	// let columns = [
-	// 	{
-	// 		accessorKey: 'title',
-	// 		header: 'title'
-	// 	},
-	// 	{
-	// 		accessorKey: 'type',
-	// 		header: 'type'
-	// 	},
-	// 	{
-	// 		accessorKey: 'plate',
-	// 		header: 'plate'
-	// 	},
-	// 	{
-	// 		accessorKey: 'fuelType',
-	// 		header: 'fuelType'
-	// 	},
-	// 	{
-	// 		accessorKey: 'ownerUnit',
-	// 		header: 'ownerUnit'
-	// 	},
-	// 	{
-	// 		accessorKey: 'ownerUnit',
-	// 		header: 'ownerUnit'
-	// 	}
-	// ];
 </script>
 
 <div class="grid-cols-2 gap-2 space-y-2 lg:grid lg:space-y-0">

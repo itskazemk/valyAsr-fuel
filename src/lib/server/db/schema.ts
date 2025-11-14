@@ -6,11 +6,33 @@ export const vehicles = sqliteTable('vehicles', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
+
 	title: text().notNull(),
 	type: integer().notNull(),
 	plate: text().notNull(),
 	fuelType: integer().notNull(),
 	ownerUnit: integer().notNull(),
+
+	updatedAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
+	createdAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull()
+});
+
+export const fuelInputs = sqliteTable('fuel-inputs', {
+	id: text()
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID())
+		.notNull(),
+
+	date: text().notNull(),
+	amount: integer().notNull(), // Liter
+
+	updatedAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
 	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull()
