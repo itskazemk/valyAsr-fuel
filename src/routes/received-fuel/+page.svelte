@@ -7,31 +7,37 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 	import { DatePicker } from '@kazemk/svelte-international-datepicker';
+	import { Pen, Trash } from '@lucide/svelte';
 
 	let { data, form } = $props();
 
+	let formStatus = $state<'create' | 'update'>('create');
+
 	let formData = $state({
 		id: null,
-		title: null,
+		date: null,
 		type: null,
-		plate: null,
-		fuelType: null,
-		ownerUnit: null
+		amount: null
 	});
 
 	async function getFn(id: string) {
-		const req = await fetch(`/vehicles/${id}`);
+		// const req = await fetch(`/vehicles/${id}`);
 
-		const res = await req.json();
+		// const res = await req.json();
 
-		if (res.data) {
-			formData = { ...res.data };
+		const value = data.fuelInputs.find((item) => item.id == id);
+
+		if (value) {
+			formData = { ...value };
+
+			formStatus = 'update';
 		}
 	}
 
 	async function deleteFn(id: string) {
-		const isSure = confirm('آیا از حذف وسیله نقلیه اطمینان دارید؟');
+		const isSure = confirm('آیا از حذف اطمینان دارید؟');
 		if (isSure) {
 			const form = new FormData();
 			form.append('id', id);
@@ -43,12 +49,10 @@
 			await invalidateAll();
 		}
 	}
-
-	let date = $state();
 </script>
 
 <div class="grid-cols-2 gap-2 space-y-2 lg:grid lg:space-y-0">
-	<Card.Root>
+	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 		<Card.Header>
 			<Card.Title>ثبت دریافت سوخت</Card.Title>
 		</Card.Header>
@@ -57,8 +61,15 @@
 				method="POST"
 				action={formData.id ? '?/update' : '?/create'}
 				use:enhance={() => {
-					return async ({ update }) => {
-						await update();
+					return async (aaa) => {
+						// console.log(Object.fromEntries(aaa.formData));
+						// console.log(aaa.action);
+						// console.log(aaa.formElement);
+						// console.log(aaa.result);
+						await aaa.update();
+
+						formData = { id: null, date: null, type: null, amount: null };
+						formStatus = 'create';
 					};
 				}}
 				class="grid h-full grid-cols-2 gap-2 rounded-sm"
@@ -81,7 +92,7 @@
 						bind:value={formData.title}
 					/> -->
 
-					<DatePicker id="date" name="date" bind:date />
+					<TestDatePicker id="date" name="date" bind:date={formData.date} />
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
@@ -96,6 +107,11 @@
 					/>
 				</div>
 
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">مقدار</Label>
+					<Input type="number" id="amount" name="amount" bind:value={formData.amount} />
+				</div>
+
 				<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
 			</form></Card.Content
 		>
@@ -105,6 +121,38 @@
 		<Card.Header>
 			<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
 		</Card.Header>
-		<Card.Content>test</Card.Content>
+		<Card.Content>
+			<Table.Root>
+				<Table.Header>
+					<Table.Row>
+						<Table.Head class="text-center">تاریخ</Table.Head>
+						<Table.Head class="text-center">نوع سوخت</Table.Head>
+						<Table.Head class="text-center">مقدار</Table.Head>
+						<Table.Head class="text-center">-</Table.Head>
+					</Table.Row>
+				</Table.Header>
+				<Table.Body>
+					{#each data.fuelInputs as vehicle (vehicle)}
+						<Table.Row>
+							<Table.Cell class="text-center"
+								>{new Date(vehicle.date).toLocaleDateString('fa-IR')}</Table.Cell
+							>
+							<Table.Cell class="text-center">{vehicle.type}</Table.Cell>
+							<Table.Cell class="text-center">{vehicle.amount}</Table.Cell>
+							<Table.Cell class="text-center"
+								><div class="space-x-2">
+									<button onclick={() => getFn(vehicle.id)} class="hover:text-yellow-500"
+										><Pen /></button
+									>
+									<button onclick={() => deleteFn(vehicle.id)} class="hover:text-red-500"
+										><Trash /></button
+									>
+								</div></Table.Cell
+							>
+						</Table.Row>
+					{/each}
+				</Table.Body>
+			</Table.Root>
+		</Card.Content>
 	</Card.Root>
 </div>

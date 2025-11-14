@@ -28,6 +28,7 @@ export const fuelInputs = sqliteTable('fuel-inputs', {
 		.notNull(),
 
 	date: text().notNull(),
+	type: integer().notNull(),
 	amount: integer().notNull(), // Liter
 
 	updatedAt: text()
