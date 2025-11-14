@@ -8,8 +8,6 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import DataTable from './data-table.svelte';
-	import { columns } from './columns.js';
 
 	let { data, form } = $props();
 
@@ -168,8 +166,6 @@
 			<Card.Title>اطلاعات ثبت شده</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<!-- <DataTable data={data.vehicles} {columns} /> -->
-
 			<Table.Root>
 				<Table.Header>
 					<Table.Row>
