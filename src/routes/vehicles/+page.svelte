@@ -8,6 +8,8 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import DataTable from './data-table.svelte';
+	import { columns } from './columns.js';
 
 	let { data, form } = $props();
 
@@ -166,8 +168,9 @@
 			<Card.Title>اطلاعات ثبت شده</Card.Title>
 		</Card.Header>
 		<Card.Content>
+			<!-- <DataTable data={data.vehicles} {columns} /> -->
+
 			<Table.Root>
-				<!-- <Table.Caption>A list of your recent invoices.</Table.Caption> -->
 				<Table.Header>
 					<Table.Row>
 						<Table.Head>عنوان</Table.Head>
@@ -199,12 +202,6 @@
 						</Table.Row>
 					{/each}
 				</Table.Body>
-				<!-- <Table.Footer>
-					<Table.Row>
-						<Table.Cell colspan={3}>Total</Table.Cell>
-						<Table.Cell class="text-right">$2,500.00</Table.Cell>
-					</Table.Row>
-				</Table.Footer> -->
 			</Table.Root>
 		</Card.Content>
 	</Card.Root>
