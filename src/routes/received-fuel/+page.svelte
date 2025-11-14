@@ -10,6 +10,7 @@
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 	import { DatePicker } from '@kazemk/svelte-international-datepicker';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
+	import { toast } from 'svelte-sonner';
 
 	let { data, form } = $props();
 
@@ -47,6 +48,7 @@
 			});
 
 			await invalidateAll();
+			toast.success('با موفقیت حذف شد');
 		}
 	}
 
@@ -81,6 +83,8 @@
 
 						formData = { id: null, date: null, type: null, amount: null };
 						formStatus = 'create';
+
+						toast.success('با موفقیت ثبت شد');
 					};
 				}}
 				class="grid h-full grid-cols-2 gap-2 rounded-sm"
