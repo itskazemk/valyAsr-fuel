@@ -11,6 +11,7 @@
 	import { DatePicker } from '@kazemk/svelte-international-datepicker';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
+	import { FuelTypeLabels } from '../vehicles/types.js';
 
 	let { data, form } = $props();
 
@@ -69,7 +70,7 @@
 		<Card.Header>
 			<Card.Title>ثبت دریافت سوخت</Card.Title>
 		</Card.Header>
-		<Card.Content
+		<Card.Content class="h-full"
 			><form
 				method="POST"
 				action={formData.id ? '?/update' : '?/create'}
@@ -127,8 +128,8 @@
 					<Input type="number" id="amount" name="amount" bind:value={formData.amount} />
 				</div>
 
-				<div class="col-span-2 mt-2 flex gap-2">
-					<Button class="cursor-pointer" type="submit">ثبت</Button>
+				<div class="col-span-2 mt-2 flex items-end gap-2">
+					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت</Button>
 					<Button
 						onclick={resetForm}
 						class="cursor-pointer bg-blue-500 hover:bg-blue-600"
@@ -145,7 +146,7 @@
 			<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<Table.Root>
+			<Table.Root class="text-center">
 				<Table.Header>
 					<Table.Row>
 						<Table.Head class="text-center">تاریخ</Table.Head>
@@ -157,12 +158,10 @@
 				<Table.Body>
 					{#each data.fuelInputs as vehicle (vehicle)}
 						<Table.Row>
-							<Table.Cell class="text-center"
-								>{new Date(vehicle.date).toLocaleDateString('fa-IR')}</Table.Cell
-							>
-							<Table.Cell class="text-center">{vehicle.type}</Table.Cell>
-							<Table.Cell class="text-center">{vehicle.amount}</Table.Cell>
-							<Table.Cell class="text-center"
+							<Table.Cell>{new Date(vehicle.date).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{FuelTypeLabels?.[vehicle.type]}</Table.Cell>
+							<Table.Cell>{vehicle.amount}</Table.Cell>
+							<Table.Cell
 								><div class="space-x-2">
 									<button onclick={() => getFn(vehicle.id)} class="hover:text-yellow-500"
 										><Pen /></button

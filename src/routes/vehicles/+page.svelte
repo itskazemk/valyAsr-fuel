@@ -8,6 +8,7 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import { FuelTypeLabels, VehicleLabels } from './types.js';
 
 	let { data, form } = $props();
 
@@ -139,24 +140,24 @@
 			<Card.Title>اطلاعات ثبت شده</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<Table.Root>
+			<Table.Root class="text-center">
 				<Table.Header>
 					<Table.Row>
-						<Table.Head>عنوان</Table.Head>
-						<Table.Head>نوع وسیله نقلیه</Table.Head>
-						<Table.Head>پلاک</Table.Head>
-						<Table.Head>نوع سوخت</Table.Head>
-						<Table.Head>واحد</Table.Head>
-						<Table.Head></Table.Head>
+						<Table.Head class="text-center">عنوان</Table.Head>
+						<Table.Head class="text-center">نوع وسیله نقلیه</Table.Head>
+						<Table.Head class="text-center">پلاک</Table.Head>
+						<Table.Head class="text-center">نوع سوخت</Table.Head>
+						<Table.Head class="text-center">واحد</Table.Head>
+						<Table.Head class="text-center">-</Table.Head>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
 					{#each data.vehicles as vehicle (vehicle)}
 						<Table.Row>
 							<Table.Cell>{vehicle.title}</Table.Cell>
-							<Table.Cell>{vehicle.type}</Table.Cell>
+							<Table.Cell>{VehicleLabels?.[vehicle.type]}</Table.Cell>
 							<Table.Cell>{vehicle.plate}</Table.Cell>
-							<Table.Cell>{vehicle.fuelType}</Table.Cell>
+							<Table.Cell>{FuelTypeLabels?.[vehicle.fuelType]}</Table.Cell>
 							<Table.Cell>{vehicle.ownerUnit}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
