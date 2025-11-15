@@ -39,6 +39,8 @@ export const actions = {
 		);
 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
+		// Removing the id value, it would be generated auto on save
+		delete data.id;
 		console.log('fuelOutputs-Create', data);
 
 		try {

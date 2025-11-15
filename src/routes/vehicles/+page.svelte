@@ -46,7 +46,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 lg:grid lg:space-y-0">
+<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
 	<Card.Root>
 		<Card.Header>
 			<Card.Title>ثبت اطلاعات</Card.Title>
@@ -73,6 +73,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">عنوان</Label>
 					<Input
+						required={true}
 						type="text"
 						id="title"
 						name="title"
@@ -84,6 +85,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">نوع وسیله نقلیه</Label>
 					<Combobox
+						required={true}
 						name="type"
 						bind:value={formData.type}
 						options={[
@@ -98,6 +100,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">شماره پلاک</Label>
 					<Input
+						required={true}
 						type="text"
 						id="plate"
 						name="plate"
@@ -109,6 +112,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">نوع سوخت</Label>
 					<Combobox
+						required={true}
 						name="fuelType"
 						bind:value={formData.fuelType}
 						options={[
@@ -121,6 +125,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">واحد</Label>
 					<Combobox
+						required={true}
 						name="ownerUnit"
 						bind:value={formData.ownerUnit}
 						options={[

@@ -13,7 +13,7 @@
 		<header class="flex h-16 shrink-0 items-center gap-2 border-b px-4">
 			<Sidebar.Trigger class="-ml-1" />
 			<Separator orientation="vertical" class="mr-2 h-4" />
-			<Breadcrumb.Root>
+			<!-- <Breadcrumb.Root>
 				<Breadcrumb.List>
 					<Breadcrumb.Item class="hidden md:block">
 						<Breadcrumb.Link href="##">Building Your Application</Breadcrumb.Link>
@@ -23,7 +23,7 @@
 						<Breadcrumb.Page>Data Fetching</Breadcrumb.Page>
 					</Breadcrumb.Item>
 				</Breadcrumb.List>
-			</Breadcrumb.Root>
+			</Breadcrumb.Root> -->
 		</header>
 		<div class="flex flex-1 flex-col gap-4 p-4">
 			<div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 p-2 md:min-h-min">

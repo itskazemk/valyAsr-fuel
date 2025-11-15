@@ -13,16 +13,18 @@
 	import { toast } from 'svelte-sonner';
 	import { FuelTypeLabels } from '../vehicles/types.js';
 
-	let { data, form } = $props();
-
-	let formStatus = $state<'create' | 'update'>('create');
-
-	let formData = $state({
+	let defaultValues = {
 		id: null,
 		date: null,
 		type: null,
 		amount: null
-	});
+	};
+
+	let { data, form } = $props();
+
+	let formStatus = $state<'create' | 'update'>('create');
+
+	let formData = $state(defaultValues);
 
 	async function getFn(id: string) {
 		// const req = await fetch(`/vehicles/${id}`);
@@ -56,16 +58,11 @@
 	function resetForm(e) {
 		e.preventDefault();
 		formStatus = 'create';
-		formData = {
-			id: null,
-			date: null,
-			type: null,
-			amount: null
-		};
+		formData = defaultValues;
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 lg:grid lg:space-y-0">
+<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
 	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 		<Card.Header>
 			<Card.Title>ثبت دریافت سوخت</Card.Title>
@@ -100,20 +97,13 @@
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="date">تاریخ</Label>
-					<!-- <Input
-						type="text"
-						id="title"
-						name="title"
-						placeholder="سمند، پراید و ..."
-						bind:value={formData.title}
-					/> -->
-
-					<TestDatePicker id="date" name="date" bind:date={formData.date} />
+					<TestDatePicker id="date" name="date" bind:date={formData.date} required={true} />
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">نوع سوخت</Label>
 					<Combobox
+						required={true}
 						name="type"
 						bind:value={formData.type}
 						options={[
@@ -125,7 +115,13 @@
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">مقدار</Label>
-					<Input type="number" id="amount" name="amount" bind:value={formData.amount} />
+					<Input
+						type="number"
+						id="amount"
+						name="amount"
+						bind:value={formData.amount}
+						required={true}
+					/>
 				</div>
 
 				<div class="col-span-2 mt-2 flex items-end gap-2">

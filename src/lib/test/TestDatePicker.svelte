@@ -12,7 +12,7 @@
 	} from '@internationalized/date';
 	import { onMount } from 'svelte';
 
-	let { date = $bindable(), name = null, id = null } = $props();
+	let { date = $bindable(), name = null, id = null, required = false } = $props();
 
 	const now = new Date();
 	const gregorianToday = new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
@@ -96,7 +96,6 @@
 
 	$effect(() => {
 		if (typeof date === 'string') {
-			console.log(222, date);
 			const dateSplitted = date.split('-');
 
 			const dateGregorian = new CalendarDate(
@@ -125,6 +124,7 @@
 				placeholder="YYYY/MM/DD"
 				value={selected !== null ? `${selected?.year}/${selected?.month}/${selected?.day}` : ''}
 				class="date-input"
+				{required}
 			/>
 		</Popover.Trigger>
 		<Popover.Portal>

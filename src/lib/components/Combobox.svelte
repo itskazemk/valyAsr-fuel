@@ -9,7 +9,7 @@
 
 	// options = [{label:, value:}]
 
-	let { options = $bindable(), value = $bindable(null), name } = $props();
+	let { options = $bindable(), value = $bindable(null), name, required = false } = $props();
 
 	let open = $state(false);
 	let triggerRef = $state<HTMLButtonElement>(null!);
@@ -27,7 +27,7 @@
 	}
 </script>
 
-<input hidden={true} {name} bind:value />
+<input hidden={true} {name} bind:value {required} />
 <Popover.Root bind:open>
 	<Popover.Trigger bind:ref={triggerRef}>
 		{#snippet child({ props })}
@@ -49,16 +49,16 @@
 			<Command.List>
 				<Command.Empty>No framework found.</Command.Empty>
 				<Command.Group value="frameworks">
-					{#each options as framework (framework.value)}
+					{#each options as option (option.value)}
 						<Command.Item
-							value={framework.value}
+							value={option.value}
 							onSelect={() => {
-								value = framework.value;
+								value = option.value;
 								closeAndFocusTrigger();
 							}}
 						>
-							<CheckIcon class={cn(value !== framework.value && 'text-transparent')} />
-							{framework.label}
+							<CheckIcon class={cn(value !== option.value && 'text-transparent')} />
+							{option.label}
 						</Command.Item>
 					{/each}
 				</Command.Group>

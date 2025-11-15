@@ -47,7 +47,6 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	date: text().notNull(),
 	fuelType: integer().notNull(),
 	amount: integer().notNull(), // Liter
