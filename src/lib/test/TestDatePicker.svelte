@@ -115,7 +115,7 @@
 
 <div class="main">
 	<Popover.Root bind:open={isOpen}>
-		<Popover.Trigger style="background: white; padding: 0; border:0">
+		<Popover.Trigger style="background: white; padding: 0; border:0; width: 100%;">
 			<input
 				autocomplete="off"
 				bind:this={inputItemRef}
