@@ -44,6 +44,20 @@ export const actions = {
 		console.log('fuelOutputs-Create', data);
 
 		try {
+
+			if(data?.vehicleId == null){
+				return fail(422, { error: "vehicleId is null" });
+			}
+
+			const vehicle = await db.select().from(vehicles).where(eq(vehicles.id, data.vehicleId))
+
+			if(!vehicle){
+				return fail(422, { error: "no vehicle found to get its fuelType" });
+			}
+
+			data.fuelType = vehicle?.[0].fuelType;
+
+
 			await db.insert(fuelOutputs).values(data);
 		} catch (error) {
 			return fail(422, { error: error.message });

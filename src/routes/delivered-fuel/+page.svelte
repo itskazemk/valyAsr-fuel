@@ -15,11 +15,10 @@
 	let defaultValues = {
 		id: null,
 		date: null,
-		fuelType: null,
 		amount: null,
 		vehicleId: null,
-		Deliverer: null,
-		Receiver: null
+		DelivererId: null,
+		ReceiverId: null
 	};
 
 	let { data, form } = $props();
@@ -117,40 +116,30 @@
 					/>
 				</div>
 
+				<!-- لیست افرادی از کل پادگان که از قسمت اطلاعات پایه قابل تنظیم باشد -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="Receiver">تحویل گیرنده</Label>
-					<Input
-						type="text"
-						id="Receiver"
-						name="Receiver"
-						bind:value={formData.Receiver}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="Deliverer">تحویل دهنده</Label>
-					<Input
-						type="text"
-						id="Deliverer"
-						name="Deliverer"
-						bind:value={formData.Deliverer}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="fuelType">نوع سوخت</Label>
+					<Label for="ReceiverId">تحویل گیرنده</Label>
 					<Combobox
-						name="fuelType"
-						bind:value={formData.fuelType}
+						name="ReceiverId"
+						bind:value={formData.ReceiverId}
 						required={true}
-						options={[
-							{ label: 'بنزین', value: 1 },
-							{ label: 'گازوییل', value: 2 }
-						]}
+						options={[{label:"شخص یک", value:1},{label:"شخص دو", value:2},{label:"شخص سه", value:3},{label:"شخص چهار", value:4},{label:"شخص پنج", value:5}]}
 					/>
 				</div>
+
+
+				<!-- لیست افرادی که مسئول واحد سوخت گیری هستند (فعلا آماد) از اطلاعات پایه بیاد -->
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="DelivererId">تحویل دهنده</Label>
+					<Combobox
+						name="DelivererId"
+						bind:value={formData.DelivererId}
+						required={true}
+						options={[{label:"شخص یک", value:1},{label:"شخص دو", value:2},{label:"شخص سه", value:3},{label:"شخص چهار", value:4},{label:"شخص پنج", value:5}]}
+					/>
+				</div>
+
+				
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="amount">مقدار</Label>
@@ -199,8 +188,8 @@
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell>{vehicle?.title}-{vehicle?.ownerUnit}-{vehicle?.plate}</Table.Cell>
-							<Table.Cell>{record.Receiver}</Table.Cell>
-							<Table.Cell>{record.Deliverer}</Table.Cell>
+							<Table.Cell>{record.ReceiverId}</Table.Cell>
+							<Table.Cell>{record.DelivererId}</Table.Cell>
 							<Table.Cell>{FuelTypeLabels?.[record.fuelType]}</Table.Cell>
 							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell

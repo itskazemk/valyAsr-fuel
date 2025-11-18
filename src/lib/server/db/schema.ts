@@ -51,8 +51,8 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 	fuelType: integer().notNull(),
 	amount: integer().notNull(), // Liter
 	vehicleId: text().notNull(),
-	Deliverer: text().notNull(),
-	Receiver: text().notNull(),
+	DelivererId: text().notNull(),
+	ReceiverId: text().notNull(),
 
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)

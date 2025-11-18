@@ -70,6 +70,8 @@
 					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
 				</label>
 
+
+				<!-- اینجا به سلکت آپشن تغییر پیدا کند به گونه که از اطلاعات پایه داده ها دریافت شود -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">عنوان</Label>
 					<Input
@@ -82,6 +84,7 @@
 					/>
 				</div>
 
+				<!-- با توجه به اینکه اطلاعات نوع خودرو، موتور و ... از اطلاعات پایه دریافت میشود. این قسمت نیز غلط و اتوماتیک یا به صورت دستی از آنجا انتخاب شود -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">نوع وسیله نقلیه</Label>
 					<Combobox
