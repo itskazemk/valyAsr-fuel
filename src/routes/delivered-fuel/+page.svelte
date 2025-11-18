@@ -123,10 +123,15 @@
 						name="ReceiverId"
 						bind:value={formData.ReceiverId}
 						required={true}
-						options={[{label:"شخص یک", value:1},{label:"شخص دو", value:2},{label:"شخص سه", value:3},{label:"شخص چهار", value:4},{label:"شخص پنج", value:5}]}
+						options={[
+							{ label: 'شخص یک', value: 1 },
+							{ label: 'شخص دو', value: 2 },
+							{ label: 'شخص سه', value: 3 },
+							{ label: 'شخص چهار', value: 4 },
+							{ label: 'شخص پنج', value: 5 }
+						]}
 					/>
 				</div>
-
 
 				<!-- لیست افرادی که مسئول واحد سوخت گیری هستند (فعلا آماد) از اطلاعات پایه بیاد -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
@@ -135,12 +140,19 @@
 						name="DelivererId"
 						bind:value={formData.DelivererId}
 						required={true}
-						options={[{label:"شخص یک", value:1},{label:"شخص دو", value:2},{label:"شخص سه", value:3},{label:"شخص چهار", value:4},{label:"شخص پنج", value:5}]}
+						options={[
+							{ label: 'شخص یک', value: 1 },
+							{ label: 'شخص دو', value: 2 },
+							{ label: 'شخص سه', value: 3 },
+							{ label: 'شخص چهار', value: 4 },
+							{ label: 'شخص پنج', value: 5 }
+						]}
 					/>
 				</div>
 
-				
-
+				<!-- بر اساس اینکه بنزین باشد یا گازوییل محدودیت داریم -->
+				<!-- بنزین ۱۵۰ لیتر بیشترین -->
+				<!-- گازوییل ۲۰۰۰ بیشترین -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="amount">مقدار</Label>
 					<Input
@@ -152,8 +164,39 @@
 					/>
 				</div>
 
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="amount">کیلومتر</Label>
+					<Input
+						type="number"
+						id="amount"
+						name="amount"
+						bind:value={formData.amount}
+						required={true}
+					/>
+				</div>
+
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">محل سوخت گیری</Label>
+					<Combobox
+						required={true}
+						name="ownerUnit"
+						options={[
+							{ label: 'داخل پادگان', value: 1 },
+							{ label: 'خارج پادگان - آزاد', value: 2 },
+							{ label: 'خارج پادگان - رایگان', value: 3 }
+						]}
+					/>
+				</div>
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="description">توضیحات</Label>
+					<textarea id="description" class="rounded-md border border-gray-300"></textarea>
+				</div>
+
 				<div class="col-span-2 mt-2 flex items-end gap-2">
-					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت</Button>
+					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت (قیمت)</Button>
 					<Button
 						onclick={resetForm}
 						class="cursor-pointer bg-blue-500 hover:bg-blue-600"

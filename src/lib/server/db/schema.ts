@@ -47,6 +47,7 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
+
 	date: text().notNull(),
 	fuelType: integer().notNull(),
 	amount: integer().notNull(), // Liter
@@ -67,3 +68,21 @@ export const fuelOutputsRelations = relations(fuelOutputs, ({ one }) => ({
 		references: [vehicles.id]
 	})
 }));
+
+export const baseInfos = sqliteTable('base-infos', {
+	id: text()
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID())
+		.notNull(),
+
+	subId: text().notNull(),
+	title: text().notNull(),
+	disabled: integer().notNull().default(0),
+
+	updatedAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
+	createdAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull()
+});

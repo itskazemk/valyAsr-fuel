@@ -7,17 +7,13 @@
 				title: 'Getting Started',
 				url: '#',
 				items: [
-					// {
-					// 	title: 'اطلاعات پایه',
-					// 	url: '/base-info'
-					// },
+					{
+						title: 'اطلاعات پایه',
+						url: '/base-info'
+					},
 					{
 						title: 'وسایل نقلیه',
 						url: '/vehicles'
-					},
-					{
-						title: 'ماموریت',
-						url: '/mission'
 					},
 					{
 						title: 'سوخت دریافتی',
