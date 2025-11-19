@@ -54,6 +54,7 @@
 	},
 	"dependencies": {
 		"@kazemk/svelte-international-datepicker": "^0.0.6",
-		"better-sqlite3": "^12.4.1"
+		"better-sqlite3": "^12.4.1",
+		"valibot": "^1.1.0"
 	}
 }

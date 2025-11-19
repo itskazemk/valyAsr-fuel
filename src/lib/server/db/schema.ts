@@ -75,7 +75,7 @@ export const baseInfos = sqliteTable('base-infos', {
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
 
-	subId: text().notNull(),
+	subId: text(),
 	title: text().notNull(),
 	disabled: integer().notNull().default(0),
 

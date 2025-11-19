@@ -1,5 +1,6 @@
 import { db } from '$lib/server/db';
 import { baseInfos } from '$lib/server/db/schema';
+import { eq } from 'drizzle-orm';
 
 export async function load({ cookies }) {
 	// let id = cookies.get('userid');

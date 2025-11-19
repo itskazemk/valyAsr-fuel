@@ -6,9 +6,21 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import { getBaseInfo } from './baseInfos.remote.js';
 	import { Pen, Trash } from '@lucide/svelte';
 
 	let { data } = $props();
+	let selectedOption = $state(null);
+
+	let valuesOfSelectedOption = $derived.by(() => {
+		if (selectedOption) {
+			return getBaseInfo(selectedOption);
+		} else {
+			return [];
+		}
+	});
+
+	$inspect(111, valuesOfSelectedOption);
 </script>
 
 قیمت سوخت تحویل گیرنده تحویل دهنده واحد‌ها
@@ -28,12 +40,18 @@
 						<Label>مورد</Label>
 						<Combobox
 							name="subId"
-							options={data.baseInfos
-								.filter((item) => item.subId)
-								.map((item2) => {
-									return { label: item2.title, value: item2.id };
-								})}
+							bind:value={selectedOption}
+							options={(await getBaseInfo(null)).map((item) => {
+								return { label: item.title, value: item.id };
+							})}
 						/>
+
+						<!-- <select bind:value={selectedOption}>
+							<option selected={true}></option>
+							{#each await getBaseInfo(null) as option}
+								<option value={option.id}>{option.title}</option>
+							{/each}
+						</select> -->
 					</div>
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
@@ -54,7 +72,7 @@
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{#each data.baseInfos as baseInfo, index (baseInfo)}
+						{#each await valuesOfSelectedOption as baseInfo, index (baseInfo)}
 							<!-- {@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)} -->
 							<Table.Row>
 								<Table.Cell>{index + 1}</Table.Cell>
