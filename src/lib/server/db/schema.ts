@@ -18,10 +18,10 @@ export const vehicles = sqliteTable('vehicles', {
 		.notNull(),
 	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
-		.notNull()
+		.notNull(),
 });
 export const vehiclesRelations = relations(vehicles, ({ many }) => ({
-	fuelOutputs: many(fuelOutputs)
+	fuelOutputs: many(fuelOutputs),
 }));
 
 export const fuelInputs = sqliteTable('fuel-inputs', {
@@ -39,7 +39,7 @@ export const fuelInputs = sqliteTable('fuel-inputs', {
 		.notNull(),
 	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
-		.notNull()
+		.notNull(),
 });
 
 export const fuelOutputs = sqliteTable('fuel-outputs', {
@@ -60,13 +60,13 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 		.notNull(),
 	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
-		.notNull()
+		.notNull(),
 });
 export const fuelOutputsRelations = relations(fuelOutputs, ({ one }) => ({
 	vehicle: one(vehicles, {
 		fields: [fuelOutputs.vehicleId],
-		references: [vehicles.id]
-	})
+		references: [vehicles.id],
+	}),
 }));
 
 export const baseInfos = sqliteTable('base-infos', {
@@ -84,5 +84,24 @@ export const baseInfos = sqliteTable('base-infos', {
 		.notNull(),
 	createdAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
-		.notNull()
+		.notNull(),
+});
+
+export const fuelPrices = sqliteTable('fuel-price', {
+	id: text()
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID())
+		.notNull(),
+
+	startDate: text().notNull(),
+	endDate: text().notNull(),
+	type: integer().notNull(),
+	amount: integer().notNull(),
+
+	updatedAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
+	createdAt: text()
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
 });

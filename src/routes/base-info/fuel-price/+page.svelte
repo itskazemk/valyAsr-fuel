@@ -1,32 +1,32 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import Combobox from '$lib/components/Combobox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
+
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
-	import { page } from '$app/state';
-	import { createBaseInfo, toggleDisableBaseInfo, updateBaseInfo } from '../baseInfos.remote.js';
 
 	let defaultValues = {
 		id: null,
-		title: '',
+		startDate: null,
+		endDate: null,
+		type: null,
+		amount: null,
 	};
 
-	let { data } = $props();
+	let { data, form } = $props();
+
 	let formStatus = $state<'create' | 'update'>('create');
 
 	let formData = $state(defaultValues);
 
 	async function getFn(id: string) {
-		// const req = await fetch(`/vehicles/${id}`);
-
-		// const res = await req.json();
-
-		const value = data.baseInfos.find((item) => item.id == id);
+		const value = data.fuelPrices.find((item) => item.id == id);
 
 		if (value) {
 			formData = { ...value };
@@ -46,7 +46,7 @@
 
 		if (formStatus === 'create') {
 			try {
-				await createBaseInfo({ subId: page.params.id, title: formData.title });
+				// await createBaseInfo({ subId: page.params.id, title: formData.title });
 				formData = defaultValues;
 				toast.success('با موفقیت ثبت شد');
 			} catch (err) {
@@ -57,7 +57,7 @@
 			}
 		} else {
 			try {
-				await updateBaseInfo({ id: formData.id, title: formData.title });
+				// await updateBaseInfo({ id: formData.id, title: formData.title });
 				toast.warning('با موفقیت ویرایش شد');
 				formStatus = 'create';
 				formData = defaultValues;
@@ -70,9 +70,9 @@
 		}
 	}
 
-	async function disableFn(id: string) {
+	async function deleteFn(id: string) {
 		try {
-			await toggleDisableBaseInfo(id);
+			// await toggleDisableBaseInfo(id);
 			toast.info('با موفقیت ثبت شد');
 		} catch (err) {
 			console.log(err);
@@ -86,14 +86,10 @@
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
 	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 		<Card.Header>
-			<Card.Title>ثبت تحویل گیرنده</Card.Title>
+			<Card.Title>ثبت دریافت سوخت</Card.Title>
 		</Card.Header>
 		<Card.Content class="h-full"
-			><form
-				onsubmit={submitFn}
-				autocomplete="off"
-				class="grid h-full grid-cols-2 gap-2 rounded-sm"
-			>
+			><form class="grid h-full grid-cols-2 gap-2 rounded-sm">
 				<label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 					hidden={true}
@@ -103,8 +99,47 @@
 				</label>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="title">عنوان</Label>
-					<Input type="text" id="title" name="title" bind:value={formData.title} required={true} />
+					<Label for="startDate">تاریخ پایان</Label>
+					<TestDatePicker
+						id="startDate"
+						name="startDate"
+						bind:date={formData.startDate}
+						required={true}
+					/>
+				</div>
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="endDate">تاریخ شروع</Label>
+					<TestDatePicker
+						id="endDate"
+						name="endDate"
+						bind:date={formData.endDate}
+						required={true}
+					/>
+				</div>
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">نوع سوخت</Label>
+					<Combobox
+						required={true}
+						name="type"
+						bind:value={formData.type}
+						options={[
+							{ label: 'بنزین', value: 1 },
+							{ label: 'گازوییل', value: 2 },
+						]}
+					/>
+				</div>
+
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="type">مقدار</Label>
+					<Input
+						type="number"
+						id="amount"
+						name="amount"
+						bind:value={formData.amount}
+						required={true}
+					/>
 				</div>
 
 				<div class="col-span-2 mt-2 flex items-end gap-2">
@@ -122,34 +157,37 @@
 
 	<Card.Root>
 		<Card.Header>
-			<Card.Title>جدول تحول گیرنده‌ها</Card.Title>
+			<Card.Title>جدول قیمت سوخت‌ها</Card.Title>
 		</Card.Header>
 		<Card.Content>
 			<Table.Root class="text-center">
 				<Table.Header>
 					<Table.Row>
 						<Table.Head class="text-center">ردیف</Table.Head>
-						<Table.Head class="text-center">عنوان</Table.Head>
-						<Table.Head class="text-center">فعال</Table.Head>
+						<Table.Head class="text-center">تاریخ شروع</Table.Head>
+						<Table.Head class="text-center">تاریخ پایان</Table.Head>
+						<Table.Head class="text-center">نوع</Table.Head>
+						<Table.Head class="text-center">مقدار</Table.Head>
 						<Table.Head class="text-center">-</Table.Head>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{#each data.baseInfos as baseInfo, i (baseInfo)}
+					{#each data.fuelPrices as item, index (item)}
 						<Table.Row>
-							<Table.Cell>{i + 1}</Table.Cell>
-							<Table.Cell>{baseInfo.title}</Table.Cell>
+							<Table.Cell>{index + 1}</Table.Cell>
+							<Table.Cell>{new Date(item.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{new Date(item.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{item.type}</Table.Cell>
+							<Table.Cell>{item.amount}</Table.Cell>
 							<Table.Cell
-								><input
-									type="checkbox"
-									checked={!baseInfo.disabled}
-									onchange={() => disableFn(baseInfo.id)}
-								/></Table.Cell
-							>
-							<Table.Cell
-								><button onclick={() => getFn(baseInfo.id)} class="hover:text-yellow-500"
-									><Pen /></button
-								></Table.Cell
+								><div class="space-x-2">
+									<button onclick={() => getFn(item.id)} class="hover:text-yellow-500"
+										><Pen /></button
+									>
+									<button onclick={() => deleteFn(item.id)} class="hover:text-red-500"
+										><Trash /></button
+									>
+								</div></Table.Cell
 							>
 						</Table.Row>
 					{/each}
