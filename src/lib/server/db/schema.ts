@@ -87,7 +87,7 @@ export const baseInfos = sqliteTable('base-infos', {
 		.notNull(),
 });
 
-export const fuelPrices = sqliteTable('fuel-price', {
+export const fuelPrices = sqliteTable('fuel-prices', {
 	id: text()
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())

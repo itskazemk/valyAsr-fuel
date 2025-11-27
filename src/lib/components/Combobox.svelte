@@ -47,7 +47,7 @@
 		<Command.Root>
 			<Command.Input placeholder="جستجو" />
 			<Command.List>
-				<Command.Empty>No framework found.</Command.Empty>
+				<Command.Empty>گزینه‌ای یافت نشد</Command.Empty>
 				<Command.Group value="frameworks">
 					{#each options as option (option.value)}
 						<Command.Item

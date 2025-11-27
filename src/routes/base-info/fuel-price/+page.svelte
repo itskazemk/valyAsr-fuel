@@ -10,6 +10,17 @@
 
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
+	import { createFuelPrice, deleteFuelPrice, updateFuelPrice } from './fuelPrice.remote.js';
+	import type { CalendarDate } from '@internationalized/date';
+	import { FuelTypeLabels } from '../../vehicles/types.js';
+
+	interface defaultValues {
+		id: string | null;
+		startDate: CalendarDate | null;
+		endDate: CalendarDate | null;
+		type: number | null;
+		amount: number | null;
+	}
 
 	let defaultValues = {
 		id: null,
@@ -23,7 +34,7 @@
 
 	let formStatus = $state<'create' | 'update'>('create');
 
-	let formData = $state(defaultValues);
+	let formData = $state<defaultValues>(defaultValues);
 
 	async function getFn(id: string) {
 		const value = data.fuelPrices.find((item) => item.id == id);
@@ -44,41 +55,73 @@
 	async function submitFn(e: SubmitEvent) {
 		e.preventDefault();
 
-		if (formStatus === 'create') {
+		if (
+			formData.startDate === null ||
+			formData.endDate === null ||
+			formData.type === null ||
+			formData.amount === null
+		) {
+			toast.success('لطفا فرم را تکمیل کنید');
+		} else {
+			let startDate = formData.startDate.toString();
+			let endDate = formData.endDate.toString();
+
+			if (formStatus === 'create') {
+				try {
+					await createFuelPrice({
+						startDate: startDate,
+						endDate: endDate,
+						type: formData.type,
+						amount: formData.amount,
+					});
+					formData = defaultValues;
+					toast.success('با موفقیت ثبت شد');
+				} catch (err) {
+					console.log(err);
+					toast.error('خطا در هنگام ثبت');
+				} finally {
+					await invalidateAll();
+				}
+			} else {
+				if (formData.id === null) {
+					toast.success('خطا در هنگام ویرایش');
+					console.error('no id to send the update to FuelPrice');
+				} else {
+					try {
+						await updateFuelPrice({
+							id: formData.id,
+							startDate,
+							endDate,
+							type: formData.type,
+							amount: formData.amount,
+						});
+						toast.warning('با موفقیت ویرایش شد');
+						formStatus = 'create';
+						formData = defaultValues;
+					} catch (err) {
+						console.log(err);
+						toast.error('خطا در هنگام ویرایش');
+					} finally {
+						await invalidateAll();
+					}
+				}
+			}
+		}
+	}
+
+	async function deleteFn(id: string) {
+		const toDelete = confirm('آیا از حذف رکورد اطمینان دارید؟');
+
+		if (toDelete) {
 			try {
-				// await createBaseInfo({ subId: page.params.id, title: formData.title });
-				formData = defaultValues;
-				toast.success('با موفقیت ثبت شد');
+				await deleteFuelPrice(id);
+				toast.info('با موفقیت ثبت شد');
 			} catch (err) {
 				console.log(err);
 				toast.error('خطا در هنگام ثبت');
 			} finally {
 				await invalidateAll();
 			}
-		} else {
-			try {
-				// await updateBaseInfo({ id: formData.id, title: formData.title });
-				toast.warning('با موفقیت ویرایش شد');
-				formStatus = 'create';
-				formData = defaultValues;
-			} catch (err) {
-				console.log(err);
-				toast.error('خطا در هنگام ویرایش');
-			} finally {
-				await invalidateAll();
-			}
-		}
-	}
-
-	async function deleteFn(id: string) {
-		try {
-			// await toggleDisableBaseInfo(id);
-			toast.info('با موفقیت ثبت شد');
-		} catch (err) {
-			console.log(err);
-			toast.error('خطا در هنگام ثبت');
-		} finally {
-			await invalidateAll();
 		}
 	}
 </script>
@@ -89,7 +132,11 @@
 			<Card.Title>ثبت دریافت سوخت</Card.Title>
 		</Card.Header>
 		<Card.Content class="h-full"
-			><form class="grid h-full grid-cols-2 gap-2 rounded-sm">
+			><form
+				onsubmit={submitFn}
+				autocomplete="off"
+				class="grid h-full grid-cols-2 gap-2 rounded-sm"
+			>
 				<label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 					hidden={true}
@@ -132,7 +179,7 @@
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">مقدار</Label>
+					<Label for="amount">قیمت (تومان)</Label>
 					<Input
 						type="number"
 						id="amount"
@@ -177,7 +224,11 @@
 							<Table.Cell>{index + 1}</Table.Cell>
 							<Table.Cell>{new Date(item.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell>{new Date(item.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{item.type}</Table.Cell>
+
+							<!-- <Table.Cell>{FuelTypeLabels?.[item.type as FuelTypeEnum]}</Table.Cell> -->
+
+							<Table.Cell>{FuelTypeLabels?.[item.type]}</Table.Cell>
+
 							<Table.Cell>{item.amount}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
