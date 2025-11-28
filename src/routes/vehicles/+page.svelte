@@ -16,9 +16,12 @@
 		id: null,
 		title: null,
 		type: null,
-		plate: null,
+		plateA: null,
+		plateB: null,
+		plateC: null,
+		plateD: null,
 		fuelType: null,
-		ownerUnit: null
+		ownerUnit: null,
 	});
 
 	async function getFn(id: string) {
@@ -38,7 +41,7 @@
 			form.append('id', id);
 			fetch('?/delete', {
 				method: 'POST',
-				body: form
+				body: form,
 			});
 
 			await invalidateAll();
@@ -70,7 +73,6 @@
 					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
 				</label>
 
-
 				<!-- اینجا به سلکت آپشن تغییر پیدا کند به گونه که از اطلاعات پایه داده ها دریافت شود -->
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">عنوان</Label>
@@ -95,12 +97,12 @@
 							{ label: 'سواری', value: 1 },
 							{ label: 'مینی بوس', value: 2 },
 							{ label: 'اتوبوس', value: 3 },
-							{ label: 'موتور سیکلت', value: 4 }
+							{ label: 'موتور سیکلت', value: 4 },
 						]}
 					/>
 				</div>
 
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
+				<!-- <div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">شماره پلاک</Label>
 					<Input
 						required={true}
@@ -110,9 +112,9 @@
 						placeholder="۷۷ب۱۵۹"
 						bind:value={formData.plate}
 					/>
-				</div>
+				</div> -->
 
-				<!-- <div class="flex w-full max-w-sm flex-col gap-1.5">
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">شماره پلاک</Label>
 					<div class="grid grid-cols-4" style="direction: ltr;">
 						<Input
@@ -152,7 +154,7 @@
 							bind:value={formData.plateD}
 						/>
 					</div>
-				</div> -->
+				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">نوع سوخت</Label>
@@ -162,7 +164,7 @@
 						bind:value={formData.fuelType}
 						options={[
 							{ label: 'بنزین', value: 1 },
-							{ label: 'گازوییل', value: 2 }
+							{ label: 'گازوییل', value: 2 },
 						]}
 					/>
 				</div>
@@ -175,12 +177,10 @@
 						bind:value={formData.ownerUnit}
 						options={[
 							{ label: 'واحد ۱', value: 1 },
-							{ label: 'واحد ۲', value: 2 }
+							{ label: 'واحد ۲', value: 2 },
 						]}
 					/>
 				</div>
-
-				
 
 				<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
 			</form>
