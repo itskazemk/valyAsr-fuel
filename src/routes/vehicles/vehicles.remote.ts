@@ -10,18 +10,22 @@ export const getVehicles = query(async () => {
 });
 
 export const createVehicle = command(
-	v.object({ title, type, plate, fuelType, ownerUnit}),
+	v.object({
+		title: v.string(),
+		type: v.number(),
+		plate: v.string(),
+		fuelType: v.number(),
+		ownerUnit: v.number(),
+	}),
 	async ({ title, type, plate, fuelType, ownerUnit }) => {
 		try {
-			await db
-				.insert(vehicles)
-				.values({
-					title: ,
-					type: ,
-					plate:,
-					fuelType: ,
-					ownerUnit: ,
-				});
+			await db.insert(vehicles).values({
+				title,
+				type,
+				plate,
+				fuelType,
+				ownerUnit,
+			});
 		} catch {
 			error(502, 'failed to create vehicle');
 		}
@@ -31,10 +35,11 @@ export const createVehicle = command(
 export const updateVehicle = command(
 	v.object({
 		id: v.pipe(v.string(), v.uuid()),
-		startDate: v.string(),
-		endDate: v.string(),
+		title: v.string(),
 		type: v.number(),
-		amount: v.number(),
+		plate: v.string(),
+		fuelType: v.number(),
+		ownerUnit: v.number(),
 	}),
 	async ({ id, title, type, plate, fuelType, ownerUnit }) => {
 		try {

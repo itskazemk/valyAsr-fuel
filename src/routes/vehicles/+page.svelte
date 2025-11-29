@@ -9,10 +9,13 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { FuelTypeLabels, VehicleLabels } from './types.js';
+	import { createVehicle, deleteVehicle, updateVehicle } from './vehicles.remote.js';
+	import { toast } from 'svelte-sonner';
+	import { anyNull } from '$lib/utils.js';
 
 	let { data, form } = $props();
 
-	let formData = $state({
+	let defaultValues = {
 		id: null,
 		title: null,
 		type: null,
@@ -22,29 +25,104 @@
 		plateD: null,
 		fuelType: null,
 		ownerUnit: null,
-	});
+	};
+
+	let formStatus = $state<'create' | 'update'>('create');
+
+	let formData = $state(defaultValues);
 
 	async function getFn(id: string) {
-		const req = await fetch(`/vehicles/${id}`);
+		const value = data.vehicles.find((item) => item.id == id);
 
-		const res = await req.json();
+		const { plate, ...rest } = value;
 
-		if (res.data) {
-			formData = { ...res.data };
+		const plateSplitted = plate.split('_');
+		const plateA = plateSplitted?.[0];
+		const plateB = plateSplitted?.[1];
+		const plateC = plateSplitted?.[2];
+		const plateD = plateSplitted?.[3];
+
+		if (value) {
+			formData = { plateA, plateB, plateC, plateD, ...rest };
+
+			formStatus = 'update';
+		}
+	}
+
+	function resetForm(e) {
+		e.preventDefault();
+		formStatus = 'create';
+		formData = defaultValues;
+	}
+
+	async function submitFn(e: SubmitEvent) {
+		e.preventDefault();
+
+		let { id, ...restOfObj } = formData;
+
+		if (anyNull(restOfObj)) {
+			toast.success('لطفا فرم را تکمیل کنید');
+		} else {
+			let fullPlate = `${restOfObj.plateA}_${restOfObj.plateB}_${restOfObj.plateC}_${restOfObj.plateD}`;
+
+			if (formStatus === 'create') {
+				try {
+					await createVehicle({
+						title: formData.title,
+						type: formData.type,
+						plate: fullPlate,
+						fuelType: formData.fuelType,
+						ownerUnit: formData.ownerUnit,
+					});
+					formData = defaultValues;
+					toast.success('با موفقیت ثبت شد');
+				} catch (err) {
+					console.log(err);
+					toast.error('خطا در هنگام ثبت');
+				} finally {
+					await invalidateAll();
+				}
+			} else {
+				if (formData.id === null) {
+					toast.success('خطا در هنگام ویرایش');
+					console.error('no id to send the update to Vehicle');
+				} else {
+					try {
+						await updateVehicle({
+							id: formData.id,
+							title: formData.title,
+							type: formData.type,
+							plate: fullPlate,
+							fuelType: formData.fuelType,
+							ownerUnit: formData.ownerUnit,
+						});
+						toast.warning('با موفقیت ویرایش شد');
+						formStatus = 'create';
+						formData = defaultValues;
+					} catch (err) {
+						console.log(err);
+						toast.error('خطا در هنگام ویرایش');
+					} finally {
+						await invalidateAll();
+					}
+				}
+			}
 		}
 	}
 
 	async function deleteFn(id: string) {
-		const isSure = confirm('آیا از حذف وسیله نقلیه اطمینان دارید؟');
-		if (isSure) {
-			const form = new FormData();
-			form.append('id', id);
-			fetch('?/delete', {
-				method: 'POST',
-				body: form,
-			});
+		const toDelete = confirm('آیا از حذف رکورد اطمینان دارید؟');
 
-			await invalidateAll();
+		if (toDelete) {
+			try {
+				await deleteVehicle(id);
+				toast.info('با موفقیت ثبت شد');
+			} catch (err) {
+				console.log(err);
+				toast.error('خطا در هنگام ثبت');
+			} finally {
+				await invalidateAll();
+			}
 		}
 	}
 </script>
@@ -55,16 +133,7 @@
 			<Card.Title>ثبت اطلاعات</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<form
-				method="POST"
-				action={formData.id ? '?/update' : '?/create'}
-				use:enhance={() => {
-					return async ({ update }) => {
-						await update();
-					};
-				}}
-				class="grid h-full grid-cols-2 gap-2 rounded-sm"
-			>
+			<form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
 				<label
 					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 					hidden={true}
@@ -120,7 +189,8 @@
 						<Input
 							class="rounded-r-none"
 							required={true}
-							type="text"
+							type="number"
+							maxlength={2}
 							id="plate"
 							name="plate"
 							placeholder="۷۷"
@@ -130,6 +200,7 @@
 							class="rounded-l-none rounded-r-none"
 							required={true}
 							type="text"
+							maxlength={1}
 							id="plate"
 							name="plate"
 							placeholder="ب"
@@ -138,7 +209,8 @@
 						<Input
 							class="rounded-l-none rounded-r-none"
 							required={true}
-							type="text"
+							type="number"
+							maxlength={3}
 							id="plate"
 							name="plate"
 							placeholder="۱۵۹"
@@ -148,6 +220,7 @@
 							class="rounded-l-none"
 							required={true}
 							type="text"
+							maxlength={2}
 							id="plate"
 							name="plate"
 							placeholder="۶۴"
@@ -205,10 +278,18 @@
 				</Table.Header>
 				<Table.Body>
 					{#each data.vehicles as vehicle (vehicle)}
+						{@const plateSplitted = vehicle.plate.split('_')}
 						<Table.Row>
 							<Table.Cell>{vehicle.title}</Table.Cell>
 							<Table.Cell>{VehicleLabels?.[vehicle.type]}</Table.Cell>
-							<Table.Cell>{vehicle.plate}</Table.Cell>
+							<Table.Cell class=""
+								><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
+									<div>{plateSplitted?.[0]}</div>
+									<div>{plateSplitted?.[1]}</div>
+									<div>{plateSplitted?.[2]}</div>
+									<div>{plateSplitted?.[3]}</div>
+								</div></Table.Cell
+							>
 							<Table.Cell>{FuelTypeLabels?.[vehicle.fuelType]}</Table.Cell>
 							<Table.Cell>{vehicle.ownerUnit}</Table.Cell>
 							<Table.Cell
