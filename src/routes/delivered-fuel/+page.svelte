@@ -11,6 +11,7 @@
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 	import { FuelTypeLabels } from '../vehicles/types.js';
+	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
 
 	let defaultValues = {
 		id: null,
@@ -26,6 +27,20 @@
 	let formStatus = $state<'create' | 'update'>('create');
 
 	let formData = $state(defaultValues);
+
+	let computedPrice = $derived.by(async () => {
+		const selectedDate = formData.date;
+
+		if (selectedDate) {
+			let val = await getFuelPriceAtDate('2026-01-01');
+
+			console.log(111, val);
+
+			return val;
+		} else {
+			return null;
+		}
+	});
 
 	async function getFn(id: string) {
 		// const req = await fetch(`/vehicles/${id}`);
@@ -64,6 +79,10 @@
 
 	$inspect(data.fuelOutputs);
 </script>
+
+{#await computedPrice then value}
+	<div class="bg-red-400 p-3">{value}</div>
+{/await}
 
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
 	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
@@ -194,7 +213,7 @@
 				</div>
 
 				<div class="col-span-2 mt-2 flex items-end gap-2">
-					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت (قیمت)</Button>
+					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت (0)</Button>
 					<Button
 						onclick={resetForm}
 						class="cursor-pointer bg-blue-500 hover:bg-blue-600"

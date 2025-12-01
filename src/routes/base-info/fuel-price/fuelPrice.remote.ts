@@ -2,7 +2,7 @@ import { command, query } from '$app/server';
 import { db } from '$lib/server/db';
 import { fuelPrices } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { and, between, eq, gte, lte, or } from 'drizzle-orm';
 import * as v from 'valibot';
 
 export const getFuelPrices = query(async () => {
@@ -45,5 +45,19 @@ export const deleteFuelPrice = command(v.pipe(v.string(), v.uuid()), async (id) 
 		await db.delete(fuelPrices).where(eq(fuelPrices.id, id));
 	} catch {
 		error(502, 'failed to delete fuelPrice');
+	}
+});
+
+//TODO: add fuelType
+export const getFuelPriceAtDate = query(v.string(), async (date) => {
+	try {
+		const val = await db
+			.select({ amount: fuelPrices.amount })
+			.from(fuelPrices)
+			.where(and(gte(fuelPrices.endDate, date), lte(fuelPrices.startDate, date)));
+
+		return val?.at(0)?.amount;
+	} catch {
+		error(502, `failed to get fuelPrice at ${date}`);
 	}
 });
