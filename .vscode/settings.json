@@ -1,18 +1,18 @@
 {
-    "cSpell.language": "en,fa",
-    "workbench.editor.customLabels.patterns": {
-        //----------------------PMS-------------------------------
-        "**/src/**/+page.svelte": "page ${dirname}",
-        "**/src/**/+layout.svelte": "layout ${dirname}",
-    },
-    "editor.formatOnSave": true,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "sqlite",
-            "database": "${workspaceFolder:valyAsr-fuel}/local.db"
-        }
-    ],
-    "sqltools.useNodeRuntime": true
+	"cSpell.language": "en,fa",
+	"workbench.editor.customLabels.patterns": {
+		//----------------------PMS-------------------------------
+		"**/src/**/+page.svelte": "page ${dirname}",
+		"**/src/**/+layout.svelte": "layout ${dirname}"
+	},
+	"editor.formatOnSave": true,
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"driver": "SQLite",
+			"name": "sqlite",
+			"database": "${workspaceFolder:valyAsr-fuel}/local.db"
+		}
+	],
+	"sqltools.useNodeRuntime": true
 }

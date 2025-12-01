@@ -4,7 +4,7 @@ import {
 	CalendarDate,
 	GregorianCalendar,
 	PersianCalendar,
-	toCalendar
+	toCalendar,
 } from '@internationalized/date';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -32,7 +32,7 @@ export const actions = {
 			new PersianCalendar(),
 			Number(dateSplitted?.at(0)),
 			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2))
+			Number(dateSplitted?.at(2)),
 		);
 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
@@ -41,7 +41,7 @@ export const actions = {
 			await db.insert(fuelInputs).values({
 				date: data.date,
 				type: data.type,
-				amount: data.amount
+				amount: data.amount,
 			});
 		} catch (error) {
 			return fail(422, { error: error.message });
@@ -59,7 +59,7 @@ export const actions = {
 			new PersianCalendar(),
 			Number(dateSplitted?.at(0)),
 			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2))
+			Number(dateSplitted?.at(2)),
 		);
 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
@@ -73,5 +73,5 @@ export const actions = {
 		const data = await request.formData();
 		const id = data.get('id');
 		await db.delete(fuelInputs).where(eq(fuelInputs.id, id));
-	}
+	},
 };

@@ -10,15 +10,14 @@ const config = {
 	compilerOptions: {
 		runes: true,
 		experimental: {
-			async: true
-		}
+			async: true,
+		},
 	},
-
 
 	// alt+x
 	vitePlugin: {
-		inspector: true
-	}
+		inspector: true,
+	},
 };
 
 export default config;

@@ -4,7 +4,7 @@ import {
 	CalendarDate,
 	GregorianCalendar,
 	PersianCalendar,
-	toCalendar
+	toCalendar,
 } from '@internationalized/date';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -19,7 +19,7 @@ export async function load({ cookies }) {
 
 	return {
 		fuelOutputs: await db.select().from(fuelOutputs),
-		vehicles: await db.select().from(vehicles)
+		vehicles: await db.select().from(vehicles),
 	};
 }
 
@@ -35,7 +35,7 @@ export const actions = {
 			new PersianCalendar(),
 			Number(dateSplitted?.at(0)),
 			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2))
+			Number(dateSplitted?.at(2)),
 		);
 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
@@ -44,19 +44,17 @@ export const actions = {
 		console.log('fuelOutputs-Create', data);
 
 		try {
-
-			if(data?.vehicleId == null){
-				return fail(422, { error: "vehicleId is null" });
+			if (data?.vehicleId == null) {
+				return fail(422, { error: 'vehicleId is null' });
 			}
 
-			const vehicle = await db.select().from(vehicles).where(eq(vehicles.id, data.vehicleId))
+			const vehicle = await db.select().from(vehicles).where(eq(vehicles.id, data.vehicleId));
 
-			if(!vehicle){
-				return fail(422, { error: "no vehicle found to get its fuelType" });
+			if (!vehicle) {
+				return fail(422, { error: 'no vehicle found to get its fuelType' });
 			}
 
 			data.fuelType = vehicle?.[0].fuelType;
-
 
 			await db.insert(fuelOutputs).values(data);
 		} catch (error) {
@@ -75,7 +73,7 @@ export const actions = {
 			new PersianCalendar(),
 			Number(dateSplitted?.at(0)),
 			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2))
+			Number(dateSplitted?.at(2)),
 		);
 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
@@ -89,5 +87,5 @@ export const actions = {
 		const data = await request.formData();
 		const id = data.get('id');
 		await db.delete(fuelOutputs).where(eq(fuelOutputs.id, id));
-	}
+	},
 };

@@ -4,6 +4,6 @@ export async function load({ params }) {
 	let values = await getBaseInfo(params.id);
 
 	return {
-		baseInfos: values
+		baseInfos: values,
 	};
 }

@@ -18,7 +18,7 @@
 		amount: null,
 		vehicleId: null,
 		DelivererId: null,
-		ReceiverId: null
+		ReceiverId: null,
 	};
 
 	let { data, form } = $props();
@@ -48,7 +48,7 @@
 			form.append('id', id);
 			fetch('?/delete', {
 				method: 'POST',
-				body: form
+				body: form,
 			});
 
 			await invalidateAll();
@@ -128,7 +128,7 @@
 							{ label: 'شخص دو', value: 2 },
 							{ label: 'شخص سه', value: 3 },
 							{ label: 'شخص چهار', value: 4 },
-							{ label: 'شخص پنج', value: 5 }
+							{ label: 'شخص پنج', value: 5 },
 						]}
 					/>
 				</div>
@@ -145,7 +145,7 @@
 							{ label: 'شخص دو', value: 2 },
 							{ label: 'شخص سه', value: 3 },
 							{ label: 'شخص چهار', value: 4 },
-							{ label: 'شخص پنج', value: 5 }
+							{ label: 'شخص پنج', value: 5 },
 						]}
 					/>
 				</div>
@@ -164,7 +164,6 @@
 					/>
 				</div>
 
-
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="amount">کیلومتر</Label>
 					<Input
@@ -176,7 +175,6 @@
 					/>
 				</div>
 
-
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="type">محل سوخت گیری</Label>
 					<Combobox
@@ -185,7 +183,7 @@
 						options={[
 							{ label: 'داخل پادگان', value: 1 },
 							{ label: 'خارج پادگان - آزاد', value: 2 },
-							{ label: 'خارج پادگان - رایگان', value: 3 }
+							{ label: 'خارج پادگان - رایگان', value: 3 },
 						]}
 					/>
 				</div>
