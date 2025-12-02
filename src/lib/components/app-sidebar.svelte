@@ -17,7 +17,7 @@
 					},
 					{
 						title: 'سوخت دریافتی',
-						url: '/received-fuel',
+						url: '/fuel-inputs',
 					},
 					{
 						title: 'سوخت تحویلی',
