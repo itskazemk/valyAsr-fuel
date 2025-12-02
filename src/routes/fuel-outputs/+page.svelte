@@ -11,6 +11,7 @@
 	import { toast } from 'svelte-sonner';
 	import { FuelTypeLabels } from '../vehicles/types.js';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
+	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
 
 	let defaultValues = {
 		id: null,
@@ -63,28 +64,27 @@
 		formStatus = 'create';
 		formData = defaultValues;
 	}
+	$inspect(333, formData);
 
 	async function submitFn(e: SubmitEvent) {
 		e.preventDefault();
 
-		if (
-			formData.startDate === null ||
-			formData.endDate === null ||
-			formData.type === null ||
-			formData.amount === null
-		) {
+		if (formData.date === null) {
 			toast.success('لطفا فرم را تکمیل کنید');
 		} else {
-			let startDate = formData.startDate.toString();
-			let endDate = formData.endDate.toString();
+			let date = formData.date.toString();
 
 			if (formStatus === 'create') {
 				try {
-					await createfuelOutputs({
-						startDate: startDate,
-						endDate: endDate,
-						type: formData.type,
+					await createFuelOutput({
+						date: date,
+						vehicleId: formData.vehicleId,
+						DelivererPersonId: formData.DelivererPersonId,
+						ReceiverPersonId: formData.ReceiverPersonId,
 						amount: formData.amount,
+						kilometer: formData.kilometer,
+						location: formData.kilometer,
+						description: formData.description,
 					});
 					formData = defaultValues;
 					toast.success('با موفقیت ثبت شد');
@@ -100,12 +100,16 @@
 					console.error('no id to send the update to fuelOutputs');
 				} else {
 					try {
-						await updatefuelOutputs({
+						await updateFuelOutput({
 							id: formData.id,
-							startDate,
-							endDate,
-							type: formData.type,
+							date: date,
+							vehicleId: formData.vehicleId,
+							DelivererPersonId: formData.DelivererPersonId,
+							ReceiverPersonId: formData.ReceiverPersonId,
 							amount: formData.amount,
+							kilometer: formData.kilometer,
+							location: formData.kilometer,
+							description: formData.description,
 						});
 						toast.warning('با موفقیت ویرایش شد');
 						formStatus = 'create';
@@ -126,7 +130,7 @@
 
 		if (toDelete) {
 			try {
-				await deletefuelOutputs(id);
+				await deleteFuelOutput(id);
 				toast.info('با موفقیت ثبت شد');
 			} catch (err) {
 				console.log(err);
@@ -137,10 +141,6 @@
 		}
 	}
 </script>
-
-{#await computedPrice then value}
-	<div class="bg-red-400 p-3">{value}</div>
-{/await}
 
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
 	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
@@ -186,13 +186,7 @@
 						name="ReceiverId"
 						bind:value={formData.ReceiverPersonId}
 						required={true}
-						options={[
-							{ label: 'شخص یک', value: 1 },
-							{ label: 'شخص دو', value: 2 },
-							{ label: 'شخص سه', value: 3 },
-							{ label: 'شخص چهار', value: 4 },
-							{ label: 'شخص پنج', value: 5 },
-						]}
+						options={data.ReceiverPersons}
 					/>
 				</div>
 
@@ -203,13 +197,7 @@
 						name="DelivererId"
 						bind:value={formData.DelivererPersonId}
 						required={true}
-						options={[
-							{ label: 'شخص یک', value: 1 },
-							{ label: 'شخص دو', value: 2 },
-							{ label: 'شخص سه', value: 3 },
-							{ label: 'شخص چهار', value: 4 },
-							{ label: 'شخص پنج', value: 5 },
-						]}
+						options={data.DelivererPersons}
 					/>
 				</div>
 
@@ -241,7 +229,7 @@
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="location">محل سوخت گیری</Label>
 					<Combobox
-						bind:value={formData.kilometer}
+						bind:value={formData.location}
 						required={true}
 						name="location"
 						options={[
@@ -294,6 +282,7 @@
 						<Table.Head class="text-center">تحویل دهنده</Table.Head>
 						<Table.Head class="text-center">نوع سوخت</Table.Head>
 						<Table.Head class="text-center">مقدار</Table.Head>
+						<Table.Head class="text-center">توضیحات</Table.Head>
 						<Table.Head class="text-center">-</Table.Head>
 					</Table.Row>
 				</Table.Header>
@@ -303,10 +292,21 @@
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell>{vehicle?.title}-{vehicle?.ownerUnit}-{vehicle?.plate}</Table.Cell>
-							<Table.Cell>{record.ReceiverPersonId}</Table.Cell>
-							<Table.Cell>{record.DelivererPersonId}</Table.Cell>
-							<Table.Cell>{FuelTypeLabels?.[record.fuelType]}</Table.Cell>
+							<Table.Cell
+								>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)
+									?.label}</Table.Cell
+							>
+							<Table.Cell
+								>{data.DelivererPersons.find((item) => item.value === record.DelivererPersonId)
+									?.label}</Table.Cell
+							>
+							<Table.Cell
+								>{FuelTypeLabels?.[
+									data.vehicles.find((item) => item.id === record.vehicleId)?.fuelType
+								]}</Table.Cell
+							>
 							<Table.Cell>{record.amount}</Table.Cell>
+							<Table.Cell>{record.description}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
 									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"

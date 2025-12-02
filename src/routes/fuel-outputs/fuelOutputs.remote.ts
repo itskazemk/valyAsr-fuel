@@ -10,10 +10,37 @@ export const getFuelOutputs = query(async () => {
 });
 
 export const createFuelOutput = command(
-	v.object({ startDate: v.string(), endDate: v.string(), type: v.number(), amount: v.number() }),
-	async ({ startDate, endDate, type, amount }) => {
+	v.object({
+		date: v.string(),
+		vehicleId: v.string(),
+		DelivererPersonId: v.string(),
+		ReceiverPersonId: v.string(),
+		amount: v.number(),
+		kilometer: v.number(),
+		location: v.number(),
+		description: v.string(),
+	}),
+	async ({
+		date,
+		vehicleId,
+		DelivererPersonId,
+		ReceiverPersonId,
+		amount,
+		kilometer,
+		location,
+		description,
+	}) => {
 		try {
-			await db.insert(fuelOutputs).values({ startDate, endDate, type, amount });
+			await db.insert(fuelOutputs).values({
+				date,
+				vehicleId,
+				DelivererPersonId,
+				ReceiverPersonId,
+				amount,
+				kilometer,
+				location,
+				description,
+			});
 		} catch {
 			error(502, 'failed to create FuelOutput');
 		}
@@ -23,16 +50,40 @@ export const createFuelOutput = command(
 export const updateFuelOutput = command(
 	v.object({
 		id: v.pipe(v.string(), v.uuid()),
-		startDate: v.string(),
-		endDate: v.string(),
-		type: v.number(),
+		date: v.string(),
+		vehicleId: v.string(),
+		DelivererPersonId: v.string(),
+		ReceiverPersonId: v.string(),
 		amount: v.number(),
+		kilometer: v.number(),
+		location: v.number(),
+		description: v.string(),
 	}),
-	async ({ id, startDate, endDate, type, amount }) => {
+	async ({
+		id,
+		date,
+		vehicleId,
+		DelivererPersonId,
+		ReceiverPersonId,
+		amount,
+		kilometer,
+		location,
+		description,
+	}) => {
 		try {
 			await db
 				.update(fuelOutputs)
-				.set({ startDate, endDate, type, amount })
+				.set({
+					id,
+					date,
+					vehicleId,
+					DelivererPersonId,
+					ReceiverPersonId,
+					amount,
+					kilometer,
+					location,
+					description,
+				})
 				.where(eq(fuelOutputs.id, id));
 		} catch {
 			error(502, 'failed to update FuelOutput');

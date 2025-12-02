@@ -69,6 +69,14 @@ export const fuelOutputsRelations = relations(fuelOutputs, ({ one }) => ({
 		fields: [fuelOutputs.vehicleId],
 		references: [vehicles.id],
 	}),
+	DelivererPerson: one(baseInfos, {
+		fields: [fuelOutputs.DelivererPersonId],
+		references: [baseInfos.id],
+	}),
+	ReceiverPerson: one(baseInfos, {
+		fields: [fuelOutputs.ReceiverPersonId],
+		references: [baseInfos.id],
+	}),
 }));
 
 export const baseInfos = sqliteTable('base-infos', {
@@ -79,6 +87,7 @@ export const baseInfos = sqliteTable('base-infos', {
 
 	subId: text(),
 	title: text().notNull(),
+	persianTitle: text().notNull(),
 	disabled: integer().notNull().default(0),
 
 	updatedAt: text()
@@ -88,6 +97,10 @@ export const baseInfos = sqliteTable('base-infos', {
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
 });
+
+export const baseInfosRelations = relations(baseInfos, ({ many }) => ({
+	fuelOutputs: many(fuelOutputs),
+}));
 
 export const fuelPrices = sqliteTable('fuel-prices', {
 	id: text()

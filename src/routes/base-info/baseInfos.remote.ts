@@ -2,7 +2,7 @@ import { command, form, query } from '$app/server';
 import { db } from '$lib/server/db';
 import { baseInfos } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { eq, isNull } from 'drizzle-orm';
+import { eq, ilike, isNull, like } from 'drizzle-orm';
 // import { db } from '../../lib/server/db';
 // import { baseInfos } from '../../lib/server/db/schema';
 import * as v from 'valibot';
@@ -15,6 +15,15 @@ export const getBaseInfo = query(v.nullable(v.pipe(v.string(), v.uuid())), async
 		const items = await db.select().from(baseInfos).where(isNull(baseInfos.subId));
 		return items;
 	}
+});
+
+export const getBaseInfoByTitle = query(v.string(), async (parentTitle) => {
+	const parentItem = (
+		await db.select().from(baseInfos).where(like(baseInfos.title, parentTitle.toLocaleLowerCase()))
+	)?.at(0);
+
+	const items = await db.select().from(baseInfos).where(eq(baseInfos.subId, parentItem?.id));
+	return items;
 });
 
 export const createBaseInfo = command(

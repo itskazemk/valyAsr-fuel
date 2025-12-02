@@ -1,91 +1,20 @@
-import { db } from '$lib/server/db/index.js';
-import { fuelOutputs, vehicles } from '$lib/server/db/schema.js';
-import {
-	CalendarDate,
-	GregorianCalendar,
-	PersianCalendar,
-	toCalendar,
-} from '@internationalized/date';
-import { fail } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { getBaseInfoByTitle } from '../base-info/baseInfos.remote.js';
+import { getVehicles } from '../vehicles/vehicles.remote.js';
+import { getFuelOutputs } from './fuelOutputs.remote.js';
 
 export async function load({ cookies }) {
-	// let id = cookies.get('userid');
+	const DelivererPersons = (await getBaseInfoByTitle('DelivererPersons')).map((item) => {
+		return { label: item.persianTitle, value: item.id };
+	});
 
-	// if (!id) {
-	// 	id = crypto.randomUUID();
-	// 	cookies.set('userid', id, { path: '/' });
-	// }
+	const ReceiverPersons = (await getBaseInfoByTitle('ReceiverPersons')).map((item) => {
+		return { label: item.persianTitle, value: item.id };
+	});
 
 	return {
-		fuelOutputs: await db.select().from(fuelOutputs),
-		vehicles: await db.select().from(vehicles),
+		fuelOutputs: await getFuelOutputs(),
+		vehicles: await getVehicles(),
+		DelivererPersons: DelivererPersons,
+		ReceiverPersons: ReceiverPersons,
 	};
 }
-
-export const actions = {
-	create: async ({ request }) => {
-		const formData = await request.formData();
-
-		const data = Object.fromEntries(formData);
-
-		// CONVERT Persian Date to Gregorian
-		const dateSplitted = data.date.split('/');
-		const datePersian = new CalendarDate(
-			new PersianCalendar(),
-			Number(dateSplitted?.at(0)),
-			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2)),
-		);
-		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
-
-		// Removing the id value, it would be generated auto on save
-		delete data.id;
-		console.log('fuelOutputs-Create', data);
-
-		try {
-			if (data?.vehicleId == null) {
-				return fail(422, { error: 'vehicleId is null' });
-			}
-
-			const vehicle = await db.select().from(vehicles).where(eq(vehicles.id, data.vehicleId));
-
-			if (!vehicle) {
-				return fail(422, { error: 'no vehicle found to get its fuelType' });
-			}
-
-			data.fuelType = vehicle?.[0].fuelType;
-
-			await db.insert(fuelOutputs).values(data);
-		} catch (error) {
-			return fail(422, { error: error.message });
-		}
-	},
-
-	update: async ({ request }) => {
-		const formData = await request.formData();
-
-		const data = Object.fromEntries(formData);
-
-		// CONVERT Persian Date to Gregorian
-		const dateSplitted = data.date.split('/');
-		const datePersian = new CalendarDate(
-			new PersianCalendar(),
-			Number(dateSplitted?.at(0)),
-			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2)),
-		);
-		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
-
-		await db
-			.update(fuelOutputs)
-			.set({ ...data })
-			.where(eq(fuelOutputs.id, data.id));
-	},
-
-	delete: async ({ request }) => {
-		const data = await request.formData();
-		const id = data.get('id');
-		await db.delete(fuelOutputs).where(eq(fuelOutputs.id, id));
-	},
-};
