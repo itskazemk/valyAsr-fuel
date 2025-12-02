@@ -48,16 +48,27 @@ export const deleteFuelPrice = command(v.pipe(v.string(), v.uuid()), async (id) 
 	}
 });
 
-//TODO: add fuelType
-export const getFuelPriceAtDate = query(v.string(), async (date) => {
-	try {
-		const val = await db
-			.select({ amount: fuelPrices.amount })
-			.from(fuelPrices)
-			.where(and(gte(fuelPrices.endDate, date), lte(fuelPrices.startDate, date)));
+export const getFuelPriceAtDate = query(
+	v.object({ date: v.string(), fuelType: v.number() }),
+	async ({ date, fuelType }) => {
+		try {
+			const val = await db
+				.select({ amount: fuelPrices.amount })
+				.from(fuelPrices)
+				.where(
+					and(
+						and(gte(fuelPrices.endDate, date), lte(fuelPrices.startDate, date)),
+						eq(fuelPrices.type, fuelType),
+					),
+				);
 
-		return val?.at(0)?.amount;
-	} catch {
-		error(502, `failed to get fuelPrice at ${date}`);
-	}
-});
+			if (val.length === 0) {
+				return null;
+			}
+
+			return val?.at(0)?.amount;
+		} catch {
+			error(502, `failed to get fuelPrice at ${date}`);
+		}
+	},
+);

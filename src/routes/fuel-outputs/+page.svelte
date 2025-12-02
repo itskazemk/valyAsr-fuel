@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -16,10 +15,13 @@
 	let defaultValues = {
 		id: null,
 		date: null,
-		amount: null,
 		vehicleId: null,
-		DelivererId: null,
-		ReceiverId: null,
+		DelivererPersonId: null,
+		ReceiverPersonId: null,
+		amount: null,
+		kilometer: null,
+		location: null,
+		description: null,
 	};
 
 	let { data, form } = $props();
@@ -30,23 +32,23 @@
 
 	let computedPrice = $derived.by(async () => {
 		const selectedDate = formData.date;
+		const selectedFuelAmount = formData.amount;
 
-		if (selectedDate) {
-			let val = await getFuelPriceAtDate('2026-01-01');
+		if (selectedDate && selectedFuelAmount) {
+			let basePrice = await getFuelPriceAtDate({ date: '2026-01-01', fuelType: 1 });
 
-			console.log(111, val);
+			if (basePrice) {
+				let price = basePrice * selectedFuelAmount;
+				return price;
+			}
 
-			return val;
+			return null;
 		} else {
 			return null;
 		}
 	});
 
 	async function getFn(id: string) {
-		// const req = await fetch(`/vehicles/${id}`);
-
-		// const res = await req.json();
-
 		const value = data.fuelOutputs.find((item) => item.id == id);
 
 		if (value) {
@@ -56,28 +58,84 @@
 		}
 	}
 
-	async function deleteFn(id: string) {
-		const isSure = confirm('آیا از حذف اطمینان دارید؟');
-		if (isSure) {
-			const form = new FormData();
-			form.append('id', id);
-			fetch('?/delete', {
-				method: 'POST',
-				body: form,
-			});
-
-			await invalidateAll();
-			toast.success('با موفقیت حذف شد');
-		}
-	}
-
 	function resetForm(e) {
 		e.preventDefault();
 		formStatus = 'create';
 		formData = defaultValues;
 	}
 
-	$inspect(data.fuelOutputs);
+	async function submitFn(e: SubmitEvent) {
+		e.preventDefault();
+
+		if (
+			formData.startDate === null ||
+			formData.endDate === null ||
+			formData.type === null ||
+			formData.amount === null
+		) {
+			toast.success('لطفا فرم را تکمیل کنید');
+		} else {
+			let startDate = formData.startDate.toString();
+			let endDate = formData.endDate.toString();
+
+			if (formStatus === 'create') {
+				try {
+					await createfuelOutputs({
+						startDate: startDate,
+						endDate: endDate,
+						type: formData.type,
+						amount: formData.amount,
+					});
+					formData = defaultValues;
+					toast.success('با موفقیت ثبت شد');
+				} catch (err) {
+					console.log(err);
+					toast.error('خطا در هنگام ثبت');
+				} finally {
+					await invalidateAll();
+				}
+			} else {
+				if (formData.id === null) {
+					toast.success('خطا در هنگام ویرایش');
+					console.error('no id to send the update to fuelOutputs');
+				} else {
+					try {
+						await updatefuelOutputs({
+							id: formData.id,
+							startDate,
+							endDate,
+							type: formData.type,
+							amount: formData.amount,
+						});
+						toast.warning('با موفقیت ویرایش شد');
+						formStatus = 'create';
+						formData = defaultValues;
+					} catch (err) {
+						console.log(err);
+						toast.error('خطا در هنگام ویرایش');
+					} finally {
+						await invalidateAll();
+					}
+				}
+			}
+		}
+	}
+
+	async function deleteFn(id: string) {
+		const toDelete = confirm('آیا از حذف رکورد اطمینان دارید؟');
+
+		if (toDelete) {
+			try {
+				await deletefuelOutputs(id);
+				toast.info('با موفقیت ثبت شد');
+			} catch (err) {
+				console.log(err);
+				toast.error('خطا در هنگام ثبت');
+			} finally {
+				await invalidateAll();
+			}
+		}
+	}
 </script>
 
 {#await computedPrice then value}
@@ -91,22 +149,8 @@
 		</Card.Header>
 		<Card.Content class="h-full"
 			><form
-				method="POST"
-				action={formData.id ? '?/update' : '?/create'}
-				use:enhance={() => {
-					return async (aaa) => {
-						// console.log(Object.fromEntries(aaa.formData));
-						// console.log(aaa.action);
-						// console.log(aaa.formElement);
-						// console.log(aaa.result);
-						await aaa.update();
-
-						formData = { id: null, date: null, type: null, amount: null };
-						formStatus = 'create';
-
-						toast.success('با موفقیت ثبت شد');
-					};
-				}}
+				onsubmit={submitFn}
+				autocomplete="off"
 				class="grid h-full grid-cols-2 gap-2 rounded-sm"
 			>
 				<label
@@ -140,7 +184,7 @@
 					<Label for="ReceiverId">تحویل گیرنده</Label>
 					<Combobox
 						name="ReceiverId"
-						bind:value={formData.ReceiverId}
+						bind:value={formData.ReceiverPersonId}
 						required={true}
 						options={[
 							{ label: 'شخص یک', value: 1 },
@@ -157,7 +201,7 @@
 					<Label for="DelivererId">تحویل دهنده</Label>
 					<Combobox
 						name="DelivererId"
-						bind:value={formData.DelivererId}
+						bind:value={formData.DelivererPersonId}
 						required={true}
 						options={[
 							{ label: 'شخص یک', value: 1 },
@@ -184,21 +228,22 @@
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="amount">کیلومتر</Label>
+					<Label for="kilometer">کیلومتر</Label>
 					<Input
 						type="number"
-						id="amount"
-						name="amount"
-						bind:value={formData.amount}
+						id="kilometer"
+						name="kilometer"
+						bind:value={formData.kilometer}
 						required={true}
 					/>
 				</div>
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">محل سوخت گیری</Label>
+					<Label for="location">محل سوخت گیری</Label>
 					<Combobox
+						bind:value={formData.kilometer}
 						required={true}
-						name="ownerUnit"
+						name="location"
 						options={[
 							{ label: 'داخل پادگان', value: 1 },
 							{ label: 'خارج پادگان - آزاد', value: 2 },
@@ -209,11 +254,21 @@
 
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="description">توضیحات</Label>
-					<textarea id="description" class="rounded-md border border-gray-300"></textarea>
+					<textarea
+						id="description"
+						bind:value={formData.description}
+						class="rounded-md border border-gray-300"
+					></textarea>
 				</div>
 
 				<div class="col-span-2 mt-2 flex items-end gap-2">
-					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت (0)</Button>
+					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit"
+						>ثبت (<span
+							>{#await computedPrice then val}
+								{val} تومان
+							{/await}</span
+						>)</Button
+					>
 					<Button
 						onclick={resetForm}
 						class="cursor-pointer bg-blue-500 hover:bg-blue-600"
@@ -248,8 +303,8 @@
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell>{vehicle?.title}-{vehicle?.ownerUnit}-{vehicle?.plate}</Table.Cell>
-							<Table.Cell>{record.ReceiverId}</Table.Cell>
-							<Table.Cell>{record.DelivererId}</Table.Cell>
+							<Table.Cell>{record.ReceiverPersonId}</Table.Cell>
+							<Table.Cell>{record.DelivererPersonId}</Table.Cell>
 							<Table.Cell>{FuelTypeLabels?.[record.fuelType]}</Table.Cell>
 							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell

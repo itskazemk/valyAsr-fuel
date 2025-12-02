@@ -9,26 +9,26 @@
 				items: [
 					{
 						title: 'اطلاعات پایه',
-						url: '/base-info'
+						url: '/base-info',
 					},
 					{
 						title: 'وسایل نقلیه',
-						url: '/vehicles'
+						url: '/vehicles',
 					},
 					{
 						title: 'سوخت دریافتی',
-						url: '/received-fuel'
+						url: '/received-fuel',
 					},
 					{
 						title: 'سوخت تحویلی',
-						url: '/delivered-fuel'
+						url: 'fuel-outputs',
 					},
 					{
 						title: 'گزارشات',
-						url: '/reports'
-					}
-				]
-			}
+						url: '/reports',
+					},
+				],
+			},
 			// {
 			// 	title: "Building Your Application",
 			// 	url: "#",
@@ -84,7 +84,7 @@
 			// 		},
 			// 	],
 			// },
-		]
+		],
 	};
 </script>
 
