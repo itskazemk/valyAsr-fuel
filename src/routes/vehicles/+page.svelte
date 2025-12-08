@@ -116,10 +116,10 @@
 		if (toDelete) {
 			try {
 				await deleteVehicle(id);
-				toast.info('با موفقیت ثبت شد');
+				toast.info('با موفقیت حذف شد');
 			} catch (err) {
 				console.log(err);
-				toast.error('خطا در هنگام ثبت');
+				toast.error('خطا در هنگام حذف');
 			} finally {
 				await invalidateAll();
 			}
@@ -249,8 +249,26 @@
 						name="ownerUnit"
 						bind:value={formData.ownerUnit}
 						options={[
-							{ label: 'واحد ۱', value: 1 },
-							{ label: 'واحد ۲', value: 2 },
+							{ label: 'فرماندهی', value: 1 },
+							{ label: 'حفاظت', value: 2 },
+							{ label: 'حوزه', value: 3 },
+							{ label: 'ایمنی', value: 4 },
+							{ label: 'بازرسی', value: 5 },
+							{ label: 'نیرو انسانی', value: 6 },
+							{ label: 'طرح و برنامه', value: 7 },
+							{ label: 'قرارگاه', value: 8 },
+							{ label: 'مهندسی', value: 9 },
+							{ label: 'آماد و پشتیبانی', value: 10 },
+							{ label: 'آموزش', value: 11 },
+							{ label: 'بهداری', value: 12 },
+							{ label: 'فرهنگی', value: 13 },
+							{ label: 'تربیت بدنی', value: 14 },
+							{ label: 'تیپ آموزش-گردان اول', value: 15 },
+							{ label: 'تیپ آموزش-گردان دوم', value: 16 },
+							{ label: 'فاوا', value: 17 },
+							// { label: 'واحد ۲', value: 11 },
+							// { label: 'واحد ۲', value: 11 },
+							// { label: 'واحد ۲', value: 11 },
 						]}
 					/>
 				</div>

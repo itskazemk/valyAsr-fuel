@@ -131,10 +131,10 @@
 		if (toDelete) {
 			try {
 				await deleteFuelOutput(id);
-				toast.info('با موفقیت ثبت شد');
+				toast.info('با موفقیت حذف شد');
 			} catch (err) {
 				console.log(err);
-				toast.error('خطا در هنگام ثبت');
+				toast.error('خطا در هنگام حذف');
 			} finally {
 				await invalidateAll();
 			}
