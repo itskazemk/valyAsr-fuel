@@ -6,13 +6,11 @@ export const vehicles = sqliteTable('vehicles', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	title: text().notNull(),
 	type: integer().notNull(),
 	plate: text().notNull(),
 	fuelType: integer().notNull(),
 	ownerUnit: integer().notNull(),
-
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -20,6 +18,7 @@ export const vehicles = sqliteTable('vehicles', {
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
 });
+
 export const vehiclesRelations = relations(vehicles, ({ many }) => ({
 	fuelOutputs: many(fuelOutputs),
 }));
@@ -29,11 +28,9 @@ export const fuelInputs = sqliteTable('fuel-inputs', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	date: text().notNull(),
 	type: integer().notNull(),
 	amount: integer().notNull(), // Liter
-
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -47,7 +44,6 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	date: text().notNull(),
 	vehicleId: text().notNull(),
 	DelivererPersonId: text().notNull(),
@@ -56,7 +52,6 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 	kilometer: integer().notNull(),
 	location: integer().notNull(),
 	description: text(),
-
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -64,6 +59,7 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
 });
+
 export const fuelOutputsRelations = relations(fuelOutputs, ({ one }) => ({
 	vehicle: one(vehicles, {
 		fields: [fuelOutputs.vehicleId],
@@ -84,12 +80,10 @@ export const baseInfos = sqliteTable('base-infos', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	subId: text(),
 	title: text().notNull(),
 	persianTitle: text().notNull(),
 	disabled: integer().notNull().default(0),
-
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -107,12 +101,10 @@ export const fuelPrices = sqliteTable('fuel-prices', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-
 	startDate: text().notNull(),
 	endDate: text().notNull(),
 	type: integer().notNull(),
 	amount: integer().notNull(),
-
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -120,3 +112,24 @@ export const fuelPrices = sqliteTable('fuel-prices', {
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
 });
+
+export const user = sqliteTable('user', {
+	id: text().primaryKey(),
+	username: text().notNull().unique(),
+	firstName: text().notNull(),
+	lastName: text().notNull(),
+	role: text().notNull(),
+	passwordHash: text().notNull(),
+});
+
+export const session = sqliteTable('session', {
+	id: text().primaryKey(),
+	userId: text()
+		.notNull()
+		.references(() => user.id),
+	expiresAt: integer({ mode: 'timestamp' }).notNull(),
+});
+
+export type Session = typeof session.$inferSelect;
+
+export type User = typeof user.$inferSelect;
