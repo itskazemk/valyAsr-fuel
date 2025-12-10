@@ -1,7 +1,6 @@
 <script lang="ts">
-	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { Toaster } from 'svelte-sonner';
+	import Sidebar from '$lib/components/Sidebar.svelte';
 
 	let { children } = $props();
 </script>
@@ -10,6 +9,6 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Toaster position="top-center" richColors closeButton />
-
-{@render children()}
+<Sidebar>
+	{@render children()}
+</Sidebar>
