@@ -1,10 +1,10 @@
 <script lang="ts" module>
 	// sample data
 	const data = {
-		versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
+		version: '0.1',
 		navMain: [
 			{
-				title: 'Getting Started',
+				title: '',
 				url: '#',
 				items: [
 					{
@@ -102,7 +102,7 @@
 
 <Sidebar.Root {...restProps} bind:ref>
 	<Sidebar.Header>
-		<VersionSwitcher versions={data.versions} defaultVersion={data.versions[0]} />
+		<VersionSwitcher defaultVersion={data.version} />
 		<SearchForm />
 	</Sidebar.Header>
 	<Sidebar.Content>
