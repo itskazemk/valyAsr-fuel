@@ -1,5 +1,5 @@
 import { getRequestEvent } from '$app/server';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 	const user = requireLogin();

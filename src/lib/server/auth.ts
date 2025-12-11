@@ -4,6 +4,9 @@ import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeBase64url, encodeHexLowerCase } from '@oslojs/encoding';
 import { db } from '$lib/server/db';
 import * as table from '$lib/server/db/schema';
+import { fail, redirect } from '@sveltejs/kit';
+import * as auth from '$lib/server/auth';
+import { getRequestEvent } from '$app/server';
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -78,4 +81,22 @@ export function deleteSessionTokenCookie(event: RequestEvent) {
 	event.cookies.delete(sessionCookieName, {
 		path: '/',
 	});
+}
+
+export async function logout(event: RequestEvent) {
+	if (!event.locals.session) {
+		return fail(401);
+	}
+	await auth.invalidateSession(event.locals.session.id);
+	auth.deleteSessionTokenCookie(event);
+}
+
+export function requireLogin() {
+	const { locals } = getRequestEvent();
+
+	if (!locals.user) {
+		return redirect(302, '/auth/login');
+	}
+
+	return locals.user;
 }

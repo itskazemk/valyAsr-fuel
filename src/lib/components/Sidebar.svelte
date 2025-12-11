@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import AppSidebar from '$lib/components/app-sidebar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import { redirect } from '@sveltejs/kit';
+	import { logoutRemoteFn } from '../../routes/(public)/auth/auth.remote';
 
 	let { children } = $props();
 </script>
@@ -16,7 +19,16 @@
 				<Separator orientation="vertical" class="mr-2 h-4" />
 			</div>
 			<div class="p-4">
-				<button>خروج</button>
+				<button
+					onclick={async () => {
+						try {
+							const { redirect: redirectAddress } = await logoutRemoteFn();
+							window.location.href = redirectAddress;
+						} catch (error) {
+							console.log(error);
+						}
+					}}>خروج</button
+				>
 			</div>
 
 			<!-- <Breadcrumb.Root>
