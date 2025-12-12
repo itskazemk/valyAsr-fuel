@@ -6,6 +6,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { redirect } from '@sveltejs/kit';
 	import { logoutRemoteFn } from '../../routes/(public)/auth/auth.remote';
+	// import { resolve } from '$app/paths';
 
 	let { children } = $props();
 </script>
