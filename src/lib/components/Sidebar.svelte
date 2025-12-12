@@ -6,6 +6,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { redirect } from '@sveltejs/kit';
 	import { logoutRemoteFn } from '../../routes/(public)/auth/auth.remote';
+	import Button from './ui/button/button.svelte';
 	// import { resolve } from '$app/paths';
 
 	let { children } = $props();
@@ -20,7 +21,7 @@
 				<Separator orientation="vertical" class="mr-2 h-4" />
 			</div>
 			<div class="p-4">
-				<button
+				<Button
 					onclick={async () => {
 						try {
 							const { redirect: redirectAddress } = await logoutRemoteFn();
@@ -28,7 +29,7 @@
 						} catch (error) {
 							console.log(error);
 						}
-					}}>خروج</button
+					}}>خروج</Button
 				>
 			</div>
 
