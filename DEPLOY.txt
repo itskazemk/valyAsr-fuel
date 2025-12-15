@@ -1,0 +1,1 @@
+$env:HOST="127.0.0.1"; $env:PORT="4000"; $env:ORIGIN="http://127.0.0.1:4000";  node build

@@ -6,7 +6,7 @@ const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
-	kit: { adapter: adapter(), experimental: { remoteFunctions: true } },
+	kit: { adapter: adapter(), csrf:{trustedOrigins:['*']}, experimental: { remoteFunctions: true } },
 	compilerOptions: {
 		runes: true,
 		experimental: {
