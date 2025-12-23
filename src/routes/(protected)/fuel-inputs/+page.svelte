@@ -17,7 +17,7 @@
 		id: null,
 		date: null,
 		type: null,
-		amount: null
+		amount: null,
 	};
 
 	let { data, form } = $props();
@@ -47,7 +47,7 @@
 			form.append('id', id);
 			fetch('?/delete', {
 				method: 'POST',
-				body: form
+				body: form,
 			});
 
 			await invalidateAll();
@@ -108,7 +108,7 @@
 						bind:value={formData.type}
 						options={[
 							{ label: 'بنزین', value: 1 },
-							{ label: 'گازوییل', value: 2 }
+							{ label: 'گازوییل', value: 2 },
 						]}
 					/>
 				</div>

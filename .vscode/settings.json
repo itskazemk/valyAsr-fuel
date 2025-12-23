@@ -14,5 +14,8 @@
 			"database": "${workspaceFolder:valyAsr-fuel}/local.db"
 		}
 	],
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
 	"sqltools.useNodeRuntime": true
 }
