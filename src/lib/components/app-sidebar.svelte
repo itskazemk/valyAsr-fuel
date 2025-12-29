@@ -103,7 +103,7 @@
 <Sidebar.Root {...restProps} bind:ref>
 	<Sidebar.Header>
 		<VersionSwitcher defaultVersion={data.version} />
-		<SearchForm />
+		<!-- <SearchForm /> -->
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<!-- We create a Sidebar.Group for each parent. -->
