@@ -4,6 +4,7 @@
 	import { tick } from 'svelte';
 	import Input from './ui/input/input.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
+	import { fade, fly } from 'svelte/transition';
 
 	const area = [
 		{ label: 'کاظم', value: '1' },
@@ -125,9 +126,9 @@
 		/>
 
 		{#if status === 'focus' && filtered.length > 0}
-			<Card.Root class="absolute z-10 mt-1 min-w-full ">
+			<Card.Root class="absolute z-10 mt-1 min-w-full">
 				<Card.Content class=" px-1">
-					<ul bind:this={list} id="listbox-1" class="" role="listbox" tabindex={-1}>
+					<ul bind:this={list} id="listbox-1" class="" role="listbox" transition:fly tabindex={-1}>
 						{#each filtered as obj, i (obj)}
 							<li
 								class="cursor-pointer rounded-sm px-3 py-1 hover:bg-gray-300"
