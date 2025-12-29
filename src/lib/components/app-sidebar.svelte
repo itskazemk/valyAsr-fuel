@@ -21,7 +21,7 @@
 					},
 					{
 						title: 'سوخت تحویلی',
-						url: 'fuel-outputs',
+						url: '/fuel-outputs',
 					},
 					{
 						title: 'گزارشات',

@@ -33,7 +33,9 @@ export const createBaseInfo = command(
 	}),
 	async ({ subId, title }) => {
 		try {
-			await db.insert(baseInfos).values({ title, subId });
+			console.log(subId, title);
+
+			await db.insert(baseInfos).values({ subId, title, persianTitle: title });
 		} catch {
 			error(502, 'failed to create baseInfo');
 		}
@@ -47,7 +49,7 @@ export const updateBaseInfo = command(
 	}),
 	async ({ id, title }) => {
 		try {
-			await db.update(baseInfos).set({ title }).where(eq(baseInfos.id, id));
+			await db.update(baseInfos).set({ title, persianTitle: title }).where(eq(baseInfos.id, id));
 		} catch {
 			error(502, 'failed to update baseInfo');
 		}
