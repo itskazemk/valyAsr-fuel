@@ -5,7 +5,12 @@
 	import Input from './ui/input/input.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 
-	const area = ['تست', 'کاظم', 'علی', 'مهدی', 'رضا', 'فاطمه', 'آرامش'];
+	const area = [
+		{ label: 'کاظم', value: '1' },
+		{ label: 'علی', value: '2' },
+		{ label: 'رضا', value: '3' },
+		{ label: 'حسن', value: '4' },
+	];
 
 	let data = Array.from(new Set(area));
 
@@ -16,7 +21,7 @@
 	let currentIdx = -1;
 	let selected = $state(-1);
 	let previousLength = data.length;
-	let filtered = $derived(data.filter((d) => d.includes(value)));
+	let filtered = $derived(data.filter((d) => d.label.includes(value)));
 
 	run(() => {
 		if (previousLength !== filtered.length) {
@@ -123,7 +128,7 @@
 			<Card.Root class="absolute z-10 mt-1 min-w-full ">
 				<Card.Content class=" px-1">
 					<ul bind:this={list} id="listbox-1" class="" role="listbox" tabindex={-1}>
-						{#each filtered as d, i (d)}
+						{#each filtered as obj, i (obj)}
 							<li
 								class="cursor-pointer rounded-sm px-3 py-1 hover:bg-gray-300"
 								id="listbox-1-option-{i}"
@@ -132,9 +137,9 @@
 								aria-posinset={i + 1}
 								aria-selected={selected === i}
 								class:selected={selected === i}
-								onmousedown={() => (value = d)}
+								onmousedown={() => (value = obj)}
 							>
-								{d}
+								{obj.label}
 							</li>
 						{/each}
 					</ul>
