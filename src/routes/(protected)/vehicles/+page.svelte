@@ -266,9 +266,6 @@
 							{ label: 'تیپ آموزش-گردان اول', value: 15 },
 							{ label: 'تیپ آموزش-گردان دوم', value: 16 },
 							{ label: 'فاوا', value: 17 },
-							// { label: 'واحد ۲', value: 11 },
-							// { label: 'واحد ۲', value: 11 },
-							// { label: 'واحد ۲', value: 11 },
 						]}
 					/>
 				</div>

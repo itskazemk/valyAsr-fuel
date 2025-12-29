@@ -12,6 +12,7 @@
 	import { FuelTypeLabels } from '../vehicles/types.js';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
 	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
+	import { ownerUnitSelect, plateShower } from '$lib/utils.js';
 
 	let defaultValues = {
 		id: null,
@@ -291,7 +292,10 @@
 						{@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)}
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{vehicle?.title}-{vehicle?.ownerUnit}-{vehicle?.plate}</Table.Cell>
+							<Table.Cell
+								>{vehicle?.title}-{ownerUnitSelect(vehicle?.ownerUnit)}
+								<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
+							>
 							<Table.Cell
 								>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)
 									?.label}</Table.Cell
