@@ -2,7 +2,7 @@ import { command, form, query } from '$app/server';
 import { db } from '$lib/server/db';
 import { baseInfos } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { eq, ilike, isNull, like } from 'drizzle-orm';
+import { and, eq, ilike, isNull, like } from 'drizzle-orm';
 // import { db } from '../../lib/server/db';
 // import { baseInfos } from '../../lib/server/db/schema';
 import * as v from 'valibot';
@@ -22,7 +22,10 @@ export const getBaseInfoByTitle = query(v.string(), async (parentTitle) => {
 		await db.select().from(baseInfos).where(like(baseInfos.title, parentTitle.toLocaleLowerCase()))
 	)?.at(0);
 
-	const items = await db.select().from(baseInfos).where(eq(baseInfos.subId, parentItem?.id));
+	const items = await db
+		.select()
+		.from(baseInfos)
+		.where(and(eq(baseInfos.subId, parentItem?.id), eq(baseInfos.disabled, 0)));
 	return items;
 });
 
