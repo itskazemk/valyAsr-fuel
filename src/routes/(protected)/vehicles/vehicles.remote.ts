@@ -9,6 +9,11 @@ export const getVehicles = query(async () => {
 	return await db.select().from(vehicles);
 });
 
+export const getVehicleById = query(v.pipe(v.string(), v.uuid()), async (id) => {
+	const vehicle = (await db.select().from(vehicles).where(eq(vehicles.id, id))).at(0);
+	return vehicle;
+});
+
 export const createVehicle = command(
 	v.object({
 		title: v.string(),

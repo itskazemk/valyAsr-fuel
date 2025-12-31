@@ -13,6 +13,7 @@
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
 	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
 	import { ownerUnitSelect, plateShower } from '$lib/utils.js';
+	import { getVehicleById } from '../vehicles/vehicles.remote.js';
 
 	let defaultValues = {
 		id: null,
@@ -36,8 +37,17 @@
 		const selectedDate = formData.date;
 		const selectedFuelAmount = formData.amount;
 
+		if (formData.vehicleId === null) {
+			return null;
+		}
+
+		const vehicle = await getVehicleById(formData.vehicleId);
+
+		console.log(222, vehicle);
+
+		//! bug in here
 		if (selectedDate && selectedFuelAmount) {
-			let basePrice = await getFuelPriceAtDate({ date: '2026-01-01', fuelType: 1 });
+			let basePrice = await getFuelPriceAtDate({ date: selectedDate, fuelType: vehicle?.fuelType });
 
 			if (basePrice) {
 				let price = basePrice * selectedFuelAmount;
@@ -65,7 +75,6 @@
 		formStatus = 'create';
 		formData = defaultValues;
 	}
-	$inspect(333, formData);
 
 	async function submitFn(e: SubmitEvent) {
 		e.preventDefault();
