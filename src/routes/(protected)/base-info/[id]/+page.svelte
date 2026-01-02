@@ -83,7 +83,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<div class="space-y-2">
 	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 		<Card.Header>
 			<Card.Title>ثبت تحویل گیرنده</Card.Title>
