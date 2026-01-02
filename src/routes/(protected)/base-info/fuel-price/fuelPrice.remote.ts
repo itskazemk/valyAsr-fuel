@@ -62,8 +62,6 @@ export const getFuelPriceAtDate = query(
 					),
 				);
 
-			console.log(3333, val, val?.at(0)?.amount);
-
 			if (val.length === 0) {
 				return null;
 			}

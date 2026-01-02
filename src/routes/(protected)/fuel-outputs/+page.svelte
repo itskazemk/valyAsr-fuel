@@ -14,6 +14,19 @@
 	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
 	import { ownerUnitSelect, plateShower } from '$lib/utils.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
+	import type { CalendarDate } from '@internationalized/date';
+
+	interface defaultValuesT {
+		id: null | string;
+		date: null | CalendarDate;
+		vehicleId: null | string;
+		DelivererPersonId: null | string;
+		ReceiverPersonId: null | string;
+		amount: null | number;
+		kilometer: null | number;
+		location: null | number;
+		description: null | string;
+	}
 
 	let defaultValues = {
 		id: null,
@@ -31,10 +44,10 @@
 
 	let formStatus = $state<'create' | 'update'>('create');
 
-	let formData = $state(defaultValues);
+	let formData = $state<defaultValuesT>(defaultValues);
 
 	let computedPrice = $derived.by(async () => {
-		const selectedDate = formData.date;
+		const selectedDate = formData.date?.toString();
 		const selectedFuelAmount = formData.amount;
 
 		if (formData.vehicleId === null) {
