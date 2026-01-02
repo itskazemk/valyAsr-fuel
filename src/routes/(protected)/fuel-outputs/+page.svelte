@@ -15,6 +15,7 @@
 	import { ownerUnitSelect, plateShower } from '$lib/utils.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
 	import type { CalendarDate } from '@internationalized/date';
+	import { NumericFormat } from 'svelte-number-format';
 
 	interface defaultValuesT {
 		id: null | string;
@@ -273,20 +274,38 @@
 						></textarea>
 					</div>
 
-					<div class="col-span-2 mt-2 flex items-end gap-2">
-						<Button class="w-1/5 min-w-16 cursor-pointer" type="submit"
-							>ثبت (<span
-								>{#await computedPrice then val}
-									{val} تومان
-								{/await}</span
-							>)</Button
-						>
-						<Button
-							onclick={resetForm}
-							class="cursor-pointer bg-blue-500 hover:bg-blue-600"
-							type="submit"
-							title="ریست فرم"><RotateCcw /></Button
-						>
+					<div class="col-span-2 mt-2 flex items-end justify-between gap-2">
+						<div class="flex gap-2">
+							<Button class=" min-w-16 cursor-pointer" type="submit">ثبت</Button>
+
+							<Button
+								onclick={resetForm}
+								class="cursor-pointer bg-blue-500 hover:bg-blue-600"
+								type="submit"
+								title="ریست فرم"><RotateCcw /></Button
+							>
+						</div>
+
+						<div class="flex">
+							<div class="w-48 rounded-r-md bg-red-400 p-2 text-center">
+								<div>هزینه سوختگیری (تومان):</div>
+								<div class="">
+									{#await computedPrice then val}
+										<NumericFormat
+											value={val}
+											options={{ precision: 0 }}
+											disabled
+											class="w-full! text-center"
+										/>
+									{/await}
+								</div>
+							</div>
+
+							<div class="rounded-l-md bg-blue-400 p-2 text-center">
+								<div>موجودی (لیتر):</div>
+								<div>xxxxx</div>
+							</div>
+						</div>
 					</div>
 				</form></Card.Content
 			>
