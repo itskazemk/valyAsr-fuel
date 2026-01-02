@@ -41,3 +41,9 @@ drizzle: │
 │ - You will need to set DATABASE_URL in your production environment │
 │ - Check DATABASE_URL in .env and adjust it to your needs │
 │ - Run pnpm run db:push to update your database schema
+
+# TODOS:
+
+- [ ] جدا کننده هزارتایی برای اعداد
+- [ ] سلکت با قابلیت سرچ
+- [ ] هشدار در صورت سوختگیری پیش از مقدار موجود
