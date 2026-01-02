@@ -166,130 +166,132 @@
 </script>
 
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
-	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
-		<Card.Header>
-			<Card.Title>ثبت تحویل سوخت</Card.Title>
-		</Card.Header>
-		<Card.Content class="h-full"
-			><form
-				onsubmit={submitFn}
-				autocomplete="off"
-				class="grid h-full grid-cols-2 gap-2 rounded-sm"
-			>
-				<label
-					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-					hidden={true}
+	<div>
+		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
+			<Card.Header>
+				<Card.Title>ثبت تحویل سوخت</Card.Title>
+			</Card.Header>
+			<Card.Content class="h-full"
+				><form
+					onsubmit={submitFn}
+					autocomplete="off"
+					class="grid h-full grid-cols-2 gap-2 rounded-sm"
 				>
-					<p>شناسه یکتا:</p>
-					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
-				</label>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="date">تاریخ</Label>
-
-					<TestDatePicker id="date" name="date" bind:date={formData.date} required={true} />
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="vehicleId">وسیله نقلیه</Label>
-					<Combobox
-						name="vehicleId"
-						bind:value={formData.vehicleId}
-						required={true}
-						options={data.vehicles.map((item) => {
-							return { label: `${item.title}-${item.ownerUnit}-${item.plate}`, value: item.id };
-						})}
-					/>
-				</div>
-
-				<!-- لیست افرادی از کل پادگان که از قسمت اطلاعات پایه قابل تنظیم باشد -->
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="ReceiverId">تحویل گیرنده</Label>
-					<Combobox
-						name="ReceiverId"
-						bind:value={formData.ReceiverPersonId}
-						required={true}
-						options={data.ReceiverPersons}
-					/>
-				</div>
-
-				<!-- لیست افرادی که مسئول واحد سوخت گیری هستند (فعلا آماد) از اطلاعات پایه بیاد -->
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="DelivererId">تحویل دهنده</Label>
-					<Combobox
-						name="DelivererId"
-						bind:value={formData.DelivererPersonId}
-						required={true}
-						options={data.DelivererPersons}
-					/>
-				</div>
-
-				<!-- بر اساس اینکه بنزین باشد یا گازوییل محدودیت داریم -->
-				<!-- بنزین ۱۵۰ لیتر بیشترین -->
-				<!-- گازوییل ۲۰۰۰ بیشترین -->
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="amount">مقدار</Label>
-					<Input
-						type="number"
-						id="amount"
-						name="amount"
-						bind:value={formData.amount}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="kilometer">کیلومتر</Label>
-					<Input
-						type="number"
-						id="kilometer"
-						name="kilometer"
-						bind:value={formData.kilometer}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="location">محل سوخت گیری</Label>
-					<Combobox
-						bind:value={formData.location}
-						required={true}
-						name="location"
-						options={[
-							{ label: 'داخل پادگان', value: 1 },
-							{ label: 'خارج پادگان - آزاد', value: 2 },
-							{ label: 'خارج پادگان - رایگان', value: 3 },
-						]}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="description">توضیحات</Label>
-					<textarea
-						id="description"
-						bind:value={formData.description}
-						class="rounded-md border border-gray-300"
-					></textarea>
-				</div>
-
-				<div class="col-span-2 mt-2 flex items-end gap-2">
-					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit"
-						>ثبت (<span
-							>{#await computedPrice then val}
-								{val} تومان
-							{/await}</span
-						>)</Button
+					<label
+						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+						hidden={true}
 					>
-					<Button
-						onclick={resetForm}
-						class="cursor-pointer bg-blue-500 hover:bg-blue-600"
-						type="submit"
-						title="ریست فرم"><RotateCcw /></Button
-					>
-				</div>
-			</form></Card.Content
-		>
-	</Card.Root>
+						<p>شناسه یکتا:</p>
+						<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
+					</label>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="date">تاریخ</Label>
+
+						<TestDatePicker id="date" name="date" bind:date={formData.date} required={true} />
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="vehicleId">وسیله نقلیه</Label>
+						<Combobox
+							name="vehicleId"
+							bind:value={formData.vehicleId}
+							required={true}
+							options={data.vehicles.map((item) => {
+								return { label: `${item.title}-${item.ownerUnit}-${item.plate}`, value: item.id };
+							})}
+						/>
+					</div>
+
+					<!-- لیست افرادی از کل پادگان که از قسمت اطلاعات پایه قابل تنظیم باشد -->
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="ReceiverId">تحویل گیرنده</Label>
+						<Combobox
+							name="ReceiverId"
+							bind:value={formData.ReceiverPersonId}
+							required={true}
+							options={data.ReceiverPersons}
+						/>
+					</div>
+
+					<!-- لیست افرادی که مسئول واحد سوخت گیری هستند (فعلا آماد) از اطلاعات پایه بیاد -->
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="DelivererId">تحویل دهنده</Label>
+						<Combobox
+							name="DelivererId"
+							bind:value={formData.DelivererPersonId}
+							required={true}
+							options={data.DelivererPersons}
+						/>
+					</div>
+
+					<!-- بر اساس اینکه بنزین باشد یا گازوییل محدودیت داریم -->
+					<!-- بنزین ۱۵۰ لیتر بیشترین -->
+					<!-- گازوییل ۲۰۰۰ بیشترین -->
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="amount">مقدار</Label>
+						<Input
+							type="number"
+							id="amount"
+							name="amount"
+							bind:value={formData.amount}
+							required={true}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="kilometer">کیلومتر</Label>
+						<Input
+							type="number"
+							id="kilometer"
+							name="kilometer"
+							bind:value={formData.kilometer}
+							required={true}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="location">محل سوخت گیری</Label>
+						<Combobox
+							bind:value={formData.location}
+							required={true}
+							name="location"
+							options={[
+								{ label: 'داخل پادگان', value: 1 },
+								{ label: 'خارج پادگان - آزاد', value: 2 },
+								{ label: 'خارج پادگان - رایگان', value: 3 },
+							]}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="description">توضیحات</Label>
+						<textarea
+							id="description"
+							bind:value={formData.description}
+							class="rounded-md border border-gray-300"
+						></textarea>
+					</div>
+
+					<div class="col-span-2 mt-2 flex items-end gap-2">
+						<Button class="w-1/5 min-w-16 cursor-pointer" type="submit"
+							>ثبت (<span
+								>{#await computedPrice then val}
+									{val} تومان
+								{/await}</span
+							>)</Button
+						>
+						<Button
+							onclick={resetForm}
+							class="cursor-pointer bg-blue-500 hover:bg-blue-600"
+							type="submit"
+							title="ریست فرم"><RotateCcw /></Button
+						>
+					</div>
+				</form></Card.Content
+			>
+		</Card.Root>
+	</div>
 
 	<Card.Root>
 		<Card.Header>

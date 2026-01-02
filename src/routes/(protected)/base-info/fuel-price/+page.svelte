@@ -127,80 +127,82 @@
 </script>
 
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
-	<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
-		<Card.Header>
-			<Card.Title>ثبت دریافت سوخت</Card.Title>
-		</Card.Header>
-		<Card.Content class="h-full"
-			><form
-				onsubmit={submitFn}
-				autocomplete="off"
-				class="grid h-full grid-cols-2 gap-2 rounded-sm"
-			>
-				<label
-					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-					hidden={true}
+	<div>
+		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
+			<Card.Header>
+				<Card.Title>ثبت دریافت سوخت</Card.Title>
+			</Card.Header>
+			<Card.Content class="h-full"
+				><form
+					onsubmit={submitFn}
+					autocomplete="off"
+					class="grid h-full grid-cols-2 gap-2 rounded-sm"
 				>
-					<p>شناسه یکتا:</p>
-					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
-				</label>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="startDate">تاریخ پایان</Label>
-					<TestDatePicker
-						id="startDate"
-						name="startDate"
-						bind:date={formData.startDate}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="endDate">تاریخ شروع</Label>
-					<TestDatePicker
-						id="endDate"
-						name="endDate"
-						bind:date={formData.endDate}
-						required={true}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">نوع سوخت</Label>
-					<Combobox
-						required={true}
-						name="type"
-						bind:value={formData.type}
-						options={[
-							{ label: 'بنزین', value: 1 },
-							{ label: 'گازوییل', value: 2 },
-						]}
-					/>
-				</div>
-
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="amount">قیمت (تومان)</Label>
-					<Input
-						type="number"
-						id="amount"
-						name="amount"
-						bind:value={formData.amount}
-						required={true}
-					/>
-				</div>
-
-				<div class="col-span-2 mt-2 flex items-end gap-2">
-					<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت</Button>
-					<Button
-						onclick={resetForm}
-						class="cursor-pointer bg-blue-500 hover:bg-blue-600"
-						type="submit"
-						title="ریست فرم"><RotateCcw /></Button
+					<label
+						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+						hidden={true}
 					>
-				</div>
-			</form></Card.Content
-		>
-	</Card.Root>
+						<p>شناسه یکتا:</p>
+						<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
+					</label>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="startDate">تاریخ پایان</Label>
+						<TestDatePicker
+							id="startDate"
+							name="startDate"
+							bind:date={formData.startDate}
+							required={true}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="endDate">تاریخ شروع</Label>
+						<TestDatePicker
+							id="endDate"
+							name="endDate"
+							bind:date={formData.endDate}
+							required={true}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="type">نوع سوخت</Label>
+						<Combobox
+							required={true}
+							name="type"
+							bind:value={formData.type}
+							options={[
+								{ label: 'بنزین', value: 1 },
+								{ label: 'گازوییل', value: 2 },
+							]}
+						/>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="amount">قیمت (تومان)</Label>
+						<Input
+							type="number"
+							id="amount"
+							name="amount"
+							bind:value={formData.amount}
+							required={true}
+						/>
+					</div>
+
+					<div class="col-span-2 mt-2 flex items-end gap-2">
+						<Button class="w-1/5 min-w-16 cursor-pointer" type="submit">ثبت</Button>
+						<Button
+							onclick={resetForm}
+							class="cursor-pointer bg-blue-500 hover:bg-blue-600"
+							type="submit"
+							title="ریست فرم"><RotateCcw /></Button
+						>
+					</div>
+				</form></Card.Content
+			>
+		</Card.Root>
+	</div>
 
 	<Card.Root>
 		<Card.Header>

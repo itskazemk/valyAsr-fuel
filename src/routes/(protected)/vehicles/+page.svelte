@@ -128,50 +128,55 @@
 </script>
 
 <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>ثبت اطلاعات</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
-				<label
-					class="center grid grid-cols-3 place-content-center content-center items-center text-center"
-					hidden={true}
+	<div>
+		<Card.Root>
+			<Card.Header>
+				<Card.Title>ثبت اطلاعات</Card.Title>
+			</Card.Header>
+			<Card.Content>
+				<form
+					onsubmit={submitFn}
+					autocomplete="off"
+					class="grid h-full grid-cols-2 gap-2 rounded-sm"
 				>
-					<p>شناسه یکتا:</p>
-					<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
-				</label>
+					<label
+						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
+						hidden={true}
+					>
+						<p>شناسه یکتا:</p>
+						<input name="id" type="text" class="col-span-2" bind:value={formData.id} />
+					</label>
 
-				<!-- اینجا به سلکت آپشن تغییر پیدا کند به گونه که از اطلاعات پایه داده ها دریافت شود -->
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="title">عنوان</Label>
-					<Input
-						required={true}
-						type="text"
-						id="title"
-						name="title"
-						placeholder="سمند، پراید و ..."
-						bind:value={formData.title}
-					/>
-				</div>
+					<!-- اینجا به سلکت آپشن تغییر پیدا کند به گونه که از اطلاعات پایه داده ها دریافت شود -->
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="title">عنوان</Label>
+						<Input
+							required={true}
+							type="text"
+							id="title"
+							name="title"
+							placeholder="سمند، پراید و ..."
+							bind:value={formData.title}
+						/>
+					</div>
 
-				<!-- با توجه به اینکه اطلاعات نوع خودرو، موتور و ... از اطلاعات پایه دریافت میشود. این قسمت نیز غلط و اتوماتیک یا به صورت دستی از آنجا انتخاب شود -->
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">نوع وسیله نقلیه</Label>
-					<Combobox
-						required={true}
-						name="type"
-						bind:value={formData.type}
-						options={[
-							{ label: 'سواری', value: 1 },
-							{ label: 'مینی بوس', value: 2 },
-							{ label: 'اتوبوس', value: 3 },
-							{ label: 'موتور سیکلت', value: 4 },
-						]}
-					/>
-				</div>
+					<!-- با توجه به اینکه اطلاعات نوع خودرو، موتور و ... از اطلاعات پایه دریافت میشود. این قسمت نیز غلط و اتوماتیک یا به صورت دستی از آنجا انتخاب شود -->
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="type">نوع وسیله نقلیه</Label>
+						<Combobox
+							required={true}
+							name="type"
+							bind:value={formData.type}
+							options={[
+								{ label: 'سواری', value: 1 },
+								{ label: 'مینی بوس', value: 2 },
+								{ label: 'اتوبوس', value: 3 },
+								{ label: 'موتور سیکلت', value: 4 },
+							]}
+						/>
+					</div>
 
-				<!-- <div class="flex w-full max-w-sm flex-col gap-1.5">
+					<!-- <div class="flex w-full max-w-sm flex-col gap-1.5">
 					<Label for="title">شماره پلاک</Label>
 					<Input
 						required={true}
@@ -183,97 +188,98 @@
 					/>
 				</div> -->
 
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="title">شماره پلاک</Label>
-					<div class="grid grid-cols-4" style="direction: ltr;">
-						<Input
-							class="rounded-r-none"
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="title">شماره پلاک</Label>
+						<div class="grid grid-cols-4" style="direction: ltr;">
+							<Input
+								class="rounded-r-none"
+								required={true}
+								type="number"
+								maxlength={2}
+								id="plate"
+								name="plate"
+								placeholder="۷۷"
+								bind:value={formData.plateA}
+							/>
+							<Input
+								class="rounded-l-none rounded-r-none"
+								required={true}
+								type="text"
+								maxlength={1}
+								id="plate"
+								name="plate"
+								placeholder="ب"
+								bind:value={formData.plateB}
+							/>
+							<Input
+								class="rounded-l-none rounded-r-none"
+								required={true}
+								type="number"
+								maxlength={3}
+								id="plate"
+								name="plate"
+								placeholder="۱۵۹"
+								bind:value={formData.plateC}
+							/>
+							<Input
+								class="rounded-l-none"
+								required={true}
+								type="text"
+								maxlength={2}
+								id="plate"
+								name="plate"
+								placeholder="۶۴"
+								bind:value={formData.plateD}
+							/>
+						</div>
+					</div>
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="type">نوع سوخت</Label>
+						<Combobox
 							required={true}
-							type="number"
-							maxlength={2}
-							id="plate"
-							name="plate"
-							placeholder="۷۷"
-							bind:value={formData.plateA}
-						/>
-						<Input
-							class="rounded-l-none rounded-r-none"
-							required={true}
-							type="text"
-							maxlength={1}
-							id="plate"
-							name="plate"
-							placeholder="ب"
-							bind:value={formData.plateB}
-						/>
-						<Input
-							class="rounded-l-none rounded-r-none"
-							required={true}
-							type="number"
-							maxlength={3}
-							id="plate"
-							name="plate"
-							placeholder="۱۵۹"
-							bind:value={formData.plateC}
-						/>
-						<Input
-							class="rounded-l-none"
-							required={true}
-							type="text"
-							maxlength={2}
-							id="plate"
-							name="plate"
-							placeholder="۶۴"
-							bind:value={formData.plateD}
+							name="fuelType"
+							bind:value={formData.fuelType}
+							options={[
+								{ label: 'بنزین', value: 1 },
+								{ label: 'گازوییل', value: 2 },
+							]}
 						/>
 					</div>
-				</div>
 
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">نوع سوخت</Label>
-					<Combobox
-						required={true}
-						name="fuelType"
-						bind:value={formData.fuelType}
-						options={[
-							{ label: 'بنزین', value: 1 },
-							{ label: 'گازوییل', value: 2 },
-						]}
-					/>
-				</div>
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="type">واحد</Label>
+						<Combobox
+							required={true}
+							name="ownerUnit"
+							bind:value={formData.ownerUnit}
+							options={[
+								{ label: 'فرماندهی', value: 1 },
+								{ label: 'حفاظت', value: 2 },
+								{ label: 'حوزه', value: 3 },
+								{ label: 'ایمنی', value: 4 },
+								{ label: 'بازرسی', value: 5 },
+								{ label: 'نیرو انسانی', value: 6 },
+								{ label: 'طرح و برنامه', value: 7 },
+								{ label: 'قرارگاه', value: 8 },
+								{ label: 'مهندسی', value: 9 },
+								{ label: 'آماد و پشتیبانی', value: 10 },
+								{ label: 'آموزش', value: 11 },
+								{ label: 'بهداری', value: 12 },
+								{ label: 'فرهنگی', value: 13 },
+								{ label: 'تربیت بدنی', value: 14 },
+								{ label: 'تیپ آموزش-گردان اول', value: 15 },
+								{ label: 'تیپ آموزش-گردان دوم', value: 16 },
+								{ label: 'فاوا', value: 17 },
+							]}
+						/>
+					</div>
 
-				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="type">واحد</Label>
-					<Combobox
-						required={true}
-						name="ownerUnit"
-						bind:value={formData.ownerUnit}
-						options={[
-							{ label: 'فرماندهی', value: 1 },
-							{ label: 'حفاظت', value: 2 },
-							{ label: 'حوزه', value: 3 },
-							{ label: 'ایمنی', value: 4 },
-							{ label: 'بازرسی', value: 5 },
-							{ label: 'نیرو انسانی', value: 6 },
-							{ label: 'طرح و برنامه', value: 7 },
-							{ label: 'قرارگاه', value: 8 },
-							{ label: 'مهندسی', value: 9 },
-							{ label: 'آماد و پشتیبانی', value: 10 },
-							{ label: 'آموزش', value: 11 },
-							{ label: 'بهداری', value: 12 },
-							{ label: 'فرهنگی', value: 13 },
-							{ label: 'تربیت بدنی', value: 14 },
-							{ label: 'تیپ آموزش-گردان اول', value: 15 },
-							{ label: 'تیپ آموزش-گردان دوم', value: 16 },
-							{ label: 'فاوا', value: 17 },
-						]}
-					/>
-				</div>
-
-				<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
-			</form>
-		</Card.Content>
-	</Card.Root>
+					<Button class="col-span-2 mx-20 mt-2 cursor-pointer" type="submit">ثبت</Button>
+				</form>
+			</Card.Content>
+		</Card.Root>
+	</div>
 
 	<Card.Root>
 		<Card.Header>
