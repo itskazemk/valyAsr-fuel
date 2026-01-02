@@ -98,6 +98,8 @@
 		} else {
 			let date = formData.date.toString();
 
+			$inspect('FORM DATA ON SUBMIT', formData);
+
 			if (formStatus === 'create') {
 				try {
 					await createFuelOutput({

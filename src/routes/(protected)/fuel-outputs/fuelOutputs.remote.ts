@@ -18,7 +18,7 @@ export const createFuelOutput = command(
 		amount: v.number(),
 		kilometer: v.number(),
 		location: v.number(),
-		description: v.string(),
+		description: v.nullable(v.string()),
 	}),
 	async ({
 		date,
