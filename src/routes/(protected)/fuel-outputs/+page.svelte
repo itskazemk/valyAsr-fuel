@@ -200,7 +200,7 @@
 							name="vehicleId"
 							bind:value={formData.vehicleId}
 							required={true}
-							options={data.vehicles.map((item) => {
+							options={data.vehicles?.map((item) => {
 								return { label: `${item.title}-${item.ownerUnit}-${item.plate}`, value: item.id };
 							})}
 						/>
