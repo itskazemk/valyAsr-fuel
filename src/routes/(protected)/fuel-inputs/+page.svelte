@@ -108,8 +108,8 @@
 							name="type"
 							bind:value={formData.type}
 							options={[
-								{ label: 'بنزین', value: 1 },
-								{ label: 'گازوییل', value: 2 },
+								{ label: 'بنزین', value: '1' },
+								{ label: 'گازوییل', value: '2' },
 							]}
 						/>
 					</div>

@@ -52,6 +52,7 @@
 					{#each options as option (option.value)}
 						<Command.Item
 							value={option.value}
+							keywords={[option.label]}
 							onSelect={() => {
 								value = option.value;
 								closeAndFocusTrigger();
