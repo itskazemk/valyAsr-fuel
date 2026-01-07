@@ -8,6 +8,7 @@ import {
 } from '@internationalized/date';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
+import { getBaseInfoByTitle } from '../base-info/baseInfos.remote';
 
 export async function load({ cookies }) {
 	// let id = cookies.get('userid');
@@ -17,7 +18,10 @@ export async function load({ cookies }) {
 	// 	cookies.set('userid', id, { path: '/' });
 	// }
 
-	return { fuelInputs: await db.select().from(fuelInputs) };
+	return {
+		fuelInputs: await db.select().from(fuelInputs),
+		FuelTypes: await getBaseInfoByTitle('FuelTypes'),
+	};
 }
 
 export const actions = {

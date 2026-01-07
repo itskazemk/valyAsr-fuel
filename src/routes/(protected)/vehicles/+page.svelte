@@ -167,12 +167,9 @@
 							required={true}
 							name="type"
 							bind:value={formData.type}
-							options={[
-								{ label: 'سواری', value: 1 },
-								{ label: 'مینی بوس', value: 2 },
-								{ label: 'اتوبوس', value: 3 },
-								{ label: 'موتور سیکلت', value: 4 },
-							]}
+							options={data.VehicleTypes?.map((item) => {
+								return { label: item.persianTitle, value: item.id };
+							})}
 						/>
 					</div>
 
@@ -240,10 +237,9 @@
 							required={true}
 							name="fuelType"
 							bind:value={formData.fuelType}
-							options={[
-								{ label: 'بنزین', value: 1 },
-								{ label: 'گازوییل', value: 2 },
-							]}
+							options={data.FuelTypes?.map((item) => {
+								return { label: item.persianTitle, value: item.id };
+							})}
 						/>
 					</div>
 
@@ -253,25 +249,9 @@
 							required={true}
 							name="ownerUnit"
 							bind:value={formData.ownerUnit}
-							options={[
-								{ label: 'فرماندهی', value: 1 },
-								{ label: 'حفاظت', value: 2 },
-								{ label: 'حوزه', value: 3 },
-								{ label: 'ایمنی', value: 4 },
-								{ label: 'بازرسی', value: 5 },
-								{ label: 'نیرو انسانی', value: 6 },
-								{ label: 'طرح و برنامه', value: 7 },
-								{ label: 'قرارگاه', value: 8 },
-								{ label: 'مهندسی', value: 9 },
-								{ label: 'آماد و پشتیبانی', value: 10 },
-								{ label: 'آموزش', value: 11 },
-								{ label: 'بهداری', value: 12 },
-								{ label: 'فرهنگی', value: 13 },
-								{ label: 'تربیت بدنی', value: 14 },
-								{ label: 'تیپ آموزش-گردان اول', value: 15 },
-								{ label: 'تیپ آموزش-گردان دوم', value: 16 },
-								{ label: 'فاوا', value: 17 },
-							]}
+							options={data.Departments?.map((item) => {
+								return { label: item.persianTitle, value: item.id };
+							})}
 						/>
 					</div>
 

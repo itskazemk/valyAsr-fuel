@@ -259,11 +259,9 @@
 							bind:value={formData.location}
 							required={true}
 							name="location"
-							options={[
-								{ label: 'داخل پادگان', value: 1 },
-								{ label: 'خارج پادگان - آزاد', value: 2 },
-								{ label: 'خارج پادگان - رایگان', value: 3 },
-							]}
+							options={data.FuelingLocations?.map((item) => {
+								return { label: item.persianTitle, value: item.id };
+							})}
 						/>
 					</div>
 

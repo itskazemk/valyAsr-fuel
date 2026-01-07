@@ -87,7 +87,7 @@
 	<div>
 		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 			<Card.Header>
-				<Card.Title>ثبت تحویل گیرنده</Card.Title>
+				<Card.Title>ثبت</Card.Title>
 			</Card.Header>
 			<Card.Content class="h-full"
 				><form
