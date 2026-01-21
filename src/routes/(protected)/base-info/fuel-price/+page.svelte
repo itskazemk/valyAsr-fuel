@@ -172,10 +172,9 @@
 							required={true}
 							name="type"
 							bind:value={formData.type}
-							options={[
-								{ label: 'بنزین', value: 1 },
-								{ label: 'گازوییل', value: 2 },
-							]}
+							options={data.FuelTypes?.map((item) => {
+								return { label: item.persianTitle, value: item.id };
+							})}
 						/>
 					</div>
 

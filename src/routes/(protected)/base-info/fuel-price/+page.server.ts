@@ -1,3 +1,4 @@
+import { getBaseInfoByTitle } from '../baseInfos.remote';
 import { getFuelPrices } from './fuelPrice.remote';
 
 export async function load() {
@@ -8,5 +9,5 @@ export async function load() {
 	// 	cookies.set('userid', id, { path: '/' });
 	// }
 
-	return { fuelPrices: await getFuelPrices() };
+	return { fuelPrices: await getFuelPrices(), FuelTypes: await getBaseInfoByTitle('FuelTypes') };
 }

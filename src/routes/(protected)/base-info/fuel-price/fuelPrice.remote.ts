@@ -10,7 +10,12 @@ export const getFuelPrices = query(async () => {
 });
 
 export const createFuelPrice = command(
-	v.object({ startDate: v.string(), endDate: v.string(), type: v.number(), amount: v.number() }),
+	v.object({
+		startDate: v.string(),
+		endDate: v.string(),
+		type: v.pipe(v.string(), v.uuid()),
+		amount: v.number(),
+	}),
 	async ({ startDate, endDate, type, amount }) => {
 		try {
 			await db.insert(fuelPrices).values({ startDate, endDate, type, amount });
@@ -25,7 +30,7 @@ export const updateFuelPrice = command(
 		id: v.pipe(v.string(), v.uuid()),
 		startDate: v.string(),
 		endDate: v.string(),
-		type: v.number(),
+		type: v.pipe(v.string(), v.uuid()),
 		amount: v.number(),
 	}),
 	async ({ id, startDate, endDate, type, amount }) => {

@@ -25,7 +25,7 @@
 		ReceiverPersonId: null | string;
 		amount: null | number;
 		kilometer: null | number;
-		location: null | number;
+		locationId: null | number;
 		description: null | string;
 	}
 
@@ -37,7 +37,7 @@
 		ReceiverPersonId: null,
 		amount: null,
 		kilometer: null,
-		location: null,
+		locationId: null,
 		description: null,
 	};
 
@@ -101,7 +101,7 @@
 		} else {
 			let date = formData.date.toString();
 
-			$inspect('FORM DATA ON SUBMIT', formData);
+			console.log('FORM DATA ON SUBMIT', formData);
 
 			if (formStatus === 'create') {
 				try {
@@ -112,7 +112,7 @@
 						ReceiverPersonId: formData.ReceiverPersonId,
 						amount: formData.amount,
 						kilometer: formData.kilometer,
-						location: formData.kilometer,
+						location: formData.locationId,
 						description: formData.description,
 					});
 					formData = defaultValues;
@@ -137,7 +137,7 @@
 							ReceiverPersonId: formData.ReceiverPersonId,
 							amount: formData.amount,
 							kilometer: formData.kilometer,
-							location: formData.kilometer,
+							location: formData.locationId,
 							description: formData.description,
 						});
 						toast.warning('با موفقیت ویرایش شد');
@@ -256,7 +256,7 @@
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="location">محل سوخت گیری</Label>
 						<Combobox
-							bind:value={formData.location}
+							bind:value={formData.locationId}
 							required={true}
 							name="location"
 							options={data.FuelingLocations?.map((item) => {

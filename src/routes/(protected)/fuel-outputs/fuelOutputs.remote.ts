@@ -17,7 +17,7 @@ export const createFuelOutput = command(
 		ReceiverPersonId: v.string(),
 		amount: v.number(),
 		kilometer: v.nullable(v.number()),
-		location: v.number(),
+		location: v.pipe(v.string(), v.uuid()),
 		description: v.nullable(v.string()),
 	}),
 	async ({
@@ -55,8 +55,8 @@ export const updateFuelOutput = command(
 		DelivererPersonId: v.string(),
 		ReceiverPersonId: v.string(),
 		amount: v.number(),
-		kilometer: v.number(),
-		location: v.number(),
+		kilometer: v.nullable(v.number()),
+		location: v.pipe(v.string(), v.uuid()),
 		description: v.string(),
 	}),
 	async ({
