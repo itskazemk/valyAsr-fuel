@@ -49,7 +49,7 @@ export const deleteFuelPrice = command(v.pipe(v.string(), v.uuid()), async (id) 
 });
 
 export const getFuelPriceAtDate = query(
-	v.object({ date: v.string(), fuelType: v.number() }),
+	v.object({ date: v.string(), fuelType: v.pipe(v.string(), v.uuid()) }),
 	async ({ date, fuelType }) => {
 		try {
 			const val = await db
@@ -61,6 +61,8 @@ export const getFuelPriceAtDate = query(
 						eq(fuelPrices.type, fuelType),
 					),
 				);
+
+			console.log('selected Vehicle in remoteFn', val);
 
 			if (val.length === 0) {
 				return null;

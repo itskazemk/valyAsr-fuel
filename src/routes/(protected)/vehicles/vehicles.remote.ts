@@ -17,10 +17,10 @@ export const getVehicleById = query(v.pipe(v.string(), v.uuid()), async (id) => 
 export const createVehicle = command(
 	v.object({
 		title: v.string(),
-		type: v.number(),
+		type: v.pipe(v.string(), v.uuid()),
 		plate: v.string(),
-		fuelType: v.number(),
-		ownerUnit: v.number(),
+		fuelType: v.pipe(v.string(), v.uuid()),
+		ownerUnit: v.pipe(v.string(), v.uuid()),
 	}),
 	async ({ title, type, plate, fuelType, ownerUnit }) => {
 		try {
@@ -41,10 +41,10 @@ export const updateVehicle = command(
 	v.object({
 		id: v.pipe(v.string(), v.uuid()),
 		title: v.string(),
-		type: v.number(),
+		type: v.pipe(v.string(), v.uuid()),
 		plate: v.string(),
-		fuelType: v.number(),
-		ownerUnit: v.number(),
+		fuelType: v.pipe(v.string(), v.uuid()),
+		ownerUnit: v.pipe(v.string(), v.uuid()),
 	}),
 	async ({ id, title, type, plate, fuelType, ownerUnit }) => {
 		try {

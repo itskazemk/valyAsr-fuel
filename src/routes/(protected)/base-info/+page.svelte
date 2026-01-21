@@ -2,6 +2,8 @@
 	import { getBaseInfo } from './baseInfos.remote';
 
 	let values = await getBaseInfo(null);
+
+	$inspect(111, values);
 </script>
 
 <div>

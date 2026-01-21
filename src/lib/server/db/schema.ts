@@ -7,10 +7,10 @@ export const vehicles = sqliteTable('vehicles', {
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
 	title: text().notNull(),
-	type: integer().notNull(),
-	plate: text().notNull(),
-	fuelType: integer().notNull(),
-	ownerUnit: integer().notNull(),
+	type: text().notNull(),
+	plate: text().notNull().unique(),
+	fuelType: text().notNull(),
+	ownerUnit: text().notNull(),
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
@@ -29,7 +29,7 @@ export const fuelInputs = sqliteTable('fuel-inputs', {
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
 	date: text().notNull(),
-	type: integer().notNull(),
+	type: text().notNull(),
 	amount: integer().notNull(), // Liter
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
@@ -49,8 +49,8 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 	DelivererPersonId: text().notNull(),
 	ReceiverPersonId: text().notNull(),
 	amount: integer().notNull(), // Liter
-	kilometer: integer().notNull(),
-	location: integer().notNull(),
+	kilometer: integer(),
+	location: text().notNull(),
 	description: text(),
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)
@@ -103,7 +103,7 @@ export const fuelPrices = sqliteTable('fuel-prices', {
 		.notNull(),
 	startDate: text().notNull(),
 	endDate: text().notNull(),
-	type: integer().notNull(),
+	type: text().notNull(),
 	amount: integer().notNull(),
 	updatedAt: text()
 		.default(sql`CURRENT_TIMESTAMP`)

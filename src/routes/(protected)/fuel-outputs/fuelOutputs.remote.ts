@@ -16,7 +16,7 @@ export const createFuelOutput = command(
 		DelivererPersonId: v.string(),
 		ReceiverPersonId: v.string(),
 		amount: v.number(),
-		kilometer: v.number(),
+		kilometer: v.nullable(v.number()),
 		location: v.number(),
 		description: v.nullable(v.string()),
 	}),

@@ -63,8 +63,11 @@
 		if (selectedDate && selectedFuelAmount) {
 			let basePrice = await getFuelPriceAtDate({ date: selectedDate, fuelType: vehicle?.fuelType });
 
+			console.log('basePrice', basePrice);
+
 			if (basePrice) {
 				let price = basePrice * selectedFuelAmount;
+				console.log('price', price);
 				return price;
 			}
 
@@ -239,18 +242,15 @@
 							name="amount"
 							bind:value={formData.amount}
 							required={true}
+							max={2000}
+							min={0}
+							step={0.1}
 						/>
 					</div>
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="kilometer">کیلومتر</Label>
-						<Input
-							type="number"
-							id="kilometer"
-							name="kilometer"
-							bind:value={formData.kilometer}
-							required={true}
-						/>
+						<Input type="number" id="kilometer" name="kilometer" bind:value={formData.kilometer} />
 					</div>
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
