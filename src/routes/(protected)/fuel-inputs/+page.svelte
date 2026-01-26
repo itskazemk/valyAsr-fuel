@@ -12,6 +12,7 @@
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 	import { FuelTypeLabels } from '../vehicles/types.js';
+	import { createFuelInput, deleteFuelInput, updateFuelInput } from './fuelInput.remote.js';
 
 	let defaultValues = {
 		id: null,
@@ -43,15 +44,52 @@
 	async function deleteFn(id: string) {
 		const isSure = confirm('آیا از حذف اطمینان دارید؟');
 		if (isSure) {
-			const form = new FormData();
-			form.append('id', id);
-			fetch('?/delete', {
-				method: 'POST',
-				body: form,
-			});
+			try {
+				await deleteFuelInput(id);
 
-			await invalidateAll();
-			toast.success('با موفقیت حذف شد');
+				toast.success('با موفقیت حذف شد');
+			} catch (err) {
+				console.log(err);
+				toast.error('خطا در هنگام حذف');
+			} finally {
+				await invalidateAll();
+			}
+		}
+	}
+
+	async function submitFn(e: SubmitEvent) {
+		e.preventDefault();
+
+		let date = formData.date.toString();
+
+		if (formStatus === 'create') {
+			try {
+				await createFuelInput({ date: date, type: formData.type, amount: formData.amount });
+				formData = defaultValues;
+				toast.success('با موفقیت ثبت شد');
+			} catch (err) {
+				console.log(err);
+				toast.error('خطا در هنگام ثبت');
+			} finally {
+				await invalidateAll();
+			}
+		} else {
+			try {
+				await updateFuelInput({
+					id: formData.id,
+					date,
+					type: formData.type,
+					amount: formData.amount,
+				});
+				toast.warning('با موفقیت ویرایش شد');
+				formStatus = 'create';
+				formData = defaultValues;
+			} catch (err) {
+				console.log(err);
+				toast.error('خطا در هنگام ویرایش');
+			} finally {
+				await invalidateAll();
+			}
 		}
 	}
 
@@ -70,22 +108,8 @@
 			</Card.Header>
 			<Card.Content class="h-full"
 				><form
-					method="POST"
-					action={formData.id ? '?/update' : '?/create'}
-					use:enhance={() => {
-						return async (aaa) => {
-							// console.log(Object.fromEntries(aaa.formData));
-							// console.log(aaa.action);
-							// console.log(aaa.formElement);
-							// console.log(aaa.result);
-							await aaa.update();
-
-							formData = { id: null, date: null, type: null, amount: null };
-							formStatus = 'create';
-
-							toast.success('با موفقیت ثبت شد');
-						};
-					}}
+					onsubmit={submitFn}
+					autocomplete="off"
 					class="grid h-full grid-cols-2 gap-2 rounded-sm"
 				>
 					<label

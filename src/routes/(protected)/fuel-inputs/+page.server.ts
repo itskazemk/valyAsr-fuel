@@ -24,58 +24,58 @@ export async function load({ cookies }) {
 	};
 }
 
-export const actions = {
-	create: async ({ request }) => {
-		const formData = await request.formData();
+// export const actions = {
+// 	create: async ({ request }) => {
+// 		const formData = await request.formData();
 
-		const data = Object.fromEntries(formData);
+// 		const data = Object.fromEntries(formData);
 
-		// CONVERT Persian Date to Gregorian
-		const dateSplitted = data.date.split('/');
-		const datePersian = new CalendarDate(
-			new PersianCalendar(),
-			Number(dateSplitted?.at(0)),
-			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2)),
-		);
-		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
+// 		// CONVERT Persian Date to Gregorian
+// 		const dateSplitted = data.date.split('/');
+// 		const datePersian = new CalendarDate(
+// 			new PersianCalendar(),
+// 			Number(dateSplitted?.at(0)),
+// 			Number(dateSplitted?.at(1)),
+// 			Number(dateSplitted?.at(2)),
+// 		);
+// 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
-		console.log(data);
-		try {
-			await db.insert(fuelInputs).values({
-				date: data.date,
-				type: data.type,
-				amount: data.amount,
-			});
-		} catch (error) {
-			return fail(422, { error: error.message });
-		}
-	},
+// 		console.log(data);
+// 		try {
+// 			await db.insert(fuelInputs).values({
+// 				date: data.date,
+// 				type: data.type,
+// 				amount: data.amount,
+// 			});
+// 		} catch (error) {
+// 			return fail(422, { error: error.message });
+// 		}
+// 	},
 
-	update: async ({ request }) => {
-		const formData = await request.formData();
+// 	update: async ({ request }) => {
+// 		const formData = await request.formData();
 
-		const data = Object.fromEntries(formData);
+// 		const data = Object.fromEntries(formData);
 
-		// CONVERT Persian Date to Gregorian
-		const dateSplitted = data.date.split('/');
-		const datePersian = new CalendarDate(
-			new PersianCalendar(),
-			Number(dateSplitted?.at(0)),
-			Number(dateSplitted?.at(1)),
-			Number(dateSplitted?.at(2)),
-		);
-		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
+// 		// CONVERT Persian Date to Gregorian
+// 		const dateSplitted = data.date.split('/');
+// 		const datePersian = new CalendarDate(
+// 			new PersianCalendar(),
+// 			Number(dateSplitted?.at(0)),
+// 			Number(dateSplitted?.at(1)),
+// 			Number(dateSplitted?.at(2)),
+// 		);
+// 		data.date = toCalendar(datePersian, new GregorianCalendar()).toString();
 
-		await db
-			.update(fuelInputs)
-			.set({ ...data })
-			.where(eq(fuelInputs.id, data.id));
-	},
+// 		await db
+// 			.update(fuelInputs)
+// 			.set({ ...data })
+// 			.where(eq(fuelInputs.id, data.id));
+// 	},
 
-	delete: async ({ request }) => {
-		const data = await request.formData();
-		const id = data.get('id');
-		await db.delete(fuelInputs).where(eq(fuelInputs.id, id));
-	},
-};
+// 	delete: async ({ request }) => {
+// 		const data = await request.formData();
+// 		const id = data.get('id');
+// 		await db.delete(fuelInputs).where(eq(fuelInputs.id, id));
+// 	},
+// };
