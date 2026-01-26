@@ -9,10 +9,9 @@
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
-	import { FuelTypeLabels } from '../vehicles/types.js';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
 	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
-	import { ownerUnitSelect, plateShower } from '$lib/utils.js';
+	import { plateShower } from '$lib/utils.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
 	import type { CalendarDate } from '@internationalized/date';
 	import { NumericFormat } from 'svelte-number-format';
@@ -326,6 +325,9 @@
 						<Table.Head class="text-center">تحویل دهنده</Table.Head>
 						<Table.Head class="text-center">نوع سوخت</Table.Head>
 						<Table.Head class="text-center">مقدار</Table.Head>
+						<Table.Head class="text-center">کیلومتر</Table.Head>
+						<Table.Head class="text-center">محل سوختگیری</Table.Head>
+						<!-- <Table.Head class="text-center">هزینه</Table.Head> -->
 						<Table.Head class="text-center">توضیحات</Table.Head>
 						<Table.Head class="text-center">-</Table.Head>
 					</Table.Row>
@@ -336,7 +338,8 @@
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell
-								>{vehicle?.title}-{ownerUnitSelect(vehicle?.ownerUnit)}
+								>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)
+									?.persianTitle}
 								<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
 							>
 							<Table.Cell
@@ -348,11 +351,16 @@
 									?.label}</Table.Cell
 							>
 							<Table.Cell
-								>{FuelTypeLabels?.[
-									data.vehicles.find((item) => item.id === record.vehicleId)?.fuelType
-								]}</Table.Cell
+								>{data.FuelTypes?.find((item) => item.id === vehicle?.fuelType)
+									?.persianTitle}</Table.Cell
 							>
 							<Table.Cell>{record.amount}</Table.Cell>
+							<Table.Cell>{record.kilometer}</Table.Cell>
+							<Table.Cell
+								>{data.FuelingLocations?.find((item) => item.id === record.location)
+									?.persianTitle}</Table.Cell
+							>
+							<!-- <Table.Cell>{record.price}</Table.Cell> -->
 							<Table.Cell>{record.description}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">

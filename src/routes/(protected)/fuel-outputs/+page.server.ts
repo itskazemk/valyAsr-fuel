@@ -17,5 +17,7 @@ export async function load({ cookies }) {
 		DelivererPersons: DelivererPersons,
 		ReceiverPersons: ReceiverPersons,
 		FuelingLocations: await getBaseInfoByTitle('FuelingLocations'),
+		FuelTypes: await getBaseInfoByTitle('FuelTypes'),
+		Departments: await getBaseInfoByTitle('Departments'),
 	};
 }

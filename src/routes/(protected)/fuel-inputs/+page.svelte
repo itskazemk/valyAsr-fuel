@@ -11,7 +11,6 @@
 	import { DatePicker } from '@kazemk/svelte-international-datepicker';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
-	import { FuelTypeLabels } from '../vehicles/types.js';
 	import { createFuelInput, deleteFuelInput, updateFuelInput } from './fuelInput.remote.js';
 
 	let defaultValues = {
@@ -177,17 +176,17 @@
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{#each data.fuelInputs as vehicle (vehicle)}
+					{#each data.fuelInputs as record (record)}
 						<Table.Row>
-							<Table.Cell>{new Date(vehicle.date).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{FuelTypeLabels?.[vehicle.type]}</Table.Cell>
-							<Table.Cell>{vehicle.amount}</Table.Cell>
+							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
+							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(vehicle.id)} class="hover:text-yellow-500"
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
 										><Pen /></button
 									>
-									<button onclick={() => deleteFn(vehicle.id)} class="hover:text-red-500"
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
 										><Trash /></button
 									>
 								</div></Table.Cell

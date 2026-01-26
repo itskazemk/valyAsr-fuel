@@ -12,7 +12,6 @@
 	import { toast } from 'svelte-sonner';
 	import { createFuelPrice, deleteFuelPrice, updateFuelPrice } from './fuelPrice.remote.js';
 	import type { CalendarDate } from '@internationalized/date';
-	import { FuelTypeLabels } from '../../vehicles/types.js';
 
 	interface defaultValues {
 		id: string | null;
@@ -220,23 +219,23 @@
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{#each data.fuelPrices as item, index (item)}
+					{#each data.fuelPrices as record, index (record)}
 						<Table.Row>
 							<Table.Cell>{index + 1}</Table.Cell>
-							<Table.Cell>{new Date(item.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{new Date(item.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{new Date(record.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
+							<Table.Cell>{new Date(record.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
 
 							<!-- <Table.Cell>{FuelTypeLabels?.[item.type as FuelTypeEnum]}</Table.Cell> -->
 
-							<Table.Cell>{FuelTypeLabels?.[item.type]}</Table.Cell>
+							<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
 
-							<Table.Cell>{item.amount}</Table.Cell>
+							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(item.id)} class="hover:text-yellow-500"
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
 										><Pen /></button
 									>
-									<button onclick={() => deleteFn(item.id)} class="hover:text-red-500"
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
 										><Trash /></button
 									>
 								</div></Table.Cell

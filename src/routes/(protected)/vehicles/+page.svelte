@@ -8,12 +8,13 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { FuelTypeLabels, VehicleLabels } from './types.js';
 	import { createVehicle, deleteVehicle, updateVehicle } from './vehicles.remote.js';
 	import { toast } from 'svelte-sonner';
 	import { anyNull } from '$lib/utils.js';
 
 	let { data, form } = $props();
+
+	console.log(222, data);
 
 	let defaultValues = {
 		id: null,
@@ -278,11 +279,14 @@
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{#each data.vehicles as vehicle (vehicle)}
-						{@const plateSplitted = vehicle.plate.split('_')}
+					{#each data.vehicles as record (record)}
+						{@const plateSplitted = record.plate.split('_')}
 						<Table.Row>
-							<Table.Cell>{vehicle.title}</Table.Cell>
-							<Table.Cell>{VehicleLabels?.[vehicle.type]}</Table.Cell>
+							<Table.Cell>{record.title}</Table.Cell>
+							<Table.Cell
+								>{data.VehicleTypes?.find((item) => item.id === record.type)
+									?.persianTitle}</Table.Cell
+							>
 							<Table.Cell class=""
 								><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
 									<div>{plateSplitted?.[0]}</div>
@@ -291,14 +295,20 @@
 									<div>{plateSplitted?.[3]}</div>
 								</div></Table.Cell
 							>
-							<Table.Cell>{FuelTypeLabels?.[vehicle.fuelType]}</Table.Cell>
-							<Table.Cell>{vehicle.ownerUnit}</Table.Cell>
+							<Table.Cell
+								>{data.FuelTypes?.find((item) => item.id === record.fuelType)
+									?.persianTitle}</Table.Cell
+							>
+							<Table.Cell
+								>{data.Departments?.find((item) => item.id === record.ownerUnit)
+									?.persianTitle}</Table.Cell
+							>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(vehicle.id)} class="hover:text-yellow-500"
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
 										><Pen /></button
 									>
-									<button onclick={() => deleteFn(vehicle.id)} class="hover:text-red-500"
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
 										><Trash /></button
 									>
 								</div></Table.Cell
