@@ -3,16 +3,20 @@
 		<span>در حال تکمیل ...</span>
 	</div> -->
 
-	<!-- <div class="card">
-		<div class="content">
-			<h2 class="font-bnazanin text-2xl font-bold">محمدکاظم کمالی‌اردکانی</h2>
-			<div class="numbers">
-				<span>428</span>
-				<span>2</span>
-				<span>114</span>
+	<div class="grid grid-cols-5 gap-4">
+		{#each { length: 10 } as i}
+			<div class="card">
+				<div class="content">
+					<h2 class="font-bnazanin text-2xl font-bold">محمدکاظم کمالی‌اردکانی</h2>
+					<div class="numbers">
+						<span>428</span>
+						<span>2</span>
+						<span>114</span>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div> -->
+		{/each}
+	</div>
 </div>
 
 <style>
