@@ -50,6 +50,7 @@ export const fuelOutputs = sqliteTable('fuel-outputs', {
 	ReceiverPersonId: text().notNull(),
 	amount: integer().notNull(), // Liter
 	kilometer: integer(),
+	// locationId: text().notNull(),
 	location: text().notNull(),
 	description: text(),
 	updatedAt: text()

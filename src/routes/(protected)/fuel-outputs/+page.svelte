@@ -111,7 +111,7 @@
 						ReceiverPersonId: formData.ReceiverPersonId,
 						amount: formData.amount,
 						kilometer: formData.kilometer,
-						location: formData.locationId,
+						locationId: formData.locationId,
 						description: formData.description,
 					});
 					formData = defaultValues;
@@ -136,7 +136,7 @@
 							ReceiverPersonId: formData.ReceiverPersonId,
 							amount: formData.amount,
 							kilometer: formData.kilometer,
-							location: formData.locationId,
+							locationId: formData.locationId,
 							description: formData.description,
 						});
 						toast.warning('با موفقیت ویرایش شد');
@@ -203,7 +203,7 @@
 							bind:value={formData.vehicleId}
 							required={true}
 							options={data.vehicles?.map((item) => {
-								return { label: `${item.title}-${item.ownerUnit}-${item.plate}`, value: item.id };
+								return { label: `${item.title}-${item.plate}`, value: item.id };
 							})}
 						/>
 					</div>
@@ -253,11 +253,11 @@
 					</div>
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
-						<Label for="location">محل سوخت گیری</Label>
+						<Label for="locationId">محل سوخت گیری</Label>
 						<Combobox
 							bind:value={formData.locationId}
 							required={true}
-							name="location"
+							name="locationId"
 							options={data.FuelingLocations?.map((item) => {
 								return { label: item.persianTitle, value: item.id };
 							})}
@@ -357,7 +357,7 @@
 							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell>{record.kilometer}</Table.Cell>
 							<Table.Cell
-								>{data.FuelingLocations?.find((item) => item.id === record.location)
+								>{data.FuelingLocations?.find((item) => item.id === record.locationId)
 									?.persianTitle}</Table.Cell
 							>
 							<!-- <Table.Cell>{record.price}</Table.Cell> -->

@@ -1,9 +1,9 @@
 <div class="flex h-full items-center justify-center gap-2">
-	<!-- <div class="animate-bounce border border-dashed border-black p-2">
+	<div class="animate-bounce border border-dashed border-black p-2">
 		<span>در حال تکمیل ...</span>
-	</div> -->
+	</div>
 
-	<div class="grid grid-cols-5 gap-4">
+	<!-- <div class="grid grid-cols-5 gap-4">
 		{#each { length: 10 } as i}
 			<div class="card">
 				<div class="content">
@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		{/each}
-	</div>
+	</div> -->
 </div>
 
 <style>

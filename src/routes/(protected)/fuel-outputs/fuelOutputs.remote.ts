@@ -17,7 +17,7 @@ export const createFuelOutput = command(
 		ReceiverPersonId: v.string(),
 		amount: v.number(),
 		kilometer: v.nullable(v.number()),
-		location: v.pipe(v.string(), v.uuid()),
+		locationId: v.pipe(v.string(), v.uuid()),
 		description: v.nullable(v.string()),
 	}),
 	async ({
@@ -27,7 +27,7 @@ export const createFuelOutput = command(
 		ReceiverPersonId,
 		amount,
 		kilometer,
-		location,
+		locationId,
 		description,
 	}) => {
 		try {
@@ -38,7 +38,7 @@ export const createFuelOutput = command(
 				ReceiverPersonId,
 				amount,
 				kilometer,
-				location,
+				locationId,
 				description,
 			});
 		} catch {
@@ -56,7 +56,7 @@ export const updateFuelOutput = command(
 		ReceiverPersonId: v.string(),
 		amount: v.number(),
 		kilometer: v.nullable(v.number()),
-		location: v.pipe(v.string(), v.uuid()),
+		locationId: v.pipe(v.string(), v.uuid()),
 		description: v.string(),
 	}),
 	async ({
@@ -67,7 +67,7 @@ export const updateFuelOutput = command(
 		ReceiverPersonId,
 		amount,
 		kilometer,
-		location,
+		locationId,
 		description,
 	}) => {
 		try {
@@ -81,7 +81,7 @@ export const updateFuelOutput = command(
 					ReceiverPersonId,
 					amount,
 					kilometer,
-					location,
+					locationId,
 					description,
 				})
 				.where(eq(fuelOutputs.id, id));
