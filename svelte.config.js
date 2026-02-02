@@ -5,19 +5,19 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		csrf: { trustedOrigins: ['*'] },
-		experimental: { remoteFunctions: true }
+		experimental: { remoteFunctions: true },
 	},
 	compilerOptions: {
 		runes: true,
 		experimental: {
-			async: true
-		}
+			async: true,
+		},
 	},
 
 	// alt+x
 	vitePlugin: {
-		inspector: true
-	}
+		inspector: true,
+	},
 };
 
 export default config;

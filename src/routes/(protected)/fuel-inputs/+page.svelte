@@ -106,11 +106,7 @@
 				<Card.Title>ثبت دریافت سوخت</Card.Title>
 			</Card.Header>
 			<Card.Content class="h-full"
-				><form
-					onsubmit={submitFn}
-					autocomplete="off"
-					class="grid h-full grid-cols-2 gap-2 rounded-sm"
-				>
+				><form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
 					<label
 						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 						hidden={true}
@@ -138,13 +134,7 @@
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="type">مقدار</Label>
-						<Input
-							type="number"
-							id="amount"
-							name="amount"
-							bind:value={formData.amount}
-							required={true}
-						/>
+						<Input type="number" id="amount" name="amount" bind:value={formData.amount} required={true} />
 					</div>
 
 					<div class="col-span-2 mt-2 flex items-end gap-2">
@@ -183,12 +173,8 @@
 							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
-										><Pen /></button
-									>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
-										><Trash /></button
-									>
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
 								</div></Table.Cell
 							>
 						</Table.Row>

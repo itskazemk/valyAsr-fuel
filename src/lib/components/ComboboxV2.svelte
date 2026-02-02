@@ -103,12 +103,7 @@
 
 <div class="container">
 	<label for="combobox-1"> فلان فلان </label>
-	<div
-		class="wrapper"
-		aria-expanded={status === 'focus'}
-		aria-owns="listbox-1"
-		aria-haspopup="listbox"
-	>
+	<div class="wrapper" aria-expanded={status === 'focus'} aria-owns="listbox-1" aria-haspopup="listbox">
 		<Input
 			placeholder="انتخاب کنید"
 			role="combobox"

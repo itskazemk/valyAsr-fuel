@@ -177,11 +177,7 @@
 				<Card.Title>ثبت تحویل سوخت</Card.Title>
 			</Card.Header>
 			<Card.Content class="h-full"
-				><form
-					onsubmit={submitFn}
-					autocomplete="off"
-					class="grid h-full grid-cols-2 gap-2 rounded-sm"
-				>
+				><form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
 					<label
 						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 						hidden={true}
@@ -266,10 +262,7 @@
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="description">توضیحات</Label>
-						<textarea
-							id="description"
-							bind:value={formData.description}
-							class="rounded-md border border-gray-300"
+						<textarea id="description" bind:value={formData.description} class="rounded-md border border-gray-300"
 						></textarea>
 					</div>
 
@@ -290,12 +283,7 @@
 								<div>هزینه سوختگیری (تومان):</div>
 								<div class="">
 									{#await computedPrice then val}
-										<NumericFormat
-											value={val}
-											options={{ precision: 0 }}
-											disabled
-											class="w-full! text-center"
-										/>
+										<NumericFormat value={val} options={{ precision: 0 }} disabled class="w-full! text-center" />
 									{/await}
 								</div>
 							</div>
@@ -338,38 +326,27 @@
 						<Table.Row>
 							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 							<Table.Cell
-								>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)
-									?.persianTitle}
+								>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
 								<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
 							>
 							<Table.Cell
-								>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)
-									?.label}</Table.Cell
+								>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)?.label}</Table.Cell
 							>
 							<Table.Cell
-								>{data.DelivererPersons.find((item) => item.value === record.DelivererPersonId)
-									?.label}</Table.Cell
+								>{data.DelivererPersons.find((item) => item.value === record.DelivererPersonId)?.label}</Table.Cell
 							>
-							<Table.Cell
-								>{data.FuelTypes?.find((item) => item.id === vehicle?.fuelType)
-									?.persianTitle}</Table.Cell
-							>
+							<Table.Cell>{data.FuelTypes?.find((item) => item.id === vehicle?.fuelType)?.persianTitle}</Table.Cell>
 							<Table.Cell>{record.amount}</Table.Cell>
 							<Table.Cell>{record.kilometer}</Table.Cell>
 							<Table.Cell
-								>{data.FuelingLocations?.find((item) => item.id === record.locationId)
-									?.persianTitle}</Table.Cell
+								>{data.FuelingLocations?.find((item) => item.id === record.locationId)?.persianTitle}</Table.Cell
 							>
 							<!-- <Table.Cell>{record.price}</Table.Cell> -->
 							<Table.Cell>{record.description}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
-										><Pen /></button
-									>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
-										><Trash /></button
-									>
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
 								</div></Table.Cell
 							>
 						</Table.Row>

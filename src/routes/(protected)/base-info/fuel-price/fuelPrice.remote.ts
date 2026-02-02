@@ -35,10 +35,7 @@ export const updateFuelPrice = command(
 	}),
 	async ({ id, startDate, endDate, type, amount }) => {
 		try {
-			await db
-				.update(fuelPrices)
-				.set({ startDate, endDate, type, amount })
-				.where(eq(fuelPrices.id, id));
+			await db.update(fuelPrices).set({ startDate, endDate, type, amount }).where(eq(fuelPrices.id, id));
 		} catch {
 			error(502, 'failed to update fuelPrice');
 		}
@@ -60,12 +57,7 @@ export const getFuelPriceAtDate = query(
 			const val = await db
 				.select({ amount: fuelPrices.amount })
 				.from(fuelPrices)
-				.where(
-					and(
-						and(gte(fuelPrices.endDate, date), lte(fuelPrices.startDate, date)),
-						eq(fuelPrices.type, fuelType),
-					),
-				);
+				.where(and(and(gte(fuelPrices.endDate, date), lte(fuelPrices.startDate, date)), eq(fuelPrices.type, fuelType)));
 
 			console.log('selected Vehicle in remoteFn', val);
 

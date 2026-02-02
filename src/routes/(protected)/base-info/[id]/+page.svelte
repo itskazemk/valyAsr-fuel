@@ -90,11 +90,7 @@
 				<Card.Title>ثبت</Card.Title>
 			</Card.Header>
 			<Card.Content class="h-full"
-				><form
-					onsubmit={submitFn}
-					autocomplete="off"
-					class="grid h-full grid-cols-2 gap-2 rounded-sm"
-				>
+				><form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
 					<label
 						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 						hidden={true}
@@ -105,13 +101,7 @@
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="title">عنوان</Label>
-						<Input
-							type="text"
-							id="title"
-							name="title"
-							bind:value={formData.title}
-							required={true}
-						/>
+						<Input type="text" id="title" name="title" bind:value={formData.title} required={true} />
 					</div>
 
 					<div class="col-span-2 mt-2 flex items-end gap-2">
@@ -155,9 +145,7 @@
 								/></Table.Cell
 							>
 							<Table.Cell
-								><button onclick={() => getFn(baseInfo.id)} class="hover:text-yellow-500"
-									><Pen /></button
-								></Table.Cell
+								><button onclick={() => getFn(baseInfo.id)} class="hover:text-yellow-500"><Pen /></button></Table.Cell
 							>
 						</Table.Row>
 					{/each}

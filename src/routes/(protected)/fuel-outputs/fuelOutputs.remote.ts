@@ -20,16 +20,7 @@ export const createFuelOutput = command(
 		locationId: v.pipe(v.string(), v.uuid()),
 		description: v.nullable(v.string()),
 	}),
-	async ({
-		date,
-		vehicleId,
-		DelivererPersonId,
-		ReceiverPersonId,
-		amount,
-		kilometer,
-		locationId,
-		description,
-	}) => {
+	async ({ date, vehicleId, DelivererPersonId, ReceiverPersonId, amount, kilometer, locationId, description }) => {
 		try {
 			await db.insert(fuelOutputs).values({
 				date,
@@ -59,17 +50,7 @@ export const updateFuelOutput = command(
 		locationId: v.pipe(v.string(), v.uuid()),
 		description: v.string(),
 	}),
-	async ({
-		id,
-		date,
-		vehicleId,
-		DelivererPersonId,
-		ReceiverPersonId,
-		amount,
-		kilometer,
-		locationId,
-		description,
-	}) => {
+	async ({ id, date, vehicleId, DelivererPersonId, ReceiverPersonId, amount, kilometer, locationId, description }) => {
 		try {
 			await db
 				.update(fuelOutputs)

@@ -51,7 +51,7 @@ get along, so we shut typescript up by casting `value` to `never`.
 	{disableDaysOutsideMonth}
 	class={cn(
 		'group/calendar bg-background p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
-		className
+		className,
 	)}
 	{locale}
 	{monthFormat}
@@ -97,7 +97,7 @@ get along, so we shut typescript up by casting `value` to `never`.
 											{#if day}
 												{@render day({
 													day: date,
-													outsideMonth: !isEqualMonth(date, month.value)
+													outsideMonth: !isEqualMonth(date, month.value),
 												})}
 											{:else}
 												<Calendar.Day />

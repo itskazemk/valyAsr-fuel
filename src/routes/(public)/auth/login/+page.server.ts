@@ -77,9 +77,7 @@ export const actions: Actions = {
 		});
 
 		try {
-			await db
-				.insert(table.user)
-				.values({ id: userId, username, firstName, lastName, role, passwordHash });
+			await db.insert(table.user).values({ id: userId, username, firstName, lastName, role, passwordHash });
 
 			const sessionToken = auth.generateSessionToken();
 			const session = await auth.createSession(sessionToken, userId);
@@ -100,10 +98,7 @@ function generateUserId() {
 
 function validateUsername(username: unknown): username is string {
 	return (
-		typeof username === 'string' &&
-		username.length >= 3 &&
-		username.length <= 31 &&
-		/^[a-z0-9_-]+$/.test(username)
+		typeof username === 'string' && username.length >= 3 && username.length <= 31 && /^[a-z0-9_-]+$/.test(username)
 	);
 }
 

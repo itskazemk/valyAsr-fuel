@@ -1,1 +1,290 @@
-[{"id":"050b8b47-89a4-4855-b9e4-da6fe208c252","sub_id":null,"title":"DelivererPersons","persian_title":"تحویل دهنده\u200cها","disabled":0,"updated_at":"2025-12-02 16:30:23","created_at":"2025-12-02 16:30:23"},{"id":"13c96511-01ab-41c1-92cd-dcb739b87d16","sub_id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","title":"سواری","persian_title":"سواری","disabled":0,"updated_at":"2026-01-07 19:30:26","created_at":"2026-01-07 19:30:26"},{"id":"159ff7c1-ac4b-4a2d-b3c0-01d1ee1ca75c","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"آموزش","persian_title":"آموزش","disabled":0,"updated_at":"2026-01-07 19:29:32","created_at":"2026-01-07 19:29:32"},{"id":"2135c821-5795-41f5-81bd-06ffe0621c1d","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"تربیت بدنی","persian_title":"تربیت بدنی","disabled":0,"updated_at":"2026-01-07 19:29:43","created_at":"2026-01-07 19:29:43"},{"id":"29f4be3e-6d9f-4c05-bcff-c6db2a5b2a57","sub_id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","title":"اتوبوس","persian_title":"اتوبوس","disabled":0,"updated_at":"2026-01-07 19:30:38","created_at":"2026-01-07 19:30:38"},{"id":"3187e2ba-81b0-4910-a3a7-d5520a8f4bbc","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"مهندسی","persian_title":"مهندسی","disabled":0,"updated_at":"2026-01-07 19:29:20","created_at":"2026-01-07 19:29:20"},{"id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","sub_id":null,"title":"Departments","persian_title":"واحد\u200cهای سازمان","disabled":0,"updated_at":"2026-01-07 16:58:03","created_at":"2026-01-07 16:58:03"},{"id":"37231868-b8a5-4dd9-847a-ade7d5f66e75","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"فرماندهی","persian_title":"فرماندهی","disabled":0,"updated_at":"2026-01-07 19:29:00","created_at":"2026-01-07 19:29:00"},{"id":"3e36127a-5bff-4a25-92fb-cfc45660cff5","sub_id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","title":"وانت","persian_title":"وانت","disabled":0,"updated_at":"2026-01-07 19:30:33","created_at":"2026-01-07 19:30:33"},{"id":"51f8ec9a-5ce7-4c2b-a479-62437b89acce","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"بهداری","persian_title":"بهداری","disabled":0,"updated_at":"2026-01-07 19:29:34","created_at":"2026-01-07 19:29:34"},{"id":"6103b0e9-8874-468e-9f68-d53cea5d0a9b","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"حفاظت","persian_title":"حفاظت","disabled":0,"updated_at":"2026-01-07 19:29:02","created_at":"2026-01-07 19:29:02"},{"id":"62c572e2-619f-4c92-8e27-252ba9e172a7","sub_id":"c798146f-2ab6-458a-87a8-6fe2988645ff","title":"بنزین","persian_title":"بنزین","disabled":0,"updated_at":"2026-01-07 19:30:18","created_at":"2026-01-07 19:30:18"},{"id":"67925fb7-5b2e-4e79-ac3b-6495ce2e1b5d","sub_id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","title":"کامیون","persian_title":"کامیون","disabled":0,"updated_at":"2026-01-07 19:30:32","created_at":"2026-01-07 19:30:32"},{"id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","sub_id":null,"title":"VehicleTypes","persian_title":"انواع وسیله نقلیه","disabled":0,"updated_at":"2026-01-07 17:04:42","created_at":"2026-01-07 17:04:42"},{"id":"6e3537ff-7933-49f8-9e07-b7162b88b1f4","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"آماد و پشتیبانی","persian_title":"آماد و پشتیبانی","disabled":0,"updated_at":"2026-01-07 19:29:28","created_at":"2026-01-07 19:29:28"},{"id":"738771c1-6a50-4746-9ba1-ad9c5e843b28","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"قرارگاه","persian_title":"قرارگاه","disabled":0,"updated_at":"2026-01-07 19:29:18","created_at":"2026-01-07 19:29:18"},{"id":"7befb106-1368-42e9-95c2-6853ac1b6217","sub_id":"67cdacc7-7b73-4e84-9b81-f38aba593a70","title":"مینی\u200cبوس","persian_title":"مینی\u200cبوس","disabled":0,"updated_at":"2026-01-07 19:30:31","created_at":"2026-01-07 19:30:31"},{"id":"8016ff29-947f-4167-a4b0-d88b99fa0f0c","sub_id":"82a95575-08d5-4a54-ab0d-32f7787386c2","title":"خارج پادگان - آزاد","persian_title":"خارج پادگان - آزاد","disabled":0,"updated_at":"2026-01-07 19:37:57","created_at":"2026-01-07 19:37:57"},{"id":"82a95575-08d5-4a54-ab0d-32f7787386c2","sub_id":null,"title":"FuelingLocations","persian_title":"محل\u200cهای سوخت\u200cگیری","disabled":0,"updated_at":"2026-01-07 19:33:51","created_at":"2026-01-07 19:33:51"},{"id":"8db3d6a9-c945-4c31-86f6-425ed40428b4","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"بازرسی","persian_title":"بازرسی","disabled":0,"updated_at":"2026-01-07 19:29:09","created_at":"2026-01-07 19:29:09"},{"id":"8fbfa61b-30d0-4f22-99d7-b3ba9c0914ff","sub_id":"82a95575-08d5-4a54-ab0d-32f7787386c2","title":"خارج پادگان - رایگان","persian_title":"خارج پادگان - رایگان","disabled":0,"updated_at":"2026-01-07 19:38:03","created_at":"2026-01-07 19:38:03"},{"id":"9ba6b6ad-e6d6-4cdb-9f6d-5e854ca078e7","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"ایمنی","persian_title":"ایمنی","disabled":0,"updated_at":"2026-01-07 19:29:06","created_at":"2026-01-07 19:29:06"},{"id":"9e3a72a6-82d2-4214-997e-b254b04d1809","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"حوزه","persian_title":"حوزه","disabled":0,"updated_at":"2026-01-07 19:29:04","created_at":"2026-01-07 19:29:04"},{"id":"a769af53-db7c-4282-a0bb-e53c0ff02ddd","sub_id":null,"title":"ReceiverPersons","persian_title":"تحویل گیرنده\u200cها","disabled":0,"updated_at":"2025-12-02 16:34:34","created_at":"2025-12-02 16:34:34"},{"id":"b63e4e77-e23f-4844-bfdc-c23660ffc29a","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"تیپ آموزش - تیپ دوم","persian_title":"تیپ آموزش - تیپ دوم","disabled":0,"updated_at":"2026-01-07 19:29:58","created_at":"2026-01-07 19:29:58"},{"id":"c7933743-d857-4629-abd3-932a97e61966","sub_id":"c798146f-2ab6-458a-87a8-6fe2988645ff","title":"گازوییل","persian_title":"گازوییل","disabled":0,"updated_at":"2026-01-07 19:30:21","created_at":"2026-01-07 19:30:21"},{"id":"c798146f-2ab6-458a-87a8-6fe2988645ff","sub_id":null,"title":"FuelTypes","persian_title":"انواع سوخت","disabled":0,"updated_at":"2026-01-07 17:04:42","created_at":"2026-01-07 17:04:42"},{"id":"c96fe2f0-2ed1-4c81-be98-5a49f0a6e8af","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"نیرو انسانی","persian_title":"نیرو انسانی","disabled":0,"updated_at":"2026-01-07 19:29:13","created_at":"2026-01-07 19:29:13"},{"id":"dd723d31-f3e8-42b2-817b-23bd3dc1588b","sub_id":"82a95575-08d5-4a54-ab0d-32f7787386c2","title":"داخل پادگان","persian_title":"داخل پادگان","disabled":0,"updated_at":"2026-01-07 19:37:49","created_at":"2026-01-07 19:37:49"},{"id":"ed515648-8f97-4c54-9e87-4fbaca0cc775","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"فرهنگی","persian_title":"فرهنگی","disabled":0,"updated_at":"2026-01-07 19:29:38","created_at":"2026-01-07 19:29:38"},{"id":"f4dda71d-0dd4-4a89-8f30-0b80eda0677f","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"طرح و برنامه","persian_title":"طرح و برنامه","disabled":0,"updated_at":"2026-01-07 19:29:15","created_at":"2026-01-07 19:29:15"},{"id":"ffccad50-5a13-4771-ba8a-b6443eb7d7b9","sub_id":"36c7eece-3f9d-4e37-9000-a9d7faa564c3","title":"تیپ آموزش - گردان اول","persian_title":"تیپ آموزش - گردان اول","disabled":0,"updated_at":"2026-01-07 19:29:51","created_at":"2026-01-07 19:29:51"}]
+[
+	{
+		"id": "050b8b47-89a4-4855-b9e4-da6fe208c252",
+		"sub_id": null,
+		"title": "DelivererPersons",
+		"persian_title": "تحویل دهنده\u200cها",
+		"disabled": 0,
+		"updated_at": "2025-12-02 16:30:23",
+		"created_at": "2025-12-02 16:30:23"
+	},
+	{
+		"id": "13c96511-01ab-41c1-92cd-dcb739b87d16",
+		"sub_id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"title": "سواری",
+		"persian_title": "سواری",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:26",
+		"created_at": "2026-01-07 19:30:26"
+	},
+	{
+		"id": "159ff7c1-ac4b-4a2d-b3c0-01d1ee1ca75c",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "آموزش",
+		"persian_title": "آموزش",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:32",
+		"created_at": "2026-01-07 19:29:32"
+	},
+	{
+		"id": "2135c821-5795-41f5-81bd-06ffe0621c1d",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "تربیت بدنی",
+		"persian_title": "تربیت بدنی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:43",
+		"created_at": "2026-01-07 19:29:43"
+	},
+	{
+		"id": "29f4be3e-6d9f-4c05-bcff-c6db2a5b2a57",
+		"sub_id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"title": "اتوبوس",
+		"persian_title": "اتوبوس",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:38",
+		"created_at": "2026-01-07 19:30:38"
+	},
+	{
+		"id": "3187e2ba-81b0-4910-a3a7-d5520a8f4bbc",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "مهندسی",
+		"persian_title": "مهندسی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:20",
+		"created_at": "2026-01-07 19:29:20"
+	},
+	{
+		"id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"sub_id": null,
+		"title": "Departments",
+		"persian_title": "واحد\u200cهای سازمان",
+		"disabled": 0,
+		"updated_at": "2026-01-07 16:58:03",
+		"created_at": "2026-01-07 16:58:03"
+	},
+	{
+		"id": "37231868-b8a5-4dd9-847a-ade7d5f66e75",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "فرماندهی",
+		"persian_title": "فرماندهی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:00",
+		"created_at": "2026-01-07 19:29:00"
+	},
+	{
+		"id": "3e36127a-5bff-4a25-92fb-cfc45660cff5",
+		"sub_id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"title": "وانت",
+		"persian_title": "وانت",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:33",
+		"created_at": "2026-01-07 19:30:33"
+	},
+	{
+		"id": "51f8ec9a-5ce7-4c2b-a479-62437b89acce",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "بهداری",
+		"persian_title": "بهداری",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:34",
+		"created_at": "2026-01-07 19:29:34"
+	},
+	{
+		"id": "6103b0e9-8874-468e-9f68-d53cea5d0a9b",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "حفاظت",
+		"persian_title": "حفاظت",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:02",
+		"created_at": "2026-01-07 19:29:02"
+	},
+	{
+		"id": "62c572e2-619f-4c92-8e27-252ba9e172a7",
+		"sub_id": "c798146f-2ab6-458a-87a8-6fe2988645ff",
+		"title": "بنزین",
+		"persian_title": "بنزین",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:18",
+		"created_at": "2026-01-07 19:30:18"
+	},
+	{
+		"id": "67925fb7-5b2e-4e79-ac3b-6495ce2e1b5d",
+		"sub_id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"title": "کامیون",
+		"persian_title": "کامیون",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:32",
+		"created_at": "2026-01-07 19:30:32"
+	},
+	{
+		"id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"sub_id": null,
+		"title": "VehicleTypes",
+		"persian_title": "انواع وسیله نقلیه",
+		"disabled": 0,
+		"updated_at": "2026-01-07 17:04:42",
+		"created_at": "2026-01-07 17:04:42"
+	},
+	{
+		"id": "6e3537ff-7933-49f8-9e07-b7162b88b1f4",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "آماد و پشتیبانی",
+		"persian_title": "آماد و پشتیبانی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:28",
+		"created_at": "2026-01-07 19:29:28"
+	},
+	{
+		"id": "738771c1-6a50-4746-9ba1-ad9c5e843b28",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "قرارگاه",
+		"persian_title": "قرارگاه",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:18",
+		"created_at": "2026-01-07 19:29:18"
+	},
+	{
+		"id": "7befb106-1368-42e9-95c2-6853ac1b6217",
+		"sub_id": "67cdacc7-7b73-4e84-9b81-f38aba593a70",
+		"title": "مینی\u200cبوس",
+		"persian_title": "مینی\u200cبوس",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:31",
+		"created_at": "2026-01-07 19:30:31"
+	},
+	{
+		"id": "8016ff29-947f-4167-a4b0-d88b99fa0f0c",
+		"sub_id": "82a95575-08d5-4a54-ab0d-32f7787386c2",
+		"title": "خارج پادگان - آزاد",
+		"persian_title": "خارج پادگان - آزاد",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:37:57",
+		"created_at": "2026-01-07 19:37:57"
+	},
+	{
+		"id": "82a95575-08d5-4a54-ab0d-32f7787386c2",
+		"sub_id": null,
+		"title": "FuelingLocations",
+		"persian_title": "محل\u200cهای سوخت\u200cگیری",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:33:51",
+		"created_at": "2026-01-07 19:33:51"
+	},
+	{
+		"id": "8db3d6a9-c945-4c31-86f6-425ed40428b4",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "بازرسی",
+		"persian_title": "بازرسی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:09",
+		"created_at": "2026-01-07 19:29:09"
+	},
+	{
+		"id": "8fbfa61b-30d0-4f22-99d7-b3ba9c0914ff",
+		"sub_id": "82a95575-08d5-4a54-ab0d-32f7787386c2",
+		"title": "خارج پادگان - رایگان",
+		"persian_title": "خارج پادگان - رایگان",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:38:03",
+		"created_at": "2026-01-07 19:38:03"
+	},
+	{
+		"id": "9ba6b6ad-e6d6-4cdb-9f6d-5e854ca078e7",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "ایمنی",
+		"persian_title": "ایمنی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:06",
+		"created_at": "2026-01-07 19:29:06"
+	},
+	{
+		"id": "9e3a72a6-82d2-4214-997e-b254b04d1809",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "حوزه",
+		"persian_title": "حوزه",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:04",
+		"created_at": "2026-01-07 19:29:04"
+	},
+	{
+		"id": "a769af53-db7c-4282-a0bb-e53c0ff02ddd",
+		"sub_id": null,
+		"title": "ReceiverPersons",
+		"persian_title": "تحویل گیرنده\u200cها",
+		"disabled": 0,
+		"updated_at": "2025-12-02 16:34:34",
+		"created_at": "2025-12-02 16:34:34"
+	},
+	{
+		"id": "b63e4e77-e23f-4844-bfdc-c23660ffc29a",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "تیپ آموزش - تیپ دوم",
+		"persian_title": "تیپ آموزش - تیپ دوم",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:58",
+		"created_at": "2026-01-07 19:29:58"
+	},
+	{
+		"id": "c7933743-d857-4629-abd3-932a97e61966",
+		"sub_id": "c798146f-2ab6-458a-87a8-6fe2988645ff",
+		"title": "گازوییل",
+		"persian_title": "گازوییل",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:30:21",
+		"created_at": "2026-01-07 19:30:21"
+	},
+	{
+		"id": "c798146f-2ab6-458a-87a8-6fe2988645ff",
+		"sub_id": null,
+		"title": "FuelTypes",
+		"persian_title": "انواع سوخت",
+		"disabled": 0,
+		"updated_at": "2026-01-07 17:04:42",
+		"created_at": "2026-01-07 17:04:42"
+	},
+	{
+		"id": "c96fe2f0-2ed1-4c81-be98-5a49f0a6e8af",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "نیرو انسانی",
+		"persian_title": "نیرو انسانی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:13",
+		"created_at": "2026-01-07 19:29:13"
+	},
+	{
+		"id": "dd723d31-f3e8-42b2-817b-23bd3dc1588b",
+		"sub_id": "82a95575-08d5-4a54-ab0d-32f7787386c2",
+		"title": "داخل پادگان",
+		"persian_title": "داخل پادگان",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:37:49",
+		"created_at": "2026-01-07 19:37:49"
+	},
+	{
+		"id": "ed515648-8f97-4c54-9e87-4fbaca0cc775",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "فرهنگی",
+		"persian_title": "فرهنگی",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:38",
+		"created_at": "2026-01-07 19:29:38"
+	},
+	{
+		"id": "f4dda71d-0dd4-4a89-8f30-0b80eda0677f",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "طرح و برنامه",
+		"persian_title": "طرح و برنامه",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:15",
+		"created_at": "2026-01-07 19:29:15"
+	},
+	{
+		"id": "ffccad50-5a13-4771-ba8a-b6443eb7d7b9",
+		"sub_id": "36c7eece-3f9d-4e37-9000-a9d7faa564c3",
+		"title": "تیپ آموزش - گردان اول",
+		"persian_title": "تیپ آموزش - گردان اول",
+		"disabled": 0,
+		"updated_at": "2026-01-07 19:29:51",
+		"created_at": "2026-01-07 19:29:51"
+	}
+]

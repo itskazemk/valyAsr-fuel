@@ -1,11 +1,6 @@
 import { db } from '$lib/server/db/index.js';
 import { fuelInputs } from '$lib/server/db/schema.js';
-import {
-	CalendarDate,
-	GregorianCalendar,
-	PersianCalendar,
-	toCalendar,
-} from '@internationalized/date';
+import { CalendarDate, GregorianCalendar, PersianCalendar, toCalendar } from '@internationalized/date';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { getBaseInfoByTitle } from '../base-info/baseInfos.remote';

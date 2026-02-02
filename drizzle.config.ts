@@ -9,5 +9,5 @@ export default defineConfig({
 	dbCredentials: { url: './local.db' },
 	verbose: true,
 	strict: true,
-	casing: "snake_case"
+	casing: 'snake_case',
 });

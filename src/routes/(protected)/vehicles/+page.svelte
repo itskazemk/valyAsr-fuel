@@ -135,11 +135,7 @@
 				<Card.Title>ثبت اطلاعات</Card.Title>
 			</Card.Header>
 			<Card.Content>
-				<form
-					onsubmit={submitFn}
-					autocomplete="off"
-					class="grid h-full grid-cols-2 gap-2 rounded-sm"
-				>
+				<form onsubmit={submitFn} autocomplete="off" class="grid h-full grid-cols-2 gap-2 rounded-sm">
 					<label
 						class="center grid grid-cols-3 place-content-center content-center items-center text-center"
 						hidden={true}
@@ -283,10 +279,7 @@
 						{@const plateSplitted = record.plate.split('_')}
 						<Table.Row>
 							<Table.Cell>{record.title}</Table.Cell>
-							<Table.Cell
-								>{data.VehicleTypes?.find((item) => item.id === record.type)
-									?.persianTitle}</Table.Cell
-							>
+							<Table.Cell>{data.VehicleTypes?.find((item) => item.id === record.type)?.persianTitle}</Table.Cell>
 							<Table.Cell class=""
 								><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
 									<div>{plateSplitted?.[0]}</div>
@@ -295,22 +288,12 @@
 									<div>{plateSplitted?.[3]}</div>
 								</div></Table.Cell
 							>
-							<Table.Cell
-								>{data.FuelTypes?.find((item) => item.id === record.fuelType)
-									?.persianTitle}</Table.Cell
-							>
-							<Table.Cell
-								>{data.Departments?.find((item) => item.id === record.ownerUnit)
-									?.persianTitle}</Table.Cell
-							>
+							<Table.Cell>{data.FuelTypes?.find((item) => item.id === record.fuelType)?.persianTitle}</Table.Cell>
+							<Table.Cell>{data.Departments?.find((item) => item.id === record.ownerUnit)?.persianTitle}</Table.Cell>
 							<Table.Cell
 								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"
-										><Pen /></button
-									>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"
-										><Trash /></button
-									>
+									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
 								</div></Table.Cell
 							>
 						</Table.Row>

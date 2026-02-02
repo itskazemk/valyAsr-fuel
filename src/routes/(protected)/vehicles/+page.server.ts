@@ -19,6 +19,4 @@ export async function load({ cookies }) {
 		VehicleTypes: await getBaseInfoByTitle('VehicleTypes'),
 		FuelTypes: await getBaseInfoByTitle('FuelTypes'),
 	};
-
-	
 }

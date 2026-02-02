@@ -31,13 +31,7 @@
 <Popover.Root bind:open>
 	<Popover.Trigger bind:ref={triggerRef}>
 		{#snippet child({ props })}
-			<Button
-				{...props}
-				variant="outline"
-				class="w-full justify-between"
-				role="combobox"
-				aria-expanded={open}
-			>
+			<Button {...props} variant="outline" class="w-full justify-between" role="combobox" aria-expanded={open}>
 				{selectedValue || 'انتخاب کنید ...'}
 				<ChevronsUpDownIcon class="opacity-50" />
 			</Button>

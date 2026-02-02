@@ -8,7 +8,7 @@
 		startOfMonth,
 		startOfWeek,
 		isEqualDay,
-		PersianCalendar
+		PersianCalendar,
 	} from '@internationalized/date';
 	import { onMount } from 'svelte';
 
@@ -63,7 +63,7 @@
 				'آذر',
 				'دی',
 				'بهمن',
-				'اسفند'
+				'اسفند',
 			];
 			return `${fallback[date.month - 1]} ${date.year}`;
 		}
@@ -101,7 +101,7 @@
 			const dateGregorian = new CalendarDate(
 				Number(dateSplitted?.at(0)),
 				Number(dateSplitted?.at(1)),
-				Number(dateSplitted?.at(2))
+				Number(dateSplitted?.at(2)),
 			);
 
 			const datePersian = toCalendar(dateGregorian, new PersianCalendar());
@@ -128,11 +128,7 @@
 			/>
 		</Popover.Trigger>
 		<Popover.Portal>
-			<Popover.Content
-				onOpenAutoFocus={(e) => e.preventDefault()}
-				sideOffset={8}
-				class="popover-content"
-			>
+			<Popover.Content onOpenAutoFocus={(e) => e.preventDefault()} sideOffset={8} class="popover-content">
 				<div class="calendar">
 					<div class="calendar-header">
 						<button onclick={prevMonth} class="nav-btn">&lt;</button>

@@ -113,8 +113,7 @@
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						{#each group.items as item (item.title)}
-							{@const isActive =
-								item.url.toLocaleLowerCase() === page.url.pathname.toLocaleLowerCase()}
+							{@const isActive = item.url.toLocaleLowerCase() === page.url.pathname.toLocaleLowerCase()}
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton {isActive}>
 									{#snippet child({ props })}

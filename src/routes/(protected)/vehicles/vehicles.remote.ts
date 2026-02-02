@@ -48,10 +48,7 @@ export const updateVehicle = command(
 	}),
 	async ({ id, title, type, plate, fuelType, ownerUnit }) => {
 		try {
-			await db
-				.update(vehicles)
-				.set({ title, type, plate, fuelType, ownerUnit })
-				.where(eq(vehicles.id, id));
+			await db.update(vehicles).set({ title, type, plate, fuelType, ownerUnit }).where(eq(vehicles.id, id));
 		} catch {
 			error(502, 'failed to update vehicle');
 		}
