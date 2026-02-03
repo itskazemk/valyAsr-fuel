@@ -6,6 +6,9 @@
 		"**/src/**/+layout.svelte": "layout ${dirname}"
 	},
 	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": "explicit"
+	},
 	"sqltools.connections": [
 		{
 			"previewLimit": 50,
