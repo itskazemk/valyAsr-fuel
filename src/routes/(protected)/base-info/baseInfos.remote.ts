@@ -1,13 +1,14 @@
-import { command, form, query } from '$app/server';
+import { command, query } from '$app/server';
 import { db } from '$lib/server/db';
 import { baseInfos } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { and, eq, ilike, isNull, like } from 'drizzle-orm';
+import { and, eq, isNull, like } from 'drizzle-orm';
 // import { db } from '../../lib/server/db';
 // import { baseInfos } from '../../lib/server/db/schema';
 import * as v from 'valibot';
 
 export const getBaseInfo = query(v.nullable(v.pipe(v.string(), v.uuid())), async (subId) => {
+
 	if (subId) {
 		const items = await db.select().from(baseInfos).where(eq(baseInfos.subId, subId));
 		return items;
