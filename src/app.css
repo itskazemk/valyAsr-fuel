@@ -131,13 +131,13 @@
 }
 @font-face {
 	font-family: 'B Nazanin';
-	src: url('/src/lib/assets/fonts/BNazanin/IRNazanin-Italic.ttf') format('truetype');
+	src: url('/src/lib/assets/fonts/BNazanin/IRNazaninItalic.ttf') format('truetype');
 	font-style: italic;
 	font-weight: normal;
 }
 @font-face {
 	font-family: 'B Nazanin';
-	src: url('/src/lib/assets/fonts/BNazanin/IRNazanin-Bold.ttf') format('truetype');
+	src: url('/src/lib/assets/fonts/BNazanin/IRNazaninBold.ttf') format('truetype');
 	font-style: normal;
 	font-weight: bold;
 }
