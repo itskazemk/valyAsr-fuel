@@ -4,14 +4,14 @@
 	}
 </script>
 
-<!-- <button onclick={pdfOutput}> print </button> -->
+<button onclick={pdfOutput}> print </button>
 
 <div id="printable" class="flex h-full items-center justify-center gap-2">
-	<div class="animate-bounce border border-dashed border-black p-2">
+	<!-- <div class="animate-bounce border border-dashed border-black p-2">
 		<span>در حال تکمیل ...</span>
-	</div>
+	</div> -->
 
-	<!-- <div class="grid grid-cols-4 gap-1" style="">
+	<div class="grid grid-cols-4 gap-1" style="">
 		{#each { length: 100 } as i}
 			<div class="card">
 				<div class="content">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		{/each}
-	</div> -->
+	</div>
 </div>
 
 <style>
