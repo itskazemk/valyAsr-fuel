@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -8,7 +7,6 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
-	import { DatePicker } from '@kazemk/svelte-international-datepicker';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 	import { createFuelInput, deleteFuelInput, updateFuelInput } from './fuelInput.remote.js';
@@ -99,7 +97,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
 	<div>
 		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 			<Card.Header>
@@ -151,36 +149,38 @@
 		</Card.Root>
 	</div>
 
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<Table.Root class="text-center">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head class="text-center">تاریخ</Table.Head>
-						<Table.Head class="text-center">نوع سوخت</Table.Head>
-						<Table.Head class="text-center">مقدار</Table.Head>
-						<Table.Head class="text-center">-</Table.Head>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each data.fuelInputs as record (record)}
+	<div class="xl:h-[calc(100vh-8rem)]">
+		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
+			<Card.Header>
+				<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
+			</Card.Header>
+			<Card.Content class="overflow-y-auto">
+				<Table.Root class="text-center">
+					<Table.Header>
 						<Table.Row>
-							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
-							<Table.Cell>{record.amount}</Table.Cell>
-							<Table.Cell
-								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
-								</div></Table.Cell
-							>
+							<Table.Head class="text-center">تاریخ</Table.Head>
+							<Table.Head class="text-center">نوع سوخت</Table.Head>
+							<Table.Head class="text-center">مقدار</Table.Head>
+							<Table.Head class="text-center">-</Table.Head>
 						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</Card.Content>
-	</Card.Root>
+					</Table.Header>
+					<Table.Body>
+						{#each data.fuelInputs as record (record)}
+							<Table.Row>
+								<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
+								<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
+								<Table.Cell>{record.amount}</Table.Cell>
+								<Table.Cell
+									><div class="space-x-2">
+										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+										<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
+									</div></Table.Cell
+								>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
 </div>

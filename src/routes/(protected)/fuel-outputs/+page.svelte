@@ -7,14 +7,14 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
+	import { plateShower } from '$lib/utils.js';
+	import type { CalendarDate } from '@internationalized/date';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
+	import { NumericFormat } from 'svelte-number-format';
 	import { toast } from 'svelte-sonner';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
-	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
-	import { plateShower } from '$lib/utils.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
-	import type { CalendarDate } from '@internationalized/date';
-	import { NumericFormat } from 'svelte-number-format';
+	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
 
 	interface defaultValuesT {
 		id: null | string;
@@ -170,7 +170,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
 	<div>
 		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 			<Card.Header>
@@ -299,60 +299,62 @@
 		</Card.Root>
 	</div>
 
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<Table.Root class="text-center">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head class="text-center">تاریخ</Table.Head>
-						<Table.Head class="text-center">وسیله نقلیه</Table.Head>
-						<Table.Head class="text-center">تحویل گیرنده</Table.Head>
-						<Table.Head class="text-center">تحویل دهنده</Table.Head>
-						<Table.Head class="text-center">نوع سوخت</Table.Head>
-						<Table.Head class="text-center">مقدار</Table.Head>
-						<Table.Head class="text-center">کیلومتر</Table.Head>
-						<Table.Head class="text-center">محل سوختگیری</Table.Head>
-						<!-- <Table.Head class="text-center">هزینه</Table.Head> -->
-						<Table.Head class="text-center">توضیحات</Table.Head>
-						<Table.Head class="text-center">-</Table.Head>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each data.fuelOutputs as record (record)}
-						{@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)}
+	<div class="xl:h-[calc(100vh-8rem)]">
+		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
+			<Card.Header>
+				<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
+			</Card.Header>
+			<Card.Content class="overflow-y-auto">
+				<Table.Root class="text-center">
+					<Table.Header>
 						<Table.Row>
-							<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell
-								>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
-								<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
-							>
-							<Table.Cell
-								>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)?.label}</Table.Cell
-							>
-							<Table.Cell
-								>{data.DelivererPersons.find((item) => item.value === record.DelivererPersonId)?.label}</Table.Cell
-							>
-							<Table.Cell>{data.FuelTypes?.find((item) => item.id === vehicle?.fuelType)?.persianTitle}</Table.Cell>
-							<Table.Cell>{record.amount}</Table.Cell>
-							<Table.Cell>{record.kilometer}</Table.Cell>
-							<Table.Cell
-								>{data.FuelingLocations?.find((item) => item.id === record.locationId)?.persianTitle}</Table.Cell
-							>
-							<!-- <Table.Cell>{record.price}</Table.Cell> -->
-							<Table.Cell>{record.description}</Table.Cell>
-							<Table.Cell
-								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
-								</div></Table.Cell
-							>
+							<Table.Head class="text-center">تاریخ</Table.Head>
+							<Table.Head class="text-center">وسیله نقلیه</Table.Head>
+							<Table.Head class="text-center">تحویل گیرنده</Table.Head>
+							<Table.Head class="text-center">تحویل دهنده</Table.Head>
+							<Table.Head class="text-center">نوع سوخت</Table.Head>
+							<Table.Head class="text-center">مقدار</Table.Head>
+							<Table.Head class="text-center">کیلومتر</Table.Head>
+							<Table.Head class="text-center">محل سوختگیری</Table.Head>
+							<!-- <Table.Head class="text-center">هزینه</Table.Head> -->
+							<Table.Head class="text-center">توضیحات</Table.Head>
+							<Table.Head class="text-center">-</Table.Head>
 						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</Card.Content>
-	</Card.Root>
+					</Table.Header>
+					<Table.Body>
+						{#each data.fuelOutputs as record (record)}
+							{@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)}
+							<Table.Row>
+								<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
+								<Table.Cell
+									>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
+									<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
+								>
+								<Table.Cell
+									>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)?.label}</Table.Cell
+								>
+								<Table.Cell
+									>{data.DelivererPersons.find((item) => item.value === record.DelivererPersonId)?.label}</Table.Cell
+								>
+								<Table.Cell>{data.FuelTypes?.find((item) => item.id === vehicle?.fuelType)?.persianTitle}</Table.Cell>
+								<Table.Cell>{record.amount}</Table.Cell>
+								<Table.Cell>{record.kilometer}</Table.Cell>
+								<Table.Cell
+									>{data.FuelingLocations?.find((item) => item.id === record.locationId)?.persianTitle}</Table.Cell
+								>
+								<!-- <Table.Cell>{record.price}</Table.Cell> -->
+								<Table.Cell>{record.description}</Table.Cell>
+								<Table.Cell
+									><div class="space-x-2">
+										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+										<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
+									</div></Table.Cell
+								>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
 </div>

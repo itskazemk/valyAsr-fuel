@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { Trash, Pen } from '@lucide/svelte';
-	import { enhance } from '$app/forms';
-	import { invalidate, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { createVehicle, deleteVehicle, updateVehicle } from './vehicles.remote.js';
-	import { toast } from 'svelte-sonner';
 	import { anyNull } from '$lib/utils.js';
+	import { Pen, Trash } from '@lucide/svelte';
+	import { toast } from 'svelte-sonner';
+	import { createVehicle, deleteVehicle, updateVehicle } from './vehicles.remote.js';
 
 	let { data, form } = $props();
 
@@ -128,7 +127,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
 	<div>
 		<Card.Root>
 			<Card.Header>
@@ -258,48 +257,50 @@
 		</Card.Root>
 	</div>
 
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>اطلاعات ثبت شده</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<Table.Root class="text-center">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head class="text-center">عنوان</Table.Head>
-						<Table.Head class="text-center">نوع وسیله نقلیه</Table.Head>
-						<Table.Head class="text-center">پلاک</Table.Head>
-						<Table.Head class="text-center">نوع سوخت</Table.Head>
-						<Table.Head class="text-center">واحد</Table.Head>
-						<Table.Head class="text-center">-</Table.Head>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each data.vehicles as record (record)}
-						{@const plateSplitted = record.plate.split('_')}
+	<div class="xl:h-[calc(100vh-8rem)]">
+		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
+			<Card.Header>
+				<Card.Title>اطلاعات ثبت شده</Card.Title>
+			</Card.Header>
+			<Card.Content class="overflow-y-auto">
+				<Table.Root class="text-center">
+					<Table.Header>
 						<Table.Row>
-							<Table.Cell>{record.title}</Table.Cell>
-							<Table.Cell>{data.VehicleTypes?.find((item) => item.id === record.type)?.persianTitle}</Table.Cell>
-							<Table.Cell class=""
-								><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
-									<div>{plateSplitted?.[0]}</div>
-									<div>{plateSplitted?.[1]}</div>
-									<div>{plateSplitted?.[2]}</div>
-									<div>{plateSplitted?.[3]}</div>
-								</div></Table.Cell
-							>
-							<Table.Cell>{data.FuelTypes?.find((item) => item.id === record.fuelType)?.persianTitle}</Table.Cell>
-							<Table.Cell>{data.Departments?.find((item) => item.id === record.ownerUnit)?.persianTitle}</Table.Cell>
-							<Table.Cell
-								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
-								</div></Table.Cell
-							>
+							<Table.Head class="text-center">عنوان</Table.Head>
+							<Table.Head class="text-center">نوع وسیله نقلیه</Table.Head>
+							<Table.Head class="text-center">پلاک</Table.Head>
+							<Table.Head class="text-center">نوع سوخت</Table.Head>
+							<Table.Head class="text-center">واحد</Table.Head>
+							<Table.Head class="text-center">-</Table.Head>
 						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</Card.Content>
-	</Card.Root>
+					</Table.Header>
+					<Table.Body>
+						{#each data.vehicles as record (record)}
+							{@const plateSplitted = record.plate.split('_')}
+							<Table.Row>
+								<Table.Cell>{record.title}</Table.Cell>
+								<Table.Cell>{data.VehicleTypes?.find((item) => item.id === record.type)?.persianTitle}</Table.Cell>
+								<Table.Cell class=""
+									><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
+										<div>{plateSplitted?.[0]}</div>
+										<div>{plateSplitted?.[1]}</div>
+										<div>{plateSplitted?.[2]}</div>
+										<div>{plateSplitted?.[3]}</div>
+									</div></Table.Cell
+								>
+								<Table.Cell>{data.FuelTypes?.find((item) => item.id === record.fuelType)?.persianTitle}</Table.Cell>
+								<Table.Cell>{data.Departments?.find((item) => item.id === record.ownerUnit)?.persianTitle}</Table.Cell>
+								<Table.Cell
+									><div class="space-x-2">
+										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+										<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
+									</div></Table.Cell
+								>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
 </div>

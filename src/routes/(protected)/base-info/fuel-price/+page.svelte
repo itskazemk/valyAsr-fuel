@@ -8,10 +8,10 @@
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 
+	import type { CalendarDate } from '@internationalized/date';
 	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
 	import { createFuelPrice, deleteFuelPrice, updateFuelPrice } from './fuelPrice.remote.js';
-	import type { CalendarDate } from '@internationalized/date';
 
 	interface defaultValues {
 		id: string | null;
@@ -125,7 +125,7 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
 	<div>
 		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 			<Card.Header>
@@ -182,44 +182,46 @@
 		</Card.Root>
 	</div>
 
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>جدول قیمت سوخت‌ها</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<Table.Root class="text-center">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head class="text-center">ردیف</Table.Head>
-						<Table.Head class="text-center">تاریخ شروع</Table.Head>
-						<Table.Head class="text-center">تاریخ پایان</Table.Head>
-						<Table.Head class="text-center">نوع</Table.Head>
-						<Table.Head class="text-center">مقدار</Table.Head>
-						<Table.Head class="text-center">-</Table.Head>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each data.fuelPrices as record, index (record)}
+	<div class="xl:h-[calc(100vh-8rem)]">
+		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
+			<Card.Header>
+				<Card.Title>جدول قیمت سوخت‌ها</Card.Title>
+			</Card.Header>
+			<Card.Content class="overflow-y-auto">
+				<Table.Root class="text-center">
+					<Table.Header>
 						<Table.Row>
-							<Table.Cell>{index + 1}</Table.Cell>
-							<Table.Cell>{new Date(record.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
-							<Table.Cell>{new Date(record.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
-
-							<!-- <Table.Cell>{FuelTypeLabels?.[item.type as FuelTypeEnum]}</Table.Cell> -->
-
-							<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
-
-							<Table.Cell>{record.amount}</Table.Cell>
-							<Table.Cell
-								><div class="space-x-2">
-									<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
-									<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
-								</div></Table.Cell
-							>
+							<Table.Head class="text-center">ردیف</Table.Head>
+							<Table.Head class="text-center">تاریخ شروع</Table.Head>
+							<Table.Head class="text-center">تاریخ پایان</Table.Head>
+							<Table.Head class="text-center">نوع</Table.Head>
+							<Table.Head class="text-center">مقدار</Table.Head>
+							<Table.Head class="text-center">-</Table.Head>
 						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</Card.Content>
-	</Card.Root>
+					</Table.Header>
+					<Table.Body>
+						{#each data.fuelPrices as record, index (record)}
+							<Table.Row>
+								<Table.Cell>{index + 1}</Table.Cell>
+								<Table.Cell>{new Date(record.startDate).toLocaleDateString('fa-IR')}</Table.Cell>
+								<Table.Cell>{new Date(record.endDate).toLocaleDateString('fa-IR')}</Table.Cell>
+
+								<!-- <Table.Cell>{FuelTypeLabels?.[item.type as FuelTypeEnum]}</Table.Cell> -->
+
+								<Table.Cell>{data.FuelTypes?.find((item) => record.type)?.persianTitle}</Table.Cell>
+
+								<Table.Cell>{record.amount}</Table.Cell>
+								<Table.Cell
+									><div class="space-x-2">
+										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
+										<button onclick={() => deleteFn(record.id)} class="hover:text-red-500"><Trash /></button>
+									</div></Table.Cell
+								>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
 </div>

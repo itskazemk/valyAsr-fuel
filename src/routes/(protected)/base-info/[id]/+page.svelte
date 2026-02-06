@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/state';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
+	import { Pen, RotateCcw } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
-	import { page } from '$app/state';
 	import { createBaseInfo, toggleDisableBaseInfo, updateBaseInfo } from '../baseInfos.remote.js';
 
 	let defaultValues = {
@@ -83,7 +82,8 @@
 	}
 </script>
 
-<div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0">
+<!-- <div class="grid-cols-2 gap-2 space-y-2 xl:grid xl:space-y-0"> -->
+<div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
 	<div>
 		<Card.Root class={formStatus === 'update' ? 'border-2 border-yellow-300' : null}>
 			<Card.Header>
@@ -118,39 +118,41 @@
 		</Card.Root>
 	</div>
 
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>جدول تحول گیرنده‌ها</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<Table.Root class="text-center">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head class="text-center">ردیف</Table.Head>
-						<Table.Head class="text-center">عنوان</Table.Head>
-						<Table.Head class="text-center">فعال</Table.Head>
-						<Table.Head class="text-center">-</Table.Head>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each data.baseInfos as baseInfo, i (baseInfo)}
+	<div class="xl:h-[calc(100vh-8rem)]">
+		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
+			<Card.Header>
+				<Card.Title>جدول تحول گیرنده‌ها</Card.Title>
+			</Card.Header>
+			<Card.Content class="overflow-y-auto">
+				<Table.Root class="text-center">
+					<Table.Header>
 						<Table.Row>
-							<Table.Cell>{i + 1}</Table.Cell>
-							<Table.Cell>{baseInfo.title}</Table.Cell>
-							<Table.Cell
-								><input
-									type="checkbox"
-									checked={!baseInfo.disabled}
-									onchange={() => disableFn(baseInfo.id)}
-								/></Table.Cell
-							>
-							<Table.Cell
-								><button onclick={() => getFn(baseInfo.id)} class="hover:text-yellow-500"><Pen /></button></Table.Cell
-							>
+							<Table.Head class="text-center">ردیف</Table.Head>
+							<Table.Head class="text-center">عنوان</Table.Head>
+							<Table.Head class="text-center">فعال</Table.Head>
+							<Table.Head class="text-center">-</Table.Head>
 						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</Card.Content>
-	</Card.Root>
+					</Table.Header>
+					<Table.Body>
+						{#each data.baseInfos as baseInfo, i (baseInfo)}
+							<Table.Row>
+								<Table.Cell>{i + 1}</Table.Cell>
+								<Table.Cell>{baseInfo.title}</Table.Cell>
+								<Table.Cell
+									><input
+										type="checkbox"
+										checked={!baseInfo.disabled}
+										onchange={() => disableFn(baseInfo.id)}
+									/></Table.Cell
+								>
+								<Table.Cell
+									><button onclick={() => getFn(baseInfo.id)} class="hover:text-yellow-500"><Pen /></button></Table.Cell
+								>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
 </div>
