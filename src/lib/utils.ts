@@ -19,7 +19,7 @@ export function anyNull(obj: object) {
 export function plateShower(plate: string) {
 	// return plate;
 
-	const plateSplitted = plate.split('_');
+	const plateSplitted = plate?.split('_');
 
 	return `${plateSplitted?.at(0)} ${plateSplitted?.at(1)} ${plateSplitted?.at(2)} ${plateSplitted?.at(3)}`;
 }
