@@ -8,13 +8,26 @@
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
 	import { plateShower } from '$lib/utils.js';
-	import type { CalendarDate } from '@internationalized/date';
-	import { Pen, RotateCcw, Trash } from '@lucide/svelte';
+	import {
+		endOfMonth,
+		getLocalTimeZone,
+		PersianCalendar,
+		startOfMonth,
+		toCalendar,
+		today,
+		type CalendarDate,
+	} from '@internationalized/date';
+	import { CircleChevronLeft, CircleChevronRight, Pen, RotateCcw, Trash } from '@lucide/svelte';
 	import { NumericFormat } from 'svelte-number-format';
 	import { toast } from 'svelte-sonner';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
-	import { createFuelOutput, deleteFuelOutput, updateFuelOutput } from './fuelOutputs.remote.js';
+	import {
+		createFuelOutput,
+		deleteFuelOutput,
+		getFuelOutputsPagination,
+		updateFuelOutput,
+	} from './fuelOutputs.remote.js';
 
 	interface defaultValuesT {
 		id: null | string;
@@ -168,6 +181,40 @@
 			}
 		}
 	}
+
+	const todayInGregorian = today(getLocalTimeZone());
+	let todayInPersianCalendar = toCalendar(todayInGregorian, new PersianCalendar());
+
+	//  First day of this Persian month
+	const firstDayOfPersianMonth = startOfMonth(todayInPersianCalendar);
+
+	//  Last day of this Persian month
+	const lastDayOfPersianMonth = endOfMonth(todayInPersianCalendar);
+
+	let searchStartDate = $state<string>(firstDayOfPersianMonth.toString());
+	let searchEndDate = $state<string>(lastDayOfPersianMonth.toString());
+	let searchPageNumber = $state<number>(1);
+	// function PaginationFn(e: SubmitEvent) {
+	// 	e.preventDefault();
+
+	// 	const form = e.currentTarget;
+	// 	const formData = new FormData(form);
+
+	// 	const startDate = formData.get('startDate');
+	// 	const endDate = formData.get('endDate');
+
+	// 	console.log('FF', startDate);
+	// 	console.log('FF', endDate);
+	// }
+
+	let tableData = $state(
+		await getFuelOutputsPagination({
+			startDate: searchStartDate?.toString(),
+			endDate: searchEndDate?.toString(),
+			pageNumber: 1,
+			pageSize: 10,
+		}),
+	);
 </script>
 
 <div class="gap-2 space-y-2 xl:grid xl:h-[calc(100vh-8rem)] xl:grid-cols-2 xl:space-y-0">
@@ -303,6 +350,28 @@
 		<Card.Root class="xl:grid xl:h-full xl:grid-rows-[auto_1fr]">
 			<Card.Header>
 				<Card.Title>جدول سوخت‌های دریافت شده</Card.Title>
+				<form class="grid grid-cols-4 items-end gap-2 rounded-md p-2">
+					<label>
+						تاریخ شروع
+						<TestDatePicker id="searchStartDate" name="searchStartDate" bind:date={searchStartDate} />
+					</label>
+
+					<label>
+						تاریخ پایان
+						<TestDatePicker id="searchEndDate" name="searchEndDate" bind:date={searchEndDate} />
+					</label>
+					<Button
+						class=""
+						onclick={async () => {
+							tableData = await getFuelOutputsPagination({
+								startDate: searchStartDate?.toString(),
+								endDate: searchEndDate?.toString(),
+								pageNumber: 1,
+								pageSize: 10,
+							});
+						}}>جستجو</Button
+					>
+				</form>
 			</Card.Header>
 			<Card.Content class="overflow-y-auto">
 				<Table.Root class="text-center">
@@ -322,7 +391,7 @@
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{#each data.fuelOutputs as record (record)}
+						{#each tableData.items as record (record)}
 							{@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)}
 							<Table.Row>
 								<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
@@ -343,7 +412,7 @@
 									>{data.FuelingLocations?.find((item) => item.id === record.locationId)?.persianTitle}</Table.Cell
 								>
 								<!-- <Table.Cell>{record.price}</Table.Cell> -->
-								<Table.Cell>{record.description}</Table.Cell>
+								<Table.Cell><p>{record.description}</p></Table.Cell>
 								<Table.Cell
 									><div class="space-x-2">
 										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
@@ -355,6 +424,45 @@
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
+			<Card.Footer class="mx-auto ">
+				<div class="flex items-center gap-4 rounded-xl bg-blue-300 p-2">
+					<button
+						title="صفحه بعد"
+						onclick={async () => {
+							searchPageNumber += 1;
+							tableData = await getFuelOutputsPagination({
+								startDate: searchStartDate?.toString(),
+								endDate: searchEndDate?.toString(),
+								pageNumber: searchPageNumber,
+								pageSize: 10,
+							});
+						}}
+						class="cursor-pointer rounded-full p-1 hover:bg-blue-500 hover:text-black"><CircleChevronRight /></button
+					>
+					<div>
+						<div>صفحه {tableData.currentPageNumber} از {Math.ceil(tableData.totalCount / 10)}</div>
+					</div>
+
+					<button
+						title="صفحه قبل"
+						onclick={async () => {
+							searchPageNumber -= 1;
+
+							if (searchPageNumber <= 0) {
+								searchPageNumber = 1;
+							}
+
+							tableData = await getFuelOutputsPagination({
+								startDate: searchStartDate?.toString(),
+								endDate: searchEndDate?.toString(),
+								pageNumber: searchPageNumber,
+								pageSize: 10,
+							});
+						}}
+						class="rounded-full p-1 hover:bg-blue-500 hover:text-black"><CircleChevronLeft /></button
+					>
+				</div>
+			</Card.Footer>
 		</Card.Root>
 	</div>
 </div>

@@ -2,8 +2,43 @@ import { command, query } from '$app/server';
 import { db } from '$lib/server/db';
 import { fuelOutputs } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { and, between, eq, gte, lte, or } from 'drizzle-orm';
+import { and, count, desc, eq, gte, lte } from 'drizzle-orm';
 import * as v from 'valibot';
+
+export const getFuelOutputsPagination = query(
+	v.object({
+		startDate: v.string(),
+		endDate: v.string(),
+		pageNumber: v.number(),
+		pageSize: v.number(),
+	}),
+	async ({ startDate, endDate, pageNumber = 1, pageSize = 10 }) => {
+		console.log(111, startDate, endDate, pageNumber, pageSize);
+
+		const items = await db
+			.select()
+			.from(fuelOutputs)
+			.where(and(gte(fuelOutputs.date, startDate), lte(fuelOutputs.date, endDate)))
+			.orderBy(desc(fuelOutputs.date))
+			.limit(pageSize)
+			.offset(pageSize * (pageNumber - 1));
+
+		const totalCount = (
+			await db
+				.select({ count: count() })
+				.from(fuelOutputs)
+				.where(and(gte(fuelOutputs.date, startDate), lte(fuelOutputs.date, endDate)))
+				.orderBy(desc(fuelOutputs.date))
+		)?.at(0);
+
+		console.log(56555555, totalCount);
+
+		const ReturningPageObj = { items, currentPageNumber: pageNumber, pageSize, totalCount: totalCount?.count };
+
+		console.log(222, ReturningPageObj);
+		return ReturningPageObj;
+	},
+);
 
 export const getFuelOutputs = query(async () => {
 	return await db.select().from(fuelOutputs);
