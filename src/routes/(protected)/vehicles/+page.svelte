@@ -6,6 +6,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import VehiclePlates from '$lib/components/VehiclePlates.svelte';
 	import { anyNull } from '$lib/utils.js';
 	import { Pen, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
@@ -19,10 +20,7 @@
 		id: null,
 		title: null,
 		type: null,
-		plateA: null,
-		plateB: null,
-		plateC: null,
-		plateD: null,
+		plate: null,
 		fuelType: null,
 		ownerUnit: null,
 	};
@@ -34,16 +32,8 @@
 	async function getFn(id: string) {
 		const value = data.vehicles.find((item) => item.id == id);
 
-		const { plate, ...rest } = value;
-
-		const plateSplitted = plate.split('_');
-		const plateA = plateSplitted?.[0];
-		const plateB = plateSplitted?.[1];
-		const plateC = plateSplitted?.[2];
-		const plateD = plateSplitted?.[3];
-
 		if (value) {
-			formData = { plateA, plateB, plateC, plateD, ...rest };
+			formData = value;
 
 			formStatus = 'update';
 		}
@@ -63,14 +53,14 @@
 		if (anyNull(restOfObj)) {
 			toast.success('لطفا فرم را تکمیل کنید');
 		} else {
-			let fullPlate = `${restOfObj.plateA}_${restOfObj.plateB}_${restOfObj.plateC}_${restOfObj.plateD}`;
+			// let fullPlate = `${restOfObj.plateA}_${restOfObj.plateB}_${restOfObj.plateC}_${restOfObj.plateD}`;
 
 			if (formStatus === 'create') {
 				try {
 					await createVehicle({
 						title: formData.title,
 						type: formData.type,
-						plate: fullPlate,
+						plate: formData.plate,
 						fuelType: formData.fuelType,
 						ownerUnit: formData.ownerUnit,
 					});
@@ -92,7 +82,7 @@
 							id: formData.id,
 							title: formData.title,
 							type: formData.type,
-							plate: fullPlate,
+							plate: formData.plate,
 							fuelType: formData.fuelType,
 							ownerUnit: formData.ownerUnit,
 						});
@@ -182,6 +172,25 @@
 				</div> -->
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
+						<Label for="title"
+							>شماره پلاک (در صورتی که نوع پلاک مورد نظر موجود نیست از قسمت وسیله نقلیه هیچکدام را انتخاب کرده و سپس با
+							توجه به تعداد بخش‌های پلاک آن را به صورت ۴۵۶ـ۱۲۳ وارد نمایید.)</Label
+						>
+						<VehiclePlates vType={formData.type} bind:valueFF={formData.plate} />
+					</div>
+
+					<!-- {#if vType === '1'}
+						NORMAL
+					{:else if vType === '2'}
+						MOTORCYCLE
+					{:else if vType === '3'}
+						LIFTRUCK
+					{:else}
+						JUST STRING
+					{/if}
+
+
+					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="title">شماره پلاک</Label>
 						<div class="grid grid-cols-4" style="direction: ltr;">
 							<Input
@@ -225,7 +234,7 @@
 								bind:value={formData.plateD}
 							/>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
 						<Label for="type">نوع سوخت</Label>
@@ -276,16 +285,17 @@
 					</Table.Header>
 					<Table.Body>
 						{#each data.vehicles as record (record)}
-							{@const plateSplitted = record.plate.split('_')}
+							{@const plateSplitted = record?.plate?.split('_')}
+							{@const plateSplittedLen = plateSplitted?.length}
+
 							<Table.Row>
 								<Table.Cell>{record.title}</Table.Cell>
 								<Table.Cell>{data.VehicleTypes?.find((item) => item.id === record.type)?.persianTitle}</Table.Cell>
 								<Table.Cell class=""
-									><div class="ltr_dir grid grid-cols-4 gap-1 text-center">
-										<div>{plateSplitted?.[0]}</div>
-										<div>{plateSplitted?.[1]}</div>
-										<div>{plateSplitted?.[2]}</div>
-										<div>{plateSplitted?.[3]}</div>
+									><div class={`ltr_dir grid grid-cols-${plateSplittedLen} gap-1 text-center`}>
+										{#each plateSplitted as plateVal, index}
+											<div>{plateSplitted?.[index]}</div>
+										{/each}
 									</div></Table.Cell
 								>
 								<Table.Cell>{data.FuelTypes?.find((item) => item.id === record.fuelType)?.persianTitle}</Table.Cell>
