@@ -374,11 +374,11 @@
 				</form>
 			</Card.Header>
 			<Card.Content class="overflow-y-auto">
-				<Table.Root class="text-center">
+				<Table.Root class="table-auto text-center">
 					<Table.Header>
 						<Table.Row>
 							<Table.Head class="text-center">تاریخ</Table.Head>
-							<Table.Head class="text-center">وسیله نقلیه</Table.Head>
+							<Table.Head class="w-50 text-center">وسیله نقلیه</Table.Head>
 							<Table.Head class="text-center">تحویل گیرنده</Table.Head>
 							<Table.Head class="text-center">تحویل دهنده</Table.Head>
 							<Table.Head class="text-center">نوع سوخت</Table.Head>
@@ -395,10 +395,12 @@
 							{@const vehicle = data.vehicles.find((item) => item.id === record.vehicleId)}
 							<Table.Row>
 								<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
-								<Table.Cell
-									>{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
-									<span class="">{plateShower(vehicle?.plate)}</span></Table.Cell
-								>
+								<Table.Cell>
+									<p class="max-w-50 truncate">
+										{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
+										<span class="">{plateShower(vehicle?.plate)}</span>
+									</p>
+								</Table.Cell>
 								<Table.Cell
 									>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)?.label}</Table.Cell
 								>
@@ -412,7 +414,7 @@
 									>{data.FuelingLocations?.find((item) => item.id === record.locationId)?.persianTitle}</Table.Cell
 								>
 								<!-- <Table.Cell>{record.price}</Table.Cell> -->
-								<Table.Cell><p>{record.description}</p></Table.Cell>
+								<Table.Cell><p class="max-w-20 truncate">{record.description}</p></Table.Cell>
 								<Table.Cell
 									><div class="space-x-2">
 										<button onclick={() => getFn(record.id)} class="hover:text-yellow-500"><Pen /></button>
