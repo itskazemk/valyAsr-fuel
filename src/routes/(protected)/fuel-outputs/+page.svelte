@@ -430,6 +430,7 @@
 				<div class="flex items-center gap-4 rounded-xl bg-blue-300 p-2">
 					<button
 						title="صفحه بعد"
+						disabled={searchPageNumber >= Math.ceil(tableData.totalCount / 10)}
 						onclick={async () => {
 							searchPageNumber += 1;
 							tableData = await getFuelOutputsPagination({

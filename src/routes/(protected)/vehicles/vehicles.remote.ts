@@ -1,6 +1,6 @@
 import { command, query } from '$app/server';
 import { db } from '$lib/server/db';
-import { vehicles } from '$lib/server/db/schema';
+import { fuelOutputs, vehicles } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import * as v from 'valibot';
@@ -56,6 +56,12 @@ export const updateVehicle = command(
 );
 
 export const deleteVehicle = command(v.pipe(v.string(), v.uuid()), async (id) => {
+	const vehicleOfFuelOutput = (await db.select().from(fuelOutputs).where(eq(fuelOutputs.vehicleId, id))).length;
+
+	console.log(vehicleOfFuelOutput);
+	if (vehicleOfFuelOutput > 0) {
+		return error(400, 'vehicle has fuel output Records');
+	}
 	try {
 		await db.delete(vehicles).where(eq(vehicles.id, id));
 	} catch {
