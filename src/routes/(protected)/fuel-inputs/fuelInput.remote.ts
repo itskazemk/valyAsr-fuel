@@ -1,13 +1,48 @@
 import { command, query } from '$app/server';
 import { db } from '$lib/server/db';
-import { fuelInputs } from '$lib/server/db/schema';
+import { fuelInputs, fuelOutputs, vehicles } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { and, eq, lte } from 'drizzle-orm';
 import * as v from 'valibot';
 
-export const getFuelInputs = query(v.object({ date: v.string(), fuelType: v.number() }), async () => {
-	return await db.select().from(fuelInputs);
-});
+export const remainingFuelInputByDate = query(
+	v.object({
+		date: v.string(),
+		fuelTypeId: v.pipe(v.string(), v.uuid()),
+	}),
+	async ({ date, fuelTypeId }) => {
+		try {
+			const fuelInputValues = await db
+				.select()
+				.from(fuelInputs)
+				.where(and(lte(fuelInputs.date, date), eq(fuelInputs.type, fuelTypeId)));
+
+			const fuelOutputValues = await db
+				.select({ amount: fuelOutputs.amount })
+				.from(fuelOutputs)
+				.leftJoin(vehicles, eq(fuelOutputs.vehicleId, vehicles.id))
+				.where(and(lte(fuelOutputs.date, date), eq(vehicles.fuelType, fuelTypeId)));
+
+			console.log(12345, fuelOutputValues);
+
+			if (fuelInputValues.length > 0 && fuelOutputValues.length > 0) {
+				const sumOfInputFuels = fuelInputValues.reduce((acc, cur) => {
+					return cur.amount + acc;
+				}, 0);
+
+				const sumOfOutputFuels = fuelOutputValues.reduce((acc, cur) => {
+					return cur.amount + acc;
+				}, 0);
+
+				return sumOfInputFuels - sumOfOutputFuels;
+			} else {
+				return 0;
+			}
+		} catch {
+			error(502, 'failed to get fuelInputs');
+		}
+	},
+);
 
 export const createFuelInput = command(
 	v.object({

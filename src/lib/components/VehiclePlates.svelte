@@ -42,8 +42,7 @@
 		if (vType === '4a5ccd8d-75a9-4b1a-b41f-759db3a03468') {
 			return [
 				{ key: 'plateA', class: 'rounded-r-none', type: 'number', maxlength: 3, placeholder: '۱۲۳' },
-				{ key: 'plateB', class: 'rounded-none', type: 'number', maxlength: 3, placeholder: '۴۵۶' },
-				{ key: 'plateC', class: 'rounded-l-none', type: 'number', maxlength: 3, placeholder: '۷۸۹' },
+				{ key: 'plateB', class: 'rounded-l-none', type: 'number', maxlength: 3, placeholder: '۴۵۶' },
 			];
 		}
 
@@ -63,7 +62,7 @@
 		if (vType === '44f9cb39-45bf-42dd-8039-1f858485676d') return 0;
 
 		// Forklift
-		if (vType === '4a5ccd8d-75a9-4b1a-b41f-759db3a03468') return 3;
+		if (vType === '4a5ccd8d-75a9-4b1a-b41f-759db3a03468') return 2;
 
 		// Car
 		return 4;

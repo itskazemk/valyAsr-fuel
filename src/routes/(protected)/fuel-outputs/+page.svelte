@@ -21,6 +21,7 @@
 	import { NumericFormat } from 'svelte-number-format';
 	import { toast } from 'svelte-sonner';
 	import { getFuelPriceAtDate } from '../base-info/fuel-price/fuelPrice.remote.js';
+	import { remainingFuelInputByDate } from '../fuel-inputs/fuelInput.remote.js';
 	import { getVehicleById } from '../vehicles/vehicles.remote.js';
 	import {
 		createFuelOutput,
@@ -69,9 +70,6 @@
 
 		const vehicle = await getVehicleById(formData.vehicleId);
 
-		console.log(222, vehicle);
-
-		//! bug in here
 		if (selectedDate && selectedFuelAmount) {
 			let basePrice = await getFuelPriceAtDate({ date: selectedDate, fuelType: vehicle?.fuelType });
 
@@ -87,6 +85,20 @@
 		} else {
 			return null;
 		}
+	});
+
+	let remainingFuel = $derived.by(async () => {
+		if (formData.vehicleId === null || !formData.date) {
+			return null;
+		}
+
+		const vehicle = await getVehicleById(formData.vehicleId);
+
+		const selectedDate = formData.date?.toString();
+
+		let value = await remainingFuelInputByDate({ date: selectedDate, fuelTypeId: vehicle?.fuelType });
+
+		return value;
 	});
 
 	async function getFn(id: string) {
@@ -337,7 +349,16 @@
 
 							<div class="rounded-l-md bg-blue-400 p-2 text-center">
 								<div>موجودی (لیتر):</div>
-								<div>xxxxx</div>
+								<div>
+									{#await remainingFuel then val}
+										<NumericFormat
+											value={val}
+											options={{ precision: 0 }}
+											disabled
+											class="ltr_dir w-full! text-center"
+										/>
+									{/await}
+								</div>
 							</div>
 						</div>
 					</div>
