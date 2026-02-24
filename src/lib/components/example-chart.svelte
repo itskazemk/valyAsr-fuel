@@ -23,7 +23,7 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title>Area Chart - Legend</Card.Title>
+		<Card.Title>مقایسه ورودی و خروجی سوخت (بر حسب انواع آن)</Card.Title>
 		<Card.Description>Showing total visitors for the last 6 months</Card.Description>
 	</Card.Header>
 	<Card.Content>
