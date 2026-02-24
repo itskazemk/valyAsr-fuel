@@ -1,6 +1,5 @@
 <script>
+	import BarChart from '$lib/components/Report/bar-chart.svelte';
 </script>
 
-<!-- <ExampleChart /> -->
-
-2
+<BarChart />

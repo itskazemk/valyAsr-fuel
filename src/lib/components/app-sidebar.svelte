@@ -28,12 +28,12 @@
 				title: 'گزارشات',
 				items: [
 					{
-						title: 'first',
-						url: 'report/first',
+						title: 'سوخت ورودی و خروجی',
+						url: '/reports/first',
 					},
 					{
-						title: 'two',
-						url: 'report/two',
+						title: 'مصرف سوخت وسایل نقلیه',
+						url: '/reports/two',
 					},
 				],
 			},

@@ -9,6 +9,7 @@
 		toCalendar,
 		today,
 	} from '@internationalized/date';
+	import { reportStates } from './reportStates.svelte';
 
 	let { children } = $props();
 
@@ -23,21 +24,24 @@
 	let searchStartDate = $state<string>(firstDayOfPersianMonth.toString());
 	let searchEndDate = $state<string>(lastDayOfPersianMonth.toString());
 
-	let searchData = $state({
-		startDate: searchStartDate,
-		endDate: searchEndDate,
-	});
+	// let searchData = $state({
+	// 	startDate: searchStartDate,
+	// 	endDate: searchEndDate,
+	// });
+
+	reportStates.startDate = searchStartDate;
+	reportStates.endDate = searchEndDate;
 </script>
 
 <form class="grid grid-cols-4 items-end gap-2 rounded-md p-2">
 	<label>
 		تاریخ شروع
-		<TestDatePicker id="searchStartDate" name="searchStartDate" bind:date={searchData.startDate} />
+		<TestDatePicker id="searchStartDate" name="searchStartDate" bind:date={reportStates.startDate} />
 	</label>
 
 	<label>
 		تاریخ پایان
-		<TestDatePicker id="searchEndDate" name="searchEndDate" bind:date={searchData.endDate} />
+		<TestDatePicker id="searchEndDate" name="searchEndDate" bind:date={reportStates.endDate} />
 	</label>
 	<Button class="">جستجو</Button>
 </form>
