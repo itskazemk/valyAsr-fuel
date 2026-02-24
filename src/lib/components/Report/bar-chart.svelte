@@ -24,7 +24,7 @@
 
 <Card.Root>
 	<Card.Header>
-		<Card.Title>مصرف سوخت وسایل نقلیه </Card.Title>
+		<Card.Title>مصرف سوخت وسایل نقلیه</Card.Title>
 		<!-- <Card.Description>January - June 2024</Card.Description> -->
 	</Card.Header>
 	<Card.Content>
