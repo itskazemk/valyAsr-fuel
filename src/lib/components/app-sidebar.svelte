@@ -42,6 +42,7 @@
 </script>
 
 <script lang="ts">
+	import { page } from '$app/state';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
@@ -59,9 +60,11 @@
 	<Sidebar.Content class="gap-0">
 		<!-- We create a collapsible SidebarGroup for each parent. -->
 		{#each data.navMain as navItem (navItem.title)}
-			{#if navItem.url}<Sidebar.Group>
+			{#if navItem.url}
+				{@const isActive = navItem.url.toLocaleLowerCase() === page.url.pathname.toLocaleLowerCase()}
+				<Sidebar.Group>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton>
+						<Sidebar.MenuButton {isActive}>
 							{#snippet child({ props })}
 								<a href={navItem.url} {...props}>{navItem.title}</a>
 							{/snippet}
@@ -86,8 +89,9 @@
 							<Sidebar.GroupContent>
 								<Sidebar.Menu>
 									{#each navItem.items as subItem (subItem.title)}
+										{@const isActive = subItem.url.toLocaleLowerCase() === page.url.pathname.toLocaleLowerCase()}
 										<Sidebar.MenuItem>
-											<Sidebar.MenuButton isActive={subItem.isActive}>
+											<Sidebar.MenuButton {isActive}>
 												{#snippet child({ props })}
 													<a href={subItem.url} {...props}>{subItem.title}</a>
 												{/snippet}
