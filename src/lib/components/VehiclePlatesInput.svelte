@@ -5,13 +5,28 @@
 
 	let { vType, valueFF = $bindable() }: { vType: string; valueFF: string } = $props();
 
-	$inspect('vType', vType);
-	$inspect('valueFF', valueFF);
-
 	let plateObj = $state({});
 
+	$inspect('plateObj', plateObj);
+
+	// parent -> child
 	$effect(() => {
-		if (vType) {
+		if (!valueFF) return;
+
+		const parts = valueFF.split('_');
+		const newObj: Record<string, string> = {};
+
+		// Map the parts to the current fields (handles different vType formats safely)
+		fields.forEach((field, index) => {
+			newObj[field.key] = parts[index] ?? '';
+		});
+
+		plateObj = newObj;
+	});
+
+	//! BUG IN HERE. DOES NOT RESET FORM CORRECTLY
+	$effect(() => {
+		if (vType && Object.keys(plateObj).length && valueFF === null) {
 			plateObj = {};
 		}
 	});
@@ -68,6 +83,7 @@
 		return 4;
 	});
 
+	// child -> parent
 	$effect(() => {
 		const plateObjAllValues = Object.values(plateObj);
 
