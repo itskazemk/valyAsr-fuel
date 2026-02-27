@@ -6,7 +6,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import VehiclePlates from '$lib/components/VehiclePlates.svelte';
+	import VehiclePlates from '$lib/components/VehiclePlatesInput.svelte';
 	import { anyNull } from '$lib/utils.js';
 	import { Pen, Trash } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
@@ -178,6 +178,7 @@
 							توجه به تعداد بخش‌های پلاک آن را به صورت ۴۵۶ـ۱۲۳ وارد نمایید.">شماره پلاک</Label
 						>
 						<VehiclePlates vType={formData.type} bind:valueFF={formData.plate} />
+						<!-- <VehiclePlates vType={formData.type} valueFF={formData.plate} /> -->
 					</div>
 
 					<!-- {#if vType === '1'}
