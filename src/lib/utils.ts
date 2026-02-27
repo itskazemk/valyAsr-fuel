@@ -16,14 +16,14 @@ export function anyNull(obj: object) {
 	return Object.values(obj).some((v) => v === null);
 }
 
-export function plateShower(plate: string) {
-	// return plate;
+// export function plateShower(plate: string) {
+// 	const val = plate.split('_').reduce((pre, cur, index) => {
+// 		if (index === 0) {
+// 			return pre + cur;
+// 		}
 
-	try {
-		const plateSplitted = plate?.split('_');
+// 		return pre + '-' + cur;
+// 	}, '');
 
-		return `${plateSplitted?.at(0)} ${plateSplitted?.at(1)} ${plateSplitted?.at(2)} ${plateSplitted?.at(3)}`;
-	} catch (err) {
-		console.error(err);
-	}
-}
+// 	return val;
+// }

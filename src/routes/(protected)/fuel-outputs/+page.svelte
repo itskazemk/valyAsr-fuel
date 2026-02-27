@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import Combobox from '$lib/components/Combobox.svelte';
+	import PlateShower from '$lib/components/PlateShower.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import TestDatePicker from '$lib/test/TestDatePicker.svelte';
-	import { plateShower } from '$lib/utils.js';
 	import {
 		endOfMonth,
 		getLocalTimeZone,
@@ -258,7 +258,7 @@
 							bind:value={formData.vehicleId}
 							required={true}
 							options={data.vehicles?.map((item) => {
-								return { label: `${item.title}-${item.plate}`, value: item.id };
+								return { label: `${item.title}(${item.plate})`, value: item.id };
 							})}
 						/>
 					</div>
@@ -399,7 +399,7 @@
 					<Table.Header>
 						<Table.Row>
 							<Table.Head class="text-center">تاریخ</Table.Head>
-							<Table.Head class="w-50 text-center">وسیله نقلیه</Table.Head>
+							<Table.Head class="max-w-50 text-center">وسیله نقلیه</Table.Head>
 							<Table.Head class="text-center">تحویل گیرنده</Table.Head>
 							<Table.Head class="text-center">تحویل دهنده</Table.Head>
 							<Table.Head class="text-center">نوع سوخت</Table.Head>
@@ -417,10 +417,13 @@
 							<Table.Row>
 								<Table.Cell>{new Date(record.date).toLocaleDateString('fa-IR')}</Table.Cell>
 								<Table.Cell>
-									<p class="max-w-50 truncate">
-										{vehicle?.title}-{data.Departments?.find((item) => item.id === vehicle?.ownerUnit)?.persianTitle}
-										<span class="">{plateShower(vehicle?.plate)}</span>
-									</p>
+									<div class="max-w-50 truncate">
+										<p>
+											{vehicle?.title}
+											<!-- <span class="rounded-lg bg-blue-200 px-1">({plateShower(vehicle?.plate ?? '')})</span> -->
+										</p>
+										<PlateShower plate={vehicle?.plate ?? ''} />
+									</div>
 								</Table.Cell>
 								<Table.Cell
 									>{data.ReceiverPersons.find((item) => item.value === record.ReceiverPersonId)?.label}</Table.Cell
