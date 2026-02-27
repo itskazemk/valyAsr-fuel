@@ -2,28 +2,52 @@
 	function pdfOutput() {
 		window.print();
 	}
+
+	import { read, utils } from 'xlsx';
+
+	let sheetDataJson = $state([]);
+
+	function handleFile(event: Event) {
+		const file = (event.target as HTMLInputElement).files?.[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+
+		reader.onload = (e) => {
+			const data = new Uint8Array(e.target?.result as ArrayBuffer);
+			const workbook = read(data, { type: 'array' });
+
+			const sheetName = workbook.SheetNames[0];
+			const sheet = workbook.Sheets[sheetName];
+
+			sheetDataJson = utils.sheet_to_json(sheet);
+			console.log(sheetDataJson);
+		};
+
+		reader.readAsArrayBuffer(file);
+	}
 </script>
+
+<input type="file" accept=".xlsx,.xls" onchange={handleFile} />
 
 <button onclick={pdfOutput}> print </button>
 
-<div id="printable" class="flex h-full items-center justify-center gap-2">
-	<!-- <div class="animate-bounce border border-dashed border-black p-2">
-		<span>در حال تکمیل ...</span>
-	</div> -->
-
-	<div class="grid grid-cols-4 gap-1" style="">
-		{#each { length: 100 } as i}
-			<div class="card">
-				<div class="content">
-					<h2 class="font-bnazanin text-4xl font-bold">محمدکاظم کمالی‌اردکانی</h2>
-					<div class="numbers">
-						<span>428</span>
-						<span>2</span>
-						<span>114</span>
+<div class="w-full overflow-scroll">
+	<div id="printable" class="flex h-full w-[100cm] items-center justify-center gap-2">
+		<div class="grid grid-cols-10 gap-1" style="">
+			{#each sheetDataJson as person}
+				<div class="card">
+					<div class="content">
+						<h2 class="font-bnazanin text-4xl font-bold">{person?.firstName} {person?.lastName}</h2>
+						<div class="numbers">
+							<span>{person?.c1}</span>
+							<span>{person?.c2}</span>
+							<span>{person?.c3}</span>
+						</div>
 					</div>
 				</div>
-			</div>
-		{/each}
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -48,7 +72,7 @@
 
 	.card {
 		position: relative;
-		width: 10cm;
+		width: 9.8cm;
 		height: 3cm;
 		overflow: hidden;
 		border: 0.5cm solid black;

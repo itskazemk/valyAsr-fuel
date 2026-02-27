@@ -63,6 +63,7 @@
 		"dotenv": "^17.2.3",
 		"layerchart": "2.0.0-next.46",
 		"svelte-number-format": "^1.1.1",
-		"valibot": "^1.2.0"
+		"valibot": "^1.2.0",
+		"xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
 	}
 }
